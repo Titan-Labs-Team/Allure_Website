@@ -55,17 +55,17 @@ export default function Timeline() {
           <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
             Nossas Etapas
           </span>
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
             Do projeto à <span className="gradient-text">ativação</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
             Acompanhe cada etapa do processo de instalação do seu sistema solar
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Timeline */}
-          <div className="bg-muted rounded-3xl p-8 lg:p-10">
+          <div className="bg-muted rounded-3xl p-5 md:p-8 lg:p-10">
             {timelineSteps.map((step, index) => (
               <TimelineStep
                 key={step.title}

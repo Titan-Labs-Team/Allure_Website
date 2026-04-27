@@ -49,9 +49,9 @@ export default function SolarKit() {
               />
             </div>
             {/* Floating badge */}
-            <div className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground rounded-2xl p-5 shadow-xl hidden lg:block">
+            <div className="absolute -bottom-6 -right-6 bg-[#EAB308] text-gray-900 rounded-2xl p-5 shadow-xl hidden lg:block">
               <p className="text-sm font-medium opacity-80">Economia de até</p>
-              <p className="text-3xl font-bold">95%</p>
+              <p className="text-3xl font-bold">90%</p>
             </div>
           </div>
 
@@ -60,10 +60,10 @@ export default function SolarKit() {
             <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
               Energia Solar Residencial
             </span>
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-6 leading-tight">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6 leading-tight">
               Sua casa com <span className="gradient-text">energia solar</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+            <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
               Produza sua própria energia, reduza custos e valorize seu imóvel com tecnologia solar de alta eficiência. Nosso kit inclui tudo que você precisa para começar a economizar.
             </p>
 
@@ -83,7 +83,7 @@ export default function SolarKit() {
               <div className="flex items-end gap-2 mb-2">
                 <p className="text-sm text-muted-foreground">A partir de</p>
               </div>
-              <p className="text-4xl font-bold text-foreground mb-1">R$ 5.700,00</p>
+              <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">R$ 5.700,00</p>
               <p className="text-muted-foreground">
                 Em até <span className="font-semibold text-foreground">84x</span> no financiamento
               </p>

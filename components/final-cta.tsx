@@ -33,16 +33,16 @@ export default function FinalCTA() {
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-5xl font-bold text-white mb-8 leading-tight">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 leading-tight">
             Comece agora seu projeto de energia solar com a{" "}
-            <span className="text-accent">Allure</span>
+            <span className="text-[#3B82F6]">Allure</span>
           </h2>
 
-          <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
+          <p className="text-white/70 text-base md:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto">
             Solicite agora uma simulação gratuita e personalizada! Faça sua proposta em até 30 segundos.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-12">
             {benefits.map((benefit) => (
               <div key={benefit} className="flex items-center gap-3 text-white">
                 <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
@@ -55,7 +55,7 @@ export default function FinalCTA() {
 
           <Button
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-12 rounded-full gap-3 h-16 shadow-2xl shadow-accent/30"
+            className="bg-[#F59E0B] hover:bg-[#F59E0B]/90 text-white font-semibold text-base sm:text-lg px-8 sm:px-12 rounded-full gap-3 h-12 sm:h-16 shadow-2xl shadow-[#F59E0B]/30"
           >
             Solicitar orçamento gratuito
             <ArrowRight className="w-5 h-5" />

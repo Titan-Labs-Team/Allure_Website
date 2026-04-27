@@ -23,7 +23,7 @@ function TabButton({ active, onClick, children }: TabButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={`px-14 py-5 font-medium text-lg transition-all rounded-full ${
+      className={`px-5 py-2.5 sm:px-10 sm:py-4 md:px-14 md:py-5 font-medium text-sm sm:text-base md:text-lg transition-all rounded-full ${
         active
           ? "bg-secondary text-white shadow-lg"
           : "bg-foreground/5 text-foreground hover:bg-foreground/10"
@@ -57,12 +57,12 @@ export default function Hero() {
           <div className="container mx-auto px-4 lg:px-8 pt-16">
             <div className="max-w-2xl">
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 Energia <span className="italic font-normal">solar</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed max-w-xl">
+              <p className="text-base md:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed max-w-xl">
                 Painéis solares e equipamentos para você deixar todos os aparelhos da sua casa ligados, sem pensar na conta de luz.
               </p>
 
@@ -80,15 +80,19 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold text-lg px-8 rounded-full gap-2 h-14 border-0"
+                  asChild
+                  className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] text-white font-semibold text-base sm:text-lg px-6 sm:px-8 rounded-full gap-2 h-12 sm:h-14 border-0 transition-all duration-300 hover:brightness-110 hover:shadow-lg"
                 >
-                  Solicitar orçamento
-                  <ArrowRight className="w-5 h-5" />
+                  <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                    Solicitar orçamento
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 font-semibold text-lg px-8 rounded-full gap-2 h-14 bg-transparent"
+                  className="border-white/40 text-white/90 hover:border-white/70 hover:text-white hover:bg-white/10 font-semibold text-base sm:text-lg px-6 sm:px-8 rounded-full gap-2 h-12 sm:h-14 bg-transparent transition-all duration-300"
+                  onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
                 >
                   <Play className="w-5 h-5" />
                   Como funciona

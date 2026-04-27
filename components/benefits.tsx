@@ -100,10 +100,10 @@ export default function Benefits() {
           <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
             Vantagens
           </span>
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
             Benefícios da <span className="gradient-text">energia solar</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
             Descubra as vantagens de produzir sua própria energia
           </p>
         </div>
@@ -121,8 +121,8 @@ export default function Benefits() {
         </div>
 
         {/* Minor Benefits */}
-        <div className="bg-muted rounded-3xl p-8 lg:p-12">
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-8">
+        <div className="bg-muted rounded-3xl p-5 md:p-8 lg:p-12">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-12 mb-8">
             {minorBenefits.map((benefit) => (
               <MinorBenefitCard
                 key={benefit.title}

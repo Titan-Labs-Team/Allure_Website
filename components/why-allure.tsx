@@ -63,15 +63,15 @@ export default function WhyAllure() {
           <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
             Nossos Diferenciais
           </span>
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
             Por que escolher a <span className="gradient-text">Allure</span>?
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
             Somos referência em energia solar e engenharia elétrica no Brasil
           </p>
         </div>
 
-        <div className={`grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12 stagger-children ${isVisible ? "visible" : ""}`}>
+        <div className={`grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-10 sm:mb-12 stagger-children ${isVisible ? "visible" : ""}`}>
           {reasons.map((reason) => (
             <ReasonCard
               key={reason.title}

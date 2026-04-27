@@ -64,9 +64,11 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-8 py-6 text-base border-0">
-              Solicitar orçamento
-              <ArrowRight className="w-5 h-5" />
+            <Button asChild className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-8 py-6 text-base border-0">
+              <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                Solicitar orçamento
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </Button>
           </div>
 
@@ -89,9 +91,11 @@ export default function Header() {
                   {link.label}
                 </NavLink>
               ))}
-              <Button className="bg-secondary hover:bg-secondary/90 text-white font-semibold gap-2 rounded-full mt-4">
-                Solicitar orçamento
-                <ArrowRight className="w-4 h-4" />
+              <Button asChild className="bg-secondary hover:bg-secondary/90 text-white font-semibold gap-2 rounded-full mt-4">
+                <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                  Solicitar orçamento
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </Button>
             </nav>
           </div>

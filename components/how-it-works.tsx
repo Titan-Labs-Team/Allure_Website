@@ -63,10 +63,10 @@ export default function HowItWorks() {
           <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
             Processo Simplificado
           </span>
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
             Como funciona a <span className="gradient-text">energia solar</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
             A energia solar residencial permite transformar a luz do sol em eletricidade para abastecer sua casa de forma prática e automatizada.
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Cards Grid */}
-          <div className={`grid sm:grid-cols-2 gap-6 order-1 lg:order-2 stagger-children ${isVisible ? "visible" : ""}`}>
+          <div className={`grid grid-cols-2 gap-4 sm:gap-6 order-1 lg:order-2 stagger-children ${isVisible ? "visible" : ""}`}>
             {steps.map((step, index) => (
               <StepCard
                 key={step.title}
