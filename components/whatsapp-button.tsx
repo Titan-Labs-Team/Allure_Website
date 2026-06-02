@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 interface WhatsAppButtonProps {
   phoneNumber?: string;
@@ -29,7 +29,7 @@ export default function WhatsAppButton({
         
         {/* Button */}
         <div className="relative flex items-center gap-3 bg-[#25D366] text-white rounded-full pl-4 pr-5 py-3 shadow-2xl hover:shadow-[#25D366]/40 transition-all duration-300 group-hover:scale-105">
-          <MessageCircle className="w-6 h-6" />
+          <WhatsAppIcon className="w-6 h-6" />
           <span className="hidden sm:inline font-medium text-sm">Fale conosco</span>
         </div>
       </div>

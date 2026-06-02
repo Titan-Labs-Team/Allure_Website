@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
 
 interface FooterLinkProps {
@@ -39,17 +40,17 @@ const footerColumns: FooterColumnProps[] = [
 ];
 
 const socialLinks = [
-  { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook" },
-  { icon: <Instagram className="w-5 h-5" />, href: "#", label: "Instagram" },
-  { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
-  { icon: <Youtube className="w-5 h-5" />, href: "#", label: "YouTube" },
+  { icon: <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Facebook" },
+  { icon: <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Instagram" },
+  { icon: <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "LinkedIn" },
+  { icon: <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "YouTube" },
 ];
 
 function FooterLink({ href, children }: FooterLinkProps) {
   return (
     <Link
       href={href}
-      className="text-white/60 hover:text-white transition-colors text-sm"
+      className="text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
     >
       {children}
     </Link>
@@ -59,8 +60,8 @@ function FooterLink({ href, children }: FooterLinkProps) {
 function FooterColumn({ title, links }: FooterColumnProps) {
   return (
     <div>
-      <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{title}</h3>
-      <ul className="space-y-3">
+      <h3 className="font-semibold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{title}</h3>
+      <ul className="space-y-2 sm:space-y-3">
         {links.map((link) => (
           <li key={link.label}>
             <FooterLink href={link.href}>{link.label}</FooterLink>
@@ -73,36 +74,39 @@ function FooterColumn({ title, links }: FooterColumnProps) {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary py-16 lg:py-20">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 mb-16">
-          {/* Logo & Description */}
-          <div className="col-span-2 lg:col-span-2">
-            <Link href="#inicio" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A</span>
-              </div>
-              <span className="text-2xl font-bold text-white">Allure</span>
-            </Link>
-            <p className="text-white/60 mb-6 max-w-xs text-sm leading-relaxed">
-              Energia inteligente. Engenharia que transforma. Soluções completas em energia solar para residências, empresas e propriedades rurais.
-            </p>
-            
-            {/* Social Links */}
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-secondary hover:text-white transition-all"
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </Link>
-              ))}
-            </div>
-          </div>
+    <footer className="bg-primary py-12 sm:py-16 lg:py-20">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28">
 
+        {/* Top section: logo + description + social */}
+        <div className="mb-8 sm:mb-12">
+          <Link href="#inicio" className="inline-flex items-center mb-4">
+            <Image
+              src="/images/logo-allure.png"
+              alt="Allure Energia Solar"
+              width={130}
+              height={42}
+              className="brightness-0 invert h-9 sm:h-11 w-auto"
+            />
+          </Link>
+          <p className="text-white/60 mb-5 max-w-xs text-xs sm:text-sm leading-relaxed">
+            Energia inteligente. Engenharia que transforma. Soluções completas em energia solar para residências, empresas e propriedades rurais.
+          </p>
+          <div className="flex gap-2 sm:gap-3">
+            {socialLinks.map((social) => (
+              <Link
+                key={social.label}
+                href={social.href}
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-secondary hover:text-white transition-all"
+                aria-label={social.label}
+              >
+                {social.icon}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Links grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12 pb-8 sm:pb-12 border-b border-white/10">
           {/* Footer Columns */}
           {footerColumns.map((column) => (
             <FooterColumn
@@ -114,29 +118,29 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Contato</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Contato</h3>
+            <ul className="space-y-2 sm:space-y-3">
               <li>
-                <Link 
-                  href="https://wa.me/5511999999999" 
-                  className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+                <Link
+                  href="https://wa.me/5517991604404"
+                  className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
                 >
-                  <Phone className="w-4 h-4" />
-                  (11) 99999-9999
+                  <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                  (17) 99160-4404
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="mailto:contato@allure.com.br"
-                  className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+                  className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                   contato@allure.com.br
                 </Link>
               </li>
               <li>
-                <div className="flex items-start gap-2 text-white/60 text-sm">
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div className="flex items-start gap-2 text-white/60 text-xs sm:text-sm">
+                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
                   <span>São Paulo, SP</span>
                 </div>
               </li>
@@ -145,13 +149,13 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-sm">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <p className="text-white/40 text-xs sm:text-sm">
             © 2026 Allure. Todos os direitos reservados.
           </p>
-          <Link 
+          <Link
             href="#inicio"
-            className="text-white/40 hover:text-white text-sm transition-colors"
+            className="text-white/40 hover:text-white text-xs sm:text-sm transition-colors"
           >
             Voltar ao início
           </Link>

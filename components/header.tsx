@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 
 interface NavLinkProps {
@@ -39,8 +40,8 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-20">
-      <div className="container mx-auto px-4 lg:px-8 h-full">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-14 sm:h-16">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 h-full">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <Link href="#inicio" className="flex items-center">
@@ -64,10 +65,10 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button asChild className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-8 py-6 text-base border-0">
+            <Button asChild className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-7 py-3.5 text-sm border-0">
               <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="w-5 h-5" />
                 Solicitar orçamento
-                <ArrowRight className="w-5 h-5" />
               </a>
             </Button>
           </div>
@@ -93,8 +94,8 @@ export default function Header() {
               ))}
               <Button asChild className="bg-secondary hover:bg-secondary/90 text-white font-semibold gap-2 rounded-full mt-4">
                 <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="w-4 h-4" />
                   Solicitar orçamento
-                  <ArrowRight className="w-4 h-4" />
                 </a>
               </Button>
             </nav>
