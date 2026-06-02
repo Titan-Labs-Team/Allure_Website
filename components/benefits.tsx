@@ -58,7 +58,7 @@ const minorBenefits: MinorBenefitProps[] = [
 
 function MainBenefitCard({ image, title, description }: MainBenefitProps) {
   return (
-    <div className="group bg-background rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 card-hover">
+    <div className="group bg-background rounded-2xl overflow-hidden border border-border shadow-md hover:shadow-xl transition-all duration-300 card-hover">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={image}

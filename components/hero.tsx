@@ -46,16 +46,14 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-center pt-14 sm:pt-16 pb-16 sm:pb-20">
+        <div className="absolute inset-0 flex flex-col justify-center pt-28 sm:pt-36 pb-16 sm:pb-20">
           <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28">
-            <div className="max-w-lg lg:max-w-xl border-l-2 border-white/20 pl-5 sm:pl-6">
+            <div className="max-w-2xl sm:border-l-2 sm:border-white/20 sm:pl-6">
 
               {/* Heading */}
-              <h1 className="text-[1.75rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4">
-                Chega de pagar caro{" "}
-                <span className="italic font-normal block sm:inline">
-                  na conta de luz.
-                </span>
+              <h1 className="text-2xl leading-tight sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4">
+                <span className="block">Chega de pagar caro</span>
+                <span className="block italic font-normal">na conta de luz.</span>
               </h1>
 
               {/* Subtitle */}

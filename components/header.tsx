@@ -65,7 +65,7 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button asChild className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-7 py-3.5 text-sm border-0">
+            <Button asChild className="bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] hover:brightness-110 text-white font-semibold gap-2 rounded-full px-7 py-4 text-sm border-0">
               <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-5 h-5" />
                 Solicitar orçamento

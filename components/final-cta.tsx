@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Users, Star, Shield } from "lucide-react";
+import { Clock, Users, BadgeCheck, TrendingDown } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
@@ -9,7 +9,7 @@ const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%2
 
 const trustPoints = [
   {
-    icon: <Shield className="w-4 h-4" />,
+    icon: <BadgeCheck className="w-4 h-4" />,
     text: "Orçamento 100% gratuito e sem compromisso",
   },
   {
@@ -21,9 +21,15 @@ const trustPoints = [
     text: "Mais de 500 clientes atendidos com sucesso",
   },
   {
-    icon: <Star className="w-4 h-4" />,
-    text: "Avaliação 4.9 ⭐ no Google — 127 avaliações",
+    icon: <TrendingDown className="w-4 h-4" />,
+    text: "Economia média de R$ 680 por mês na conta de luz",
   },
+];
+
+const cardStats = [
+  { value: "< 5 min", label: "Resposta" },
+  { value: "500+", label: "Clientes" },
+  { value: "4.9 ★", label: "Google" },
 ];
 
 export default function FinalCTA() {
@@ -32,44 +38,57 @@ export default function FinalCTA() {
   return (
     <section
       id="contato"
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-[#0a1628] via-[#0F172A] to-[#0d2044]"
+      className="relative overflow-hidden py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-[#060f1e] via-[#0F172A] to-[#071529]"
     >
-      {/* Decorative blobs */}
-      <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-secondary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-accent/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      {/* Background glow effects */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-400/8 rounded-full blur-[100px] translate-x-1/3 translate-y-1/4 pointer-events-none" />
+      {/* Glow behind card */}
+      <div className="absolute top-1/2 right-[10%] w-80 h-80 bg-[#25D366]/10 rounded-full blur-[80px] -translate-y-1/2 pointer-events-none" />
 
       <div
         ref={ref}
         className={`container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 relative z-10 scroll-animate ${isVisible ? "visible" : ""}`}
       >
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* ── Left: copy ── */}
           <div>
-            <span className="inline-block text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest mb-5">
+              <span className="w-4 h-px bg-accent inline-block" />
               Fale com um especialista
             </span>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
               Pronto para parar de{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5BB8F5] to-[#3B82F6]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60C8F5] to-[#3B82F6]">
                 pagar caro
               </span>{" "}
               na conta de luz?
             </h2>
 
-            <p className="text-white/60 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 max-w-md">
-              Fale agora com nossa equipe pelo WhatsApp e receba uma simulação gratuita e personalizada. Sem burocracia, sem compromisso.
-            </p>
+            {/* Savings highlight */}
+            <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mb-7 w-fit">
+              <div>
+                <p className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mb-0.5">Economia média dos clientes</p>
+                <p className="text-2xl sm:text-3xl font-bold text-white leading-none">
+                  R$ 680<span className="text-base sm:text-lg font-normal text-white/50">/mês</span>
+                </p>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div>
+                <p className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mb-0.5">Redução na conta</p>
+                <p className="text-2xl sm:text-3xl font-bold text-emerald-400 leading-none">90%</p>
+              </div>
+            </div>
 
             <ul className="space-y-3 sm:space-y-4">
               {trustPoints.map((point) => (
                 <li key={point.text} className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-lg bg-white/8 border border-white/12 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
                     {point.icon}
                   </div>
-                  <span className="text-white/75 text-sm sm:text-base leading-snug">
+                  <span className="text-white/65 text-sm sm:text-base leading-snug">
                     {point.text}
                   </span>
                 </li>
@@ -77,28 +96,35 @@ export default function FinalCTA() {
             </ul>
           </div>
 
-          {/* ── Right: action card ── */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10">
+          {/* ── Right: white action card ── */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/40 ring-1 ring-black/5">
 
-            {/* Top stat strip */}
-            <div className="grid grid-cols-3 gap-3 mb-7 sm:mb-8">
-              {[
-                { value: "< 5 min", label: "Resposta" },
-                { value: "500+", label: "Clientes" },
-                { value: "4.9 ★", label: "Avaliação" },
-              ].map((s) => (
-                <div key={s.label} className="bg-white/5 rounded-2xl py-3 px-2 text-center border border-white/10">
-                  <p className="font-bold text-white text-sm sm:text-base leading-tight">{s.value}</p>
-                  <p className="text-white/40 text-[10px] sm:text-xs mt-0.5">{s.label}</p>
+            {/* Card header */}
+            <div className="flex items-center gap-3.5 pb-5 mb-5 border-b border-gray-100">
+              <div className="w-12 h-12 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/30 flex-shrink-0">
+                <WhatsAppIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="font-bold text-foreground text-sm sm:text-base leading-tight">Fale pelo WhatsApp</p>
+                <p className="text-muted-foreground text-xs mt-0.5">Atendimento rápido · Sem compromisso</p>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-2.5 mb-6">
+              {cardStats.map((s) => (
+                <div key={s.label} className="bg-gray-50 rounded-xl py-3 px-2 text-center border border-gray-100">
+                  <p className="font-bold text-foreground text-sm sm:text-base leading-tight">{s.value}</p>
+                  <p className="text-muted-foreground text-[10px] sm:text-xs mt-0.5">{s.label}</p>
                 </div>
               ))}
             </div>
 
-            {/* Main CTA */}
+            {/* CTA Button */}
             <Button
               size="lg"
               asChild
-              className="w-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-base sm:text-lg rounded-2xl gap-3 h-14 sm:h-16 shadow-2xl shadow-[#25D366]/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-[#25D366]/40 mb-4"
+              className="w-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-base sm:text-lg rounded-2xl gap-3 h-14 sm:h-16 shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-[#25D366]/50 mb-5"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -106,26 +132,20 @@ export default function FinalCTA() {
               </a>
             </Button>
 
-            {/* Social proof below button */}
-            <div className="flex items-center justify-center gap-2 text-white/35 text-xs sm:text-sm">
-              <div className="flex -space-x-1.5">
+            {/* Social proof */}
+            <div className="flex items-center justify-center gap-2.5 mb-5">
+              <div className="flex -space-x-2">
                 {["bg-blue-400", "bg-violet-400", "bg-emerald-400", "bg-amber-400"].map((c, i) => (
-                  <div key={i} className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full ${c} border-2 border-white/10`} />
+                  <div key={i} className={`w-6 h-6 rounded-full ${c} border-2 border-white shadow-sm`} />
                 ))}
               </div>
-              <span>+500 clientes já economizando todo mês</span>
+              <span className="text-muted-foreground text-xs sm:text-sm">+500 clientes economizando</span>
             </div>
 
-            {/* Divider */}
-            <div className="border-t border-white/10 mt-6 pt-5">
-              <p className="text-center text-white/30 text-[11px] sm:text-xs leading-relaxed">
-                Ao entrar em contato você concorda com nossa{" "}
-                <span className="underline underline-offset-2 cursor-pointer">
-                  política de privacidade
-                </span>
-                . Não enviamos spam.
-              </p>
-            </div>
+            {/* Privacy note */}
+            <p className="text-center text-muted-foreground/50 text-[10px] sm:text-xs leading-relaxed border-t border-gray-100 pt-4">
+              Seus dados estão seguros. Não enviamos spam.
+            </p>
           </div>
 
         </div>
