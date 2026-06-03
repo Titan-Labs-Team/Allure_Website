@@ -75,7 +75,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
 export default function Footer() {
   return (
     <footer className="bg-primary py-12 sm:py-16 lg:py-20">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
 
         {/* Top section: logo + description + social */}
         <div className="mb-8 sm:mb-12">

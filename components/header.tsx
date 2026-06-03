@@ -41,7 +41,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-14 sm:h-16">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 h-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 h-full">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <Link href="#inicio" className="flex items-center">

@@ -94,11 +94,12 @@ export default function Benefits() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-14 sm:py-20 lg:py-32 bg-background">
+    <section className="py-16 sm:py-20 lg:py-28 bg-background">
       <div
         ref={ref}
-        className={`container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`px-4 sm:px-6 lg:px-12 xl:px-16 scroll-animate ${isVisible ? "visible" : ""}`}
       >
+        <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <span className="text-secondary font-semibold text-xs sm:text-sm uppercase tracking-wider">
             Vantagens
@@ -147,6 +148,7 @@ export default function Benefits() {
               </a>
             </Button>
           </div>
+        </div>
         </div>
       </div>
     </section>

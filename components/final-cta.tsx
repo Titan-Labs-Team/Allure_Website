@@ -1,35 +1,32 @@
 "use client";
 
-import { Clock, Users, BadgeCheck, TrendingDown } from "lucide-react";
+import Image from "next/image";
+import { Clock, Users, BadgeCheck, TrendingDown, ArrowRight, Shield, Zap } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20receber%20um%20or%C3%A7amento%20gratuito.";
 
-const trustPoints = [
+const benefits = [
   {
-    icon: <BadgeCheck className="w-4 h-4" />,
-    text: "Orçamento 100% gratuito e sem compromisso",
+    icon: <BadgeCheck className="w-5 h-5" />,
+    text: "Orçamento 100% gratuito",
   },
   {
-    icon: <Clock className="w-4 h-4" />,
-    text: "Respondemos em menos de 5 minutos",
+    icon: <Clock className="w-5 h-5" />,
+    text: "Resposta em menos de 5 min",
   },
   {
-    icon: <Users className="w-4 h-4" />,
-    text: "Mais de 500 clientes atendidos com sucesso",
-  },
-  {
-    icon: <TrendingDown className="w-4 h-4" />,
-    text: "Economia média de R$ 680 por mês na conta de luz",
+    icon: <Shield className="w-5 h-5" />,
+    text: "Garantia de 25 anos",
   },
 ];
 
-const cardStats = [
-  { value: "< 5 min", label: "Resposta" },
-  { value: "500+", label: "Clientes" },
-  { value: "4.9 ★", label: "Google" },
+const stats = [
+  { value: "500+", label: "Clientes satisfeitos" },
+  { value: "90%", label: "Economia média" },
+  { value: "4.9", label: "Avaliação Google" },
 ];
 
 export default function FinalCTA() {
@@ -38,116 +35,153 @@ export default function FinalCTA() {
   return (
     <section
       id="contato"
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-[#060f1e] via-[#0F172A] to-[#071529]"
+      className="relative overflow-hidden"
     >
-      {/* Background glow effects */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-400/8 rounded-full blur-[100px] translate-x-1/3 translate-y-1/4 pointer-events-none" />
-      {/* Glow behind card */}
-      <div className="absolute top-1/2 right-[10%] w-80 h-80 bg-[#25D366]/10 rounded-full blur-[80px] -translate-y-1/2 pointer-events-none" />
-
       <div
         ref={ref}
-        className={`container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 relative z-10 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`scroll-animate ${isVisible ? "visible" : ""}`}
       >
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+        {/* Main Content */}
+        <div className="relative">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/images/cta-solar-home.png"
+              alt="Casa com energia solar"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/95 via-[#0F172A]/80 to-[#0F172A]/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 to-transparent" />
+          </div>
 
-          {/* ── Left: copy ── */}
-          <div>
-            <span className="inline-flex items-center gap-1.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest mb-5">
-              <span className="w-4 h-px bg-accent inline-block" />
-              Fale com um especialista
-            </span>
+          {/* Content */}
+          <div className="relative z-10 px-4 sm:px-6 lg:px-12 xl:px-16 py-16 sm:py-20 lg:py-28">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
-              Pronto para parar de{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60C8F5] to-[#3B82F6]">
-                pagar caro
-              </span>{" "}
-              na conta de luz?
-            </h2>
-
-            {/* Savings highlight */}
-            <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mb-7 w-fit">
-              <div>
-                <p className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mb-0.5">Economia média dos clientes</p>
-                <p className="text-2xl sm:text-3xl font-bold text-white leading-none">
-                  R$ 680<span className="text-base sm:text-lg font-normal text-white/50">/mês</span>
-                </p>
-              </div>
-              <div className="w-px h-10 bg-white/10" />
-              <div>
-                <p className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mb-0.5">Redução na conta</p>
-                <p className="text-2xl sm:text-3xl font-bold text-emerald-400 leading-none">90%</p>
-              </div>
-            </div>
-
-            <ul className="space-y-3 sm:space-y-4">
-              {trustPoints.map((point) => (
-                <li key={point.text} className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-lg bg-white/8 border border-white/12 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
-                    {point.icon}
+                {/* Left: Copy */}
+                <div className="max-w-xl">
+                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
+                    <Zap className="w-4 h-4 text-accent" />
+                    <span className="text-white/90 text-sm font-medium">Transforme sua conta de luz</span>
                   </div>
-                  <span className="text-white/65 text-sm sm:text-base leading-snug">
-                    {point.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
 
-          {/* ── Right: white action card ── */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/40 ring-1 ring-black/5">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                    Pronto para{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60C8F5] to-[#3B82F6]">
+                      economizar
+                    </span>{" "}
+                    na conta de luz?
+                  </h2>
 
-            {/* Card header */}
-            <div className="flex items-center gap-3.5 pb-5 mb-5 border-b border-gray-100">
-              <div className="w-12 h-12 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/30 flex-shrink-0">
-                <WhatsAppIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <p className="font-bold text-foreground text-sm sm:text-base leading-tight">Fale pelo WhatsApp</p>
-                <p className="text-muted-foreground text-xs mt-0.5">Atendimento rápido · Sem compromisso</p>
-              </div>
-            </div>
+                  <p className="text-white/70 text-base sm:text-lg mb-8 leading-relaxed">
+                    Junte-se a mais de 500 famílias que já reduziram até 90% da conta de energia com a Allure.
+                  </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-2.5 mb-6">
-              {cardStats.map((s) => (
-                <div key={s.label} className="bg-gray-50 rounded-xl py-3 px-2 text-center border border-gray-100">
-                  <p className="font-bold text-foreground text-sm sm:text-base leading-tight">{s.value}</p>
-                  <p className="text-muted-foreground text-[10px] sm:text-xs mt-0.5">{s.label}</p>
+                  {/* Stats Row */}
+                  <div className="grid grid-cols-3 gap-4 mb-8">
+                    {stats.map((stat) => (
+                      <div key={stat.label} className="text-center">
+                        <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
+                        <p className="text-white/50 text-xs sm:text-sm mt-1">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Benefits */}
+                  <div className="flex flex-wrap gap-3 mb-8">
+                    {benefits.map((benefit) => (
+                      <div
+                        key={benefit.text}
+                        className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2"
+                      >
+                        <div className="text-accent">{benefit.icon}</div>
+                        <span className="text-white/80 text-sm">{benefit.text}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA Buttons - Mobile */}
+                  <div className="lg:hidden space-y-3">
+                    <Button
+                      size="lg"
+                      asChild
+                      className="w-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-base rounded-2xl gap-3 h-14 shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-[1.02]"
+                    >
+                      <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                        <WhatsAppIcon className="w-6 h-6" />
+                        Solicitar orçamento grátis
+                      </a>
+                    </Button>
+                    <p className="text-center text-white/40 text-xs">
+                      Sem compromisso. Respondemos em minutos.
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            {/* CTA Button */}
-            <Button
-              size="lg"
-              asChild
-              className="w-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-base sm:text-lg rounded-2xl gap-3 h-14 sm:h-16 shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-[#25D366]/50 mb-5"
-            >
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
-                Chamar no WhatsApp agora
-              </a>
-            </Button>
+                {/* Right: CTA Card - Desktop */}
+                <div className="hidden lg:block">
+                  <div className="bg-white rounded-3xl p-8 shadow-2xl shadow-black/20 max-w-md ml-auto">
+                    {/* Card Header */}
+                    <div className="flex items-center gap-4 pb-6 mb-6 border-b border-gray-100">
+                      <div className="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-[#25D366]/30">
+                        <WhatsAppIcon className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-lg">Fale pelo WhatsApp</p>
+                        <p className="text-muted-foreground text-sm">Atendimento imediato</p>
+                      </div>
+                    </div>
 
-            {/* Social proof */}
-            <div className="flex items-center justify-center gap-2.5 mb-5">
-              <div className="flex -space-x-2">
-                {["bg-blue-400", "bg-violet-400", "bg-emerald-400", "bg-amber-400"].map((c, i) => (
-                  <div key={i} className={`w-6 h-6 rounded-full ${c} border-2 border-white shadow-sm`} />
-                ))}
+                    {/* Savings Display */}
+                    <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-5 mb-6 border border-emerald-100">
+                      <p className="text-sm text-muted-foreground mb-2">Economia média dos nossos clientes</p>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold text-foreground">R$ 680</span>
+                        <span className="text-muted-foreground">/mês</span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <TrendingDown className="w-4 h-4 text-emerald-600" />
+                        <span className="text-emerald-600 font-medium text-sm">Redução de até 90% na conta</span>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <Button
+                      size="lg"
+                      asChild
+                      className="w-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-lg rounded-2xl gap-3 h-16 shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-[1.02] mb-4"
+                    >
+                      <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                        <WhatsAppIcon className="w-6 h-6" />
+                        Quero economizar agora
+                        <ArrowRight className="w-5 h-5" />
+                      </a>
+                    </Button>
+
+                    {/* Trust Elements */}
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="flex -space-x-2">
+                        {["bg-blue-500", "bg-violet-500", "bg-emerald-500", "bg-amber-500"].map((color, i) => (
+                          <div key={i} className={`w-8 h-8 rounded-full ${color} border-2 border-white`} />
+                        ))}
+                      </div>
+                      <span className="text-muted-foreground text-sm">
+                        <span className="font-semibold text-foreground">+500</span> clientes satisfeitos
+                      </span>
+                    </div>
+
+                    {/* Privacy */}
+                    <p className="text-center text-muted-foreground/60 text-xs mt-4 pt-4 border-t border-gray-100">
+                      Seus dados estão seguros. Não enviamos spam.
+                    </p>
+                  </div>
+                </div>
+
               </div>
-              <span className="text-muted-foreground text-xs sm:text-sm">+500 clientes economizando</span>
             </div>
-
-            {/* Privacy note */}
-            <p className="text-center text-muted-foreground/50 text-[10px] sm:text-xs leading-relaxed border-t border-gray-100 pt-4">
-              Seus dados estão seguros. Não enviamos spam.
-            </p>
           </div>
-
         </div>
       </div>
     </section>

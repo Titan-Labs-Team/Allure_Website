@@ -38,7 +38,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
         {/* Floating badge — bottom-right, fora do fluxo do conteúdo */}
-        <div className="absolute bottom-20 sm:bottom-16 right-6 md:right-12 lg:right-20 xl:right-28 z-10 hidden xs:flex sm:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3.5 py-2">
+        <div className="absolute bottom-20 sm:bottom-16 right-4 sm:right-6 lg:right-12 xl:right-16 z-10 hidden xs:flex sm:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3.5 py-2">
           <Zap className="w-3.5 h-3.5 text-accent flex-shrink-0" />
           <span className="text-white/90 text-xs font-medium whitespace-nowrap">
             +500 famílias já economizando
@@ -47,7 +47,7 @@ export default function Hero() {
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-center pt-28 sm:pt-36 pb-16 sm:pb-20">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20 xl:px-28">
+          <div className="px-4 sm:px-6 lg:px-12 xl:px-16 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl sm:border-l-2 sm:border-white/20 sm:pl-6">
 
               {/* Heading */}
@@ -98,7 +98,7 @@ export default function Hero() {
 
       {/* Trust Stats Bar */}
       <div className="relative z-20 -mt-6 sm:-mt-8">
-        <div className="w-full px-6 md:px-12 lg:px-20 xl:px-28">
+        <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-3xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100">
               {stats.map((stat) => (

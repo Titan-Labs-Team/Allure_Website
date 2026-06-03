@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { Star, MessageCircle, Quote } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface Testimonial {
@@ -72,7 +72,7 @@ function GoogleBadge() {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group">
+    <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group h-full">
       {/* Stars */}
       <div className="flex gap-0.5 mb-3">
         {[...Array(5)].map((_, i) => (
@@ -116,39 +116,75 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-function WhatsAppPrint() {
+function WhatsAppChat() {
   return (
-    <div className="max-w-xs sm:max-w-sm mx-auto mt-10 sm:mt-14">
-      <p className="text-center text-xs sm:text-sm text-muted-foreground mb-3">
-        💬 Mensagem real de cliente
-      </p>
-      <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-        {/* WA Header */}
-        <div className="bg-[#075E54] px-4 py-3 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-            M
+    <div className="bg-gradient-to-br from-emerald-50 via-white to-blue-50 rounded-3xl p-6 sm:p-8 lg:p-10 border border-gray-100">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
+        {/* Left: Context */}
+        <div>
+          <div className="inline-flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] rounded-full px-4 py-2 text-sm font-medium mb-4">
+            <MessageCircle className="w-4 h-4" />
+            Mensagem real de cliente
           </div>
-          <div>
-            <p className="text-white font-semibold text-sm leading-tight">Marcos A.</p>
-            <p className="text-white/70 text-xs">Cliente Allure · São José do Rio Preto</p>
-          </div>
-        </div>
-        {/* Chat */}
-        <div className="bg-[#E5DDD5] p-4 space-y-3">
-          <div className="flex justify-end">
-            <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[85%] shadow-sm">
-              <p className="text-[#111] text-sm leading-relaxed">
-                Gente!! Recebi minha primeira conta depois da instalação. Caiu de R$1.100 pra R$74!! 😱🙏🙏
-              </p>
-              <p className="text-[#999] text-[11px] text-right mt-1.5">14:32 ✓✓</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+            Resultados que falam por si
+          </h3>
+          <p className="text-muted-foreground text-sm sm:text-base mb-6">
+            Veja a reação de quem recebeu a primeira conta de luz após a instalação do sistema solar.
+          </p>
+          
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+              <p className="text-2xl sm:text-3xl font-bold text-emerald-600">93%</p>
+              <p className="text-muted-foreground text-xs sm:text-sm">Redução média</p>
+            </div>
+            <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">R$ 1.026</p>
+              <p className="text-muted-foreground text-xs sm:text-sm">Economia do Marcos</p>
             </div>
           </div>
-          <div className="flex justify-start">
-            <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[75%] shadow-sm">
-              <p className="text-[#111] text-sm leading-relaxed">
-                Fico muito feliz em saber, Marcos! Obrigado pela confiança 🌟 Seja bem-vindo à família Allure!
-              </p>
-              <p className="text-[#999] text-[11px] text-right mt-1.5">14:35 ✓✓</p>
+        </div>
+
+        {/* Right: WhatsApp Chat */}
+        <div className="relative">
+          {/* Quote decoration */}
+          <Quote className="absolute -top-3 -left-3 w-8 h-8 text-[#25D366]/20 hidden lg:block" />
+          
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200 max-w-sm mx-auto lg:mx-0 lg:ml-auto">
+            {/* WA Header */}
+            <div className="bg-[#075E54] px-4 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                M
+              </div>
+              <div className="flex-1">
+                <p className="text-white font-semibold text-sm leading-tight">Marcos A.</p>
+                <p className="text-white/70 text-xs">Cliente Allure · São José do Rio Preto</p>
+              </div>
+              <div className="flex gap-4 text-white/60">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z"/>
+                </svg>
+              </div>
+            </div>
+            {/* Chat */}
+            <div className="bg-[#E5DDD5] p-4 space-y-3">
+              <div className="flex justify-end">
+                <div className="bg-[#DCF8C6] rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[85%] shadow-sm">
+                  <p className="text-[#111] text-sm leading-relaxed">
+                    Gente!! Recebi minha primeira conta depois da instalação. Caiu de R$1.100 pra R$74!! 
+                  </p>
+                  <p className="text-[#999] text-[11px] text-right mt-1.5">14:32 ✓✓</p>
+                </div>
+              </div>
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[80%] shadow-sm">
+                  <p className="text-[#111] text-sm leading-relaxed">
+                    Fico muito feliz em saber, Marcos! Obrigado pela confiança. Seja bem-vindo à família Allure!
+                  </p>
+                  <p className="text-[#999] text-[11px] text-right mt-1.5">14:35 ✓✓</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -161,31 +197,36 @@ export default function Testimonials() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-14 sm:py-20 lg:py-32 bg-background">
+    <section className="py-16 sm:py-20 lg:py-28 bg-background">
       <div
         ref={ref}
-        className={`container mx-auto px-6 md:px-12 lg:px-20 xl:px-28 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`px-4 sm:px-6 lg:px-12 xl:px-16 scroll-animate ${isVisible ? "visible" : ""}`}
       >
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <GoogleBadge />
-          <span className="text-secondary font-semibold text-xs sm:text-sm uppercase tracking-wider block">
-            Depoimentos
-          </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-4 sm:mb-6">
-            O que nossos clientes <span className="gradient-text">dizem</span>
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-            Resultados reais de quem já instalou energia solar com a Allure
-          </p>
-        </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+            <GoogleBadge />
+            <span className="text-secondary font-semibold text-sm uppercase tracking-wider block">
+              Depoimentos
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mt-3 mb-4">
+              O que nossos clientes <span className="gradient-text">dizem</span>
+            </h2>
+            <p className="text-muted-foreground text-base lg:text-lg max-w-2xl mx-auto">
+              Resultados reais de quem já instalou energia solar com a Allure
+            </p>
+          </div>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 stagger-children ${isVisible ? "visible" : ""}`}>
-          {testimonials.map((t) => (
-            <TestimonialCard key={t.name} t={t} />
-          ))}
-        </div>
+          {/* Testimonial Cards */}
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-10 sm:mb-14 stagger-children ${isVisible ? "visible" : ""}`}>
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.name} t={t} />
+            ))}
+          </div>
 
-        <WhatsAppPrint />
+          {/* WhatsApp Chat Section */}
+          <WhatsAppChat />
+        </div>
       </div>
     </section>
   );
