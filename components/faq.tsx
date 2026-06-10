@@ -44,42 +44,49 @@ export default function FAQ() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-16 sm:py-20 lg:py-28 bg-background">
+    <section className="py-24 sm:py-28 lg:py-36 bg-muted">
       <div
         ref={ref}
-        className={`px-2 sm:px-3 lg:px-4 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
       >
-        <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <span className="text-secondary font-semibold text-xs sm:text-sm uppercase tracking-wider">
-            FAQ
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-foreground mt-3 mb-3 sm:mb-6">
-            Principais <span className="gradient-text">dúvidas</span>
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
-            Tire suas dúvidas sobre energia solar residencial
-          </p>
-        </div>
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
+          {/* Sticky header */}
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-px w-10 bg-brand-3" />
+                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
+                  Dúvidas frequentes
+                </span>
+              </div>
+              <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground">
+                Tudo que você precisa saber.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mt-5">
+                Ainda com dúvidas? Nossa equipe técnica responde em minutos pelo WhatsApp.
+              </p>
+            </div>
+          </div>
 
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="w-full space-y-3 sm:space-y-4">
-            {faqItems.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-muted rounded-2xl border-none px-4 sm:px-6 data-[state=open]:shadow-lg transition-shadow"
-              >
-                <AccordionTrigger className="text-left text-foreground hover:text-secondary py-4 sm:py-5 text-sm sm:text-base lg:text-lg font-medium hover:no-underline">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm sm:text-base leading-relaxed pb-4 sm:pb-5">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+          {/* Accordion */}
+          <div className="lg:col-span-8">
+            <Accordion type="single" collapsible className="w-full space-y-3 sm:space-y-4">
+              {faqItems.map((item, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="bg-card rounded-2xl border border-border px-5 sm:px-7 data-[state=open]:shadow-lg transition-shadow"
+                >
+                  <AccordionTrigger className="text-left font-display text-foreground hover:text-brand-2 py-5 sm:py-6 text-base sm:text-lg font-medium hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-sm sm:text-base leading-relaxed pb-5 sm:pb-6">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </div>
     </section>
