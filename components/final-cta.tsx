@@ -56,7 +56,7 @@ export default function FinalCTA() {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 px-4 sm:px-6 lg:px-12 xl:px-16 py-16 sm:py-20 lg:py-28">
+          <div className="relative z-10 px-2 sm:px-3 lg:px-4 py-16 sm:py-20 lg:py-28">
             <div className="max-w-7xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 

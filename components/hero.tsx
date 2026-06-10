@@ -24,9 +24,9 @@ export default function Hero() {
   return (
     <section id="inicio" className="relative">
       {/* Background Image */}
-      <div className="relative h-[95vh] min-h-[620px] max-h-[940px]">
+      <div className="relative h-[90vh] min-h-[600px] max-h-[900px]">
         <Image
-          src="/images/hero-solar.jpg"
+          src="/images/hero-solar.jpeg"
           alt="Casa moderna com painéis solares"
           fill
           className="object-cover object-center"
@@ -47,13 +47,13 @@ export default function Hero() {
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-center pt-28 sm:pt-36 pb-16 sm:pb-20">
-          <div className="px-4 sm:px-6 lg:px-12 xl:px-16 max-w-7xl mx-auto w-full">
-            <div className="max-w-2xl sm:border-l-2 sm:border-white/20 sm:pl-6">
+          <div className="px-2 sm:px-3 lg:px-4 max-w-7xl mx-auto w-full">
+            <div className="max-w-2xl">
 
               {/* Heading */}
               <h1 className="text-2xl leading-tight sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4">
                 <span className="block">Chega de pagar caro</span>
-                <span className="block italic font-normal">na conta de luz.</span>
+                <span className="block italic font-normal text-[#EAB308]">na conta de luz.</span>
               </h1>
 
               {/* Subtitle */}
@@ -71,26 +71,27 @@ export default function Hero() {
                 ))}
               </ul>
 
-              {/* Primary CTA */}
-              <Button
-                size="lg"
-                asChild
-                className="w-full sm:w-auto bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] text-white font-bold text-base sm:text-lg px-8 sm:px-10 rounded-full gap-2.5 h-13 sm:h-14 border-0 shadow-2xl shadow-blue-900/40 transition-all duration-300 hover:brightness-110 hover:scale-[1.02] hover:shadow-blue-500/40"
-              >
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="w-5 h-5" />
-                  Solicitar orçamento grátis
-                </a>
-              </Button>
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <Button
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto bg-gradient-to-b from-[#1A4BAF] to-[#5BB8F5] text-white font-bold text-base sm:text-lg px-8 sm:px-10 rounded-full gap-2.5 h-13 sm:h-14 border-0 shadow-2xl shadow-blue-900/40 transition-all duration-300 hover:brightness-110 hover:scale-[1.02] hover:shadow-blue-500/40"
+                >
+                  <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon className="w-5 h-5" />
+                    Solicitar orçamento grátis
+                  </a>
+                </Button>
 
-              {/* Secondary text link */}
-              <button
-                onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
-                className="flex items-center gap-1.5 text-white/50 hover:text-white/80 text-xs sm:text-sm mt-4 transition-colors group"
-              >
-                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                Ver como funciona
-              </button>
+                <button
+                  onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
+                  className="flex items-center gap-1.5 text-white/50 hover:text-white/80 text-xs sm:text-sm transition-colors group"
+                >
+                  <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                  Ver como funciona
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -98,7 +99,7 @@ export default function Hero() {
 
       {/* Trust Stats Bar */}
       <div className="relative z-20 -mt-6 sm:-mt-8">
-        <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="w-full px-2 sm:px-3 lg:px-4">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-3xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100">
               {stats.map((stat) => (

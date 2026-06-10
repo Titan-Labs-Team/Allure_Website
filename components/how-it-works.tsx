@@ -95,7 +95,7 @@ export default function HowItWorks() {
     <section id="como-funciona" className="py-16 sm:py-20 lg:py-28 bg-muted">
       <div
         ref={ref}
-        className={`px-4 sm:px-6 lg:px-12 xl:px-16 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`px-2 sm:px-3 lg:px-4 scroll-animate ${isVisible ? "visible" : ""}`}
       >
         <div className="max-w-7xl mx-auto">
           {/* Header */}

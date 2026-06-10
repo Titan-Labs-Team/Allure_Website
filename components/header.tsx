@@ -40,8 +40,8 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-14 sm:h-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 h-full">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-16 sm:h-18">
+      <div className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4 h-full">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <Link href="#inicio" className="flex items-center">
