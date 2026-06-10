@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
+const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20saber%20como%20a%20energia%20solar%20pode%20me%20ajudar.";
 
 interface Benefit {
   image: string;
@@ -78,6 +83,21 @@ export default function Benefits() {
             <BenefitCard {...benefits[0]} large />
             <BenefitCard {...benefits[1]} />
             <BenefitCard {...benefits[2]} />
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 flex justify-center">
+            <Button
+              size="lg"
+              asChild
+              className="group bg-accent text-accent-foreground hover:brightness-105 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-accent/25"
+            >
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="w-5 h-5" />
+                Quero esses benefícios
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,7 +1,11 @@
 "use client";
 
-import { ShieldCheck, BadgeCheck, Zap, Headphones, Award, Wrench } from "lucide-react";
+import { ShieldCheck, BadgeCheck, Zap, Headphones, Award, Wrench, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
+const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20conhecer%20os%20diferenciais%20da%20Allure.";
 
 interface Reason {
   icon: React.ReactNode;
@@ -61,19 +65,17 @@ export default function WhyAllure() {
     <section id="por-que-allure" className="py-24 sm:py-28 lg:py-36 bg-background">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 items-end mb-12 lg:mb-16">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                  Diferenciais
-                </span>
-              </div>
-              <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground max-w-2xl">
-                Por que a Allure é diferente.
-              </h2>
+          <div className="max-w-3xl mb-12 lg:mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-px w-10 bg-brand-3" />
+              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-semibold">
+                Diferenciais
+              </span>
             </div>
-            <p className="lg:col-span-4 text-muted-foreground leading-relaxed">
+            <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground mb-5">
+              Por que a Allure é diferente.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
               Credibilidade técnica, equipamentos de ponta e um compromisso real com o seu retorno.
             </p>
           </div>
@@ -83,6 +85,21 @@ export default function WhyAllure() {
             {reasons.map((r) => (
               <ReasonCard key={r.title} {...r} />
             ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-14 flex justify-center">
+            <Button
+              size="lg"
+              asChild
+              className="group bg-accent text-accent-foreground hover:brightness-105 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-accent/25"
+            >
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="w-5 h-5" />
+                Falar com um especialista
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
           </div>
         </div>
       </div>

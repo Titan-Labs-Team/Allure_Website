@@ -15,27 +15,28 @@
   /* Kept for header & footer (unchanged) */
   --primary: #0F172A;
   --primary-foreground: #FFFFFF;
-  --secondary: #3B82F6;
+  --secondary: #1A4BAF;
   --secondary-foreground: #FFFFFF;
 
-  --muted: #F1F2EE;
-  --muted-foreground: #5C645E;
+  --muted: #F1F4FA;
+  --muted-foreground: #5A6478;
 
-  --accent: #F59E0B;
-  --accent-foreground: #0C0F0D;
+  /* Yellow / amber accent (Allure brand) */
+  --accent: #FBB915;
+  --accent-foreground: #0C1322;
 
-  /* Forest green brand palette (redesign) */
-  --brand: #15392E;
+  /* Allure blue brand palette (redesign) */
+  --brand: #0E2C6B;
   --brand-foreground: #FFFFFF;
-  --brand-2: #2F6B4F;
-  --brand-3: #5C9B7E;
-  --brand-muted: #EBF1EC;
+  --brand-2: #1A4BAF;
+  --brand-3: #5BB8F5;
+  --brand-muted: #E7EEFB;
 
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E6E7E1;
-  --input: #E6E7E1;
-  --ring: #2F6B4F;
+  --border: #E2E7F0;
+  --input: #E2E7F0;
+  --ring: #1A4BAF;
   --radius: 1rem;
 }
 
@@ -182,7 +183,7 @@ html {
 }
 .card-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 30px 60px -24px rgba(21, 57, 46, 0.28);
+  box-shadow: 0 30px 60px -24px rgba(14, 44, 107, 0.32);
 }
 
 /* Brand-tinted text accent */

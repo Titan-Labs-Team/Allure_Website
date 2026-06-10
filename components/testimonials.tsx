@@ -1,6 +1,11 @@
 "use client";
 
+import { Star, BadgeCheck, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
+const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20fazer%20parte%20de%20quem%20economiza%20com%20a%20Allure.";
 
 interface Testimonial {
   name: string;
@@ -34,48 +39,37 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-function TestimonialCard({ t, featured }: { t: Testimonial; featured?: boolean }) {
+function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure
-      className={`relative flex flex-col rounded-2xl p-8 lg:p-10 card-hover ${
-        featured
-          ? "bg-brand text-brand-foreground border border-brand"
-          : "bg-card text-foreground border border-border"
-      }`}
-    >
-      <span
-        className={`quote-mark text-7xl mb-4 ${featured ? "text-brand-3" : "text-brand-muted"}`}
-        aria-hidden="true"
-      >
-        &ldquo;
-      </span>
-      <blockquote
-        className={`font-display text-lg sm:text-xl leading-snug tracking-tight flex-1 ${
-          featured ? "text-brand-foreground" : "text-foreground"
-        }`}
-      >
+    <figure className="group relative flex flex-col rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover">
+      {/* Stars */}
+      <div className="flex items-center gap-1 mb-5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+        ))}
+      </div>
+
+      <blockquote className="font-display text-lg sm:text-xl leading-snug tracking-tight text-foreground flex-1">
         {t.quote}
       </blockquote>
 
-      <figcaption className="mt-8 flex items-center gap-4">
-        <div
-          className={`w-11 h-11 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0 ${
-            featured ? "bg-brand-foreground/15 text-brand-foreground" : "bg-brand-muted text-brand-2"
-          }`}
-        >
+      {/* Highlight chip */}
+      <span className="mt-7 inline-flex w-fit items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-muted text-brand-2">
+        <BadgeCheck className="w-3.5 h-3.5" strokeWidth={2.2} />
+        {t.highlight}
+      </span>
+
+      <figcaption className="mt-6 pt-6 border-t border-border flex items-center gap-4">
+        <div className="w-11 h-11 rounded-full bg-brand text-brand-foreground flex items-center justify-center font-semibold text-sm flex-shrink-0">
           {t.initials}
         </div>
         <div className="flex-1">
-          <p className={`font-medium text-sm ${featured ? "text-brand-foreground" : "text-foreground"}`}>{t.name}</p>
-          <p className={`text-xs ${featured ? "text-brand-foreground/60" : "text-muted-foreground"}`}>{t.city}</p>
+          <p className="font-medium text-sm text-foreground flex items-center gap-1.5">
+            {t.name}
+            <BadgeCheck className="w-4 h-4 text-brand-2" strokeWidth={2.2} aria-label="Cliente verificado" />
+          </p>
+          <p className="text-xs text-muted-foreground">{t.city}</p>
         </div>
-        <span
-          className={`text-xs font-medium px-3 py-1.5 rounded-full ${
-            featured ? "bg-brand-foreground/15 text-brand-foreground" : "bg-brand-muted text-brand-2"
-          }`}
-        >
-          {t.highlight}
-        </span>
       </figcaption>
     </figure>
   );
@@ -85,14 +79,14 @@ export default function Testimonials() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-24 sm:py-28 lg:py-36 bg-background">
+    <section className="py-24 sm:py-28 lg:py-36 bg-muted">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">
             <div className="lg:col-span-8">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
+                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-semibold">
                   Depoimentos
                 </span>
               </div>
@@ -100,15 +94,40 @@ export default function Testimonials() {
                 Histórias de quem já trocou a conta de luz por patrimônio.
               </h2>
             </div>
-            <p className="lg:col-span-4 text-muted-foreground leading-relaxed">
-              Mais de 1.200 famílias e empresas confiam na engenharia da Allure para gerar a própria energia.
-            </p>
+            <div className="lg:col-span-4">
+              <p className="text-muted-foreground leading-relaxed mb-3">
+                Mais de 1.200 famílias e empresas confiam na engenharia da Allure para gerar a própria energia.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <span className="flex items-center gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  ))}
+                </span>
+                4,9/5 em mais de 800 avaliações
+              </div>
+            </div>
           </div>
 
           <div className={`grid md:grid-cols-3 gap-6 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
-            {testimonials.map((t, i) => (
-              <TestimonialCard key={t.name} t={t} featured={i === 1} />
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.name} t={t} />
             ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-14 flex justify-center">
+            <Button
+              size="lg"
+              asChild
+              className="group bg-accent text-accent-foreground hover:brightness-105 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-accent/25"
+            >
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="w-5 h-5" />
+                Quero economizar também
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
           </div>
         </div>
       </div>
