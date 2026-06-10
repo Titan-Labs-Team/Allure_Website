@@ -1,8 +1,11 @@
 import Header from "@/components/header";
 import Hero from "@/components/hero";
-import Testimonials from "@/components/testimonials";
-import Benefits from "@/components/benefits";
+import StatsBar from "@/components/stats-bar";
 import HowItWorks from "@/components/how-it-works";
+import Solutions from "@/components/solutions";
+import Benefits from "@/components/benefits";
+import SavingsCalculator from "@/components/savings-calculator";
+import Testimonials from "@/components/testimonials";
 import WhyAllure from "@/components/why-allure";
 import FinalCTA from "@/components/final-cta";
 import FAQ from "@/components/faq";
@@ -16,9 +19,12 @@ export default function HomePage() {
 
       <main>
         <Hero />
-        <Testimonials />
-        <Benefits />
+        <StatsBar />
         <HowItWorks />
+        <Solutions />
+        <Benefits />
+        <SavingsCalculator />
+        <Testimonials />
         <WhyAllure />
         <FinalCTA />
         <FAQ />
