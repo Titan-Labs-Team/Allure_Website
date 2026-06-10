@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Home, Building2, Factory, ArrowUpRight, Check } from "lucide-react";
+import { Home, Building2, Factory, ArrowUpRight, BadgeCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20de%20energia%20solar.";
@@ -54,7 +54,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand/70 via-brand/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand/40 via-brand/5 to-transparent" />
         <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-background/90 backdrop-blur px-3.5 py-1.5 text-brand-2">
           {icon}
           <span className="text-xs font-semibold uppercase tracking-wider">{tag}</span>
@@ -67,14 +67,12 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
         <ul className="space-y-3 mb-7 flex-1">
           {benefits.map((b) => (
             <li key={b} className="flex items-center gap-3 text-muted-foreground">
-              <span className="w-5 h-5 rounded-full bg-brand-muted flex items-center justify-center flex-shrink-0">
-                <Check className="w-3 h-3 text-brand-2" strokeWidth={2.5} />
-              </span>
+              <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
               <span className="text-sm">{b}</span>
             </li>
           ))}
         </ul>
-        <span className="inline-flex items-center gap-2 text-brand-2 font-medium text-sm">
+        <span className="inline-flex items-center justify-center gap-2 w-full bg-brand text-white font-semibold text-sm h-11 rounded-full transition-all duration-300 group-hover:bg-brand-2 group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:scale-[1.02]">
           Solicitar projeto
           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>

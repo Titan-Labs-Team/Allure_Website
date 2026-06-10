@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { TrendingDown, CalendarClock, Leaf } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import ElectricBorder from "@/components/electric-border";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
 
@@ -29,7 +30,7 @@ export default function SavingsCalculator() {
   }, [bill]);
 
   return (
-    <section className="py-24 sm:py-28 lg:py-36 bg-muted">
+    <section className="py-24 sm:py-28 lg:py-36 bg-muted bg-dots-glow">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -50,7 +51,8 @@ export default function SavingsCalculator() {
             </div>
 
             {/* Calculator card */}
-            <div className="bg-card rounded-2xl border border-border shadow-xl shadow-brand/5 p-7 sm:p-10">
+            <ElectricBorder color="#3B82F6" speed={0.7} chaos={0.05} borderRadius={16}>
+            <div className="bg-card rounded-2xl p-7 sm:p-10">
               {/* Input */}
               <div className="mb-9">
                 <div className="flex items-baseline justify-between mb-5">
@@ -103,7 +105,7 @@ export default function SavingsCalculator() {
               <Button
                 asChild
                 size="lg"
-                className="w-full bg-accent text-accent-foreground hover:brightness-105 font-semibold rounded-full gap-2.5 h-14 shadow-lg shadow-accent/25"
+                className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-full gap-2.5 h-14 shadow-lg shadow-brand/25"
               >
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="w-5 h-5" />
@@ -111,6 +113,7 @@ export default function SavingsCalculator() {
                 </a>
               </Button>
             </div>
+            </ElectricBorder>
           </div>
         </div>
       </div>

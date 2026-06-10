@@ -42,7 +42,7 @@ function BenefitCard({ image, title, description, large }: Benefit & { large?: b
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0E2C6B]/70 via-[#0E2C6B]/20 to-transparent" />
       </div>
       <div className="absolute bottom-0 left-0 right-0 p-7 lg:p-8">
         <h3 className={`font-display font-semibold tracking-tight text-brand-foreground mb-2 ${large ? "text-2xl lg:text-3xl" : "text-xl"}`}>
@@ -90,7 +90,7 @@ export default function Benefits() {
             <Button
               size="lg"
               asChild
-              className="group bg-accent text-accent-foreground hover:brightness-105 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-accent/25"
+              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-brand/25"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-5 h-5" />

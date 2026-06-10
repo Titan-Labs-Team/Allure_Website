@@ -2,11 +2,41 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import LightRays from "@/components/light-rays";
+import { useCountUp } from "@/hooks/use-count-up";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
+
+interface Stat {
+  end: number;
+  suffix: string;
+  label: string;
+  description: string;
+}
+
+const stats: Stat[] = [
+  { end: 1240, suffix: "+",     label: "Projetos instalados", description: "em todo o Brasil"    },
+  { end: 38,   suffix: " GWh",  label: "Energia gerada",      description: "por ano na rede"     },
+  { end: 12,   suffix: " anos", label: "De experiência",      description: "em engenharia solar" },
+  { end: 98,   suffix: "%",     label: "Clientes satisfeitos",description: "recomendam a Allure" },
+];
+
+function HeroStat({ stat }: { stat: Stat }) {
+  const { ref, formatted } = useCountUp({ end: stat.end });
+  return (
+    <div className="flex flex-col items-center text-center">
+      <p className="font-display font-bold tracking-tight text-2xl sm:text-[1.75rem] leading-none text-white">
+        <span ref={ref}>{formatted}</span>
+        <span className="text-brand-3">{stat.suffix}</span>
+      </p>
+      <p className="mt-1.5 text-[0.8rem] font-semibold text-white/65">{stat.label}</p>
+      <p className="mt-0.5 text-[0.72rem] text-white/35">{stat.description}</p>
+    </div>
+  );
+}
 
 export default function Hero() {
   const [offset, setOffset] = useState<number>(0);
@@ -29,18 +59,34 @@ export default function Hero() {
       {/* Parallax background */}
       <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
         <Image
-          src="/images/hero-solar.png"
+          src="/images/hero-solar.jpeg"
           alt="Casa moderna com painéis solares no telhado sob céu azul"
           fill
           className="object-cover object-center scale-110"
           priority
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A2153]/85 via-[#0A2153]/55 to-[#0A2153]/92" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2153]/85 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2153]/40 via-transparent to-transparent" />
+      <div className="absolute inset-0 z-[5] opacity-90">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#FFF5C0"
+          raysSpeed={1.0}
+          lightSpread={1.2}
+          rayLength={2.0}
+          fadeDistance={1.6}
+          saturation={1.5}
+          followMouse={true}
+          mouseInfluence={0.12}
+          noiseAmount={0.04}
+          distortion={0.03}
+        />
+      </div>
 
+      {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="min-h-[92vh] flex flex-col justify-center pt-32 pb-16">
+        <div className="min-h-[calc(78vh+10px)] flex flex-col justify-center pt-32 pb-16">
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
             <span className="h-px w-10 bg-brand-3" />
@@ -49,7 +95,7 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Headline — asymmetric, two lines */}
+          {/* Headline */}
           <h1 className="font-display font-semibold tracking-tight text-pretty text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl animate-fade-in-up">
             <span className="block">Sua energia,</span>
             <span className="block text-brand-3">gerada pelo sol.</span>
@@ -61,12 +107,12 @@ export default function Hero() {
             <span className="text-accent font-semibold">90% da sua conta de luz</span>. Engenharia que transforma luz em patrimônio.
           </p>
 
-          {/* CTAs — directly below the description */}
+          {/* CTAs */}
           <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-5 animate-fade-in-up">
             <Button
               size="lg"
               asChild
-              className="group w-full sm:w-auto bg-accent text-accent-foreground hover:brightness-105 font-semibold text-base px-8 h-14 rounded-full gap-2.5 border-0 transition-all duration-300 shadow-lg shadow-accent/25"
+              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base px-8 h-14 rounded-full gap-2.5 border-0 transition-all duration-300 shadow-lg shadow-brand/25"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-5 h-5" />
@@ -84,6 +130,46 @@ export default function Hero() {
               </span>
               Como funciona
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats strip — anchored to bottom of hero */}
+      <div className="relative z-10 border-t border-white/10 bg-black/25 backdrop-blur-[2px]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-6 sm:py-7">
+          <div className="flex items-center gap-6">
+
+            {/* Left anchor */}
+            <div className="hidden lg:flex flex-col flex-shrink-0 w-44 gap-0.5">
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-white/30 font-medium">Fundada em 2012</span>
+              <span className="text-sm font-semibold text-white/60 leading-snug">Engenharia solar<br/>certificada</span>
+            </div>
+
+            {/* Stats — centered, flex-1 */}
+            <div className="flex-1 flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-0">
+              {stats.map((stat, i) => (
+                <div key={stat.label} className="flex items-center">
+                  <div className="px-5 sm:px-8">
+                    <HeroStat stat={stat} />
+                  </div>
+                  {i < stats.length - 1 && (
+                    <span className="w-px h-9 bg-white/15 flex-shrink-0" aria-hidden />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Right anchor — Google rating */}
+            <div className="hidden lg:flex flex-col items-end flex-shrink-0 w-44 gap-1">
+              <div className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star key={s} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-white/60">4.9 no Google</span>
+              <span className="text-[0.68rem] text-white/30">+380 avaliações</span>
+            </div>
+
           </div>
         </div>
       </div>

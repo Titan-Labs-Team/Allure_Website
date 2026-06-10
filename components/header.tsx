@@ -65,7 +65,7 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button asChild className="bg-accent text-accent-foreground hover:brightness-105 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-accent/25 transition-all">
+            <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-brand/25 transition-all">
               <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-5 h-5" />
                 Solicitar orçamento
@@ -92,7 +92,7 @@ export default function Header() {
                   {link.label}
                 </NavLink>
               ))}
-              <Button asChild className="bg-accent text-accent-foreground hover:brightness-105 font-semibold gap-2 rounded-full mt-4 h-11 border-0 shadow-md shadow-accent/25">
+              <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full mt-4 h-11 border-0 shadow-md shadow-brand/25">
                 <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="w-4 h-4" />
                   Solicitar orçamento

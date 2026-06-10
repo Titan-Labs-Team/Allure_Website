@@ -30,26 +30,26 @@ export default function FinalCTA() {
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
   return (
-    <section id="contato" className="bg-brand text-brand-foreground">
+    <section id="contato" className="bg-white bg-glow-top text-foreground">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-36 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Copy */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-10 bg-brand-3" />
-              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-foreground/70 font-medium">
+              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-muted-foreground font-medium">
                 Fale com a Allure
               </span>
             </div>
             <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
               Pronto para gerar a sua própria energia?
             </h2>
-            <p className="text-brand-foreground/70 text-lg leading-relaxed max-w-md mb-9">
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-9">
               Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
             </p>
             <ul className="flex flex-wrap gap-x-7 gap-y-3">
               {guarantees.map((g) => (
-                <li key={g} className="flex items-center gap-2.5 text-brand-foreground/85">
+                <li key={g} className="flex items-center gap-2.5 text-foreground/80">
                   <span className="w-5 h-5 rounded-full bg-brand-3/30 flex items-center justify-center flex-shrink-0">
                     <Check className="w-3 h-3 text-brand-3" strokeWidth={2.5} />
                   </span>
@@ -60,7 +60,7 @@ export default function FinalCTA() {
           </div>
 
           {/* Form */}
-          <div className="bg-brand-foreground text-foreground rounded-2xl p-8 sm:p-10 shadow-2xl shadow-black/30">
+          <div className="bg-muted text-foreground rounded-2xl p-8 sm:p-10 shadow-lg border border-border">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Nome completo</label>
@@ -71,7 +71,7 @@ export default function FinalCTA() {
                   value={form.name}
                   onChange={update("name")}
                   placeholder="Como podemos te chamar?"
-                  className="w-full h-13 px-4 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
+                  className="w-full h-13 px-4 rounded-xl bg-white border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
                 />
               </div>
               <div>
@@ -83,7 +83,7 @@ export default function FinalCTA() {
                   value={form.phone}
                   onChange={update("phone")}
                   placeholder="(00) 00000-0000"
-                  className="w-full h-13 px-4 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
+                  className="w-full h-13 px-4 rounded-xl bg-white border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
                 />
               </div>
               <div>
@@ -95,7 +95,7 @@ export default function FinalCTA() {
                   value={form.email}
                   onChange={update("email")}
                   placeholder="voce@email.com"
-                  className="w-full h-13 px-4 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
+                  className="w-full h-13 px-4 rounded-xl bg-white border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
                 />
               </div>
 

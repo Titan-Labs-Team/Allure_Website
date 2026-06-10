@@ -5,39 +5,45 @@ import { useCountUp } from "@/hooks/use-count-up";
 interface Stat {
   end: number;
   decimals?: number;
-  prefix?: string;
   suffix: string;
   label: string;
+  description: string;
 }
 
 const stats: Stat[] = [
-  { end: 1240, suffix: "+", prefix: "", label: "Projetos instalados" },
-  { end: 38, suffix: " GWh", decimals: 0, label: "Energia gerada por ano" },
-  { end: 12, suffix: " anos", label: "De engenharia solar" },
-  { end: 98, suffix: "%", label: "Clientes que recomendam" },
+  { end: 1240, suffix: "+",     label: "Projetos instalados", description: "em todo o Brasil"     },
+  { end: 38,   suffix: " GWh",  label: "Energia gerada",      description: "por ano na rede"      },
+  { end: 12,   suffix: " anos", label: "De experiência",      description: "em engenharia solar"  },
+  { end: 98,   suffix: "%",     label: "Clientes satisfeitos",description: "recomendam a Allure"  },
 ];
 
 function StatItem({ stat }: { stat: Stat }) {
   const { ref, formatted } = useCountUp({ end: stat.end, decimals: stat.decimals ?? 0 });
+
   return (
-    <div className="group relative rounded-2xl bg-brand-foreground/5 border border-brand-foreground/10 p-6 lg:p-8 transition-colors hover:bg-brand-foreground/10">
-      <span className="absolute top-6 right-6 h-2.5 w-2.5 rounded-full bg-accent" aria-hidden="true" />
-      <span className="font-display font-semibold tracking-tight text-4xl sm:text-5xl lg:text-[3.25rem] leading-none text-brand-foreground block">
+    <div className="flex flex-col items-center text-center px-4">
+      <span className="font-display font-bold tracking-tight text-[2.6rem] sm:text-5xl lg:text-[3.25rem] leading-none text-foreground">
         <span ref={ref}>{formatted}</span>
-        <span className="text-accent">{stat.suffix}</span>
+        <span className="text-brand">{stat.suffix}</span>
       </span>
-      <span className="mt-4 block text-sm sm:text-base text-brand-foreground/70">{stat.label}</span>
+      <span className="mt-2.5 text-sm font-semibold text-foreground/75">{stat.label}</span>
+      <span className="mt-0.5 text-xs text-muted-foreground">{stat.description}</span>
     </div>
   );
 }
 
 export default function StatsBar() {
   return (
-    <section className="bg-brand text-brand-foreground">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          {stats.map((stat) => (
-            <StatItem key={stat.label} stat={stat} />
+    <section className="border-t border-border bg-muted bg-dots">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12 lg:py-14">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-10 sm:gap-6">
+          {stats.map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-6 sm:gap-0 sm:contents">
+              <StatItem stat={stat} />
+              {i < stats.length - 1 && (
+                <span className="hidden sm:block w-px h-10 bg-border flex-shrink-0" aria-hidden />
+              )}
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,5 @@
 import Header from "@/components/header";
 import Hero from "@/components/hero";
-import StatsBar from "@/components/stats-bar";
 import HowItWorks from "@/components/how-it-works";
 import Solutions from "@/components/solutions";
 import Benefits from "@/components/benefits";
@@ -19,12 +18,11 @@ export default function HomePage() {
 
       <main>
         <Hero />
-        <StatsBar />
-        <HowItWorks />
         <Solutions />
+        <HowItWorks />
+        <Testimonials />
         <Benefits />
         <SavingsCalculator />
-        <Testimonials />
         <WhyAllure />
         <FinalCTA />
         <FAQ />

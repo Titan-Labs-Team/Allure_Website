@@ -26,9 +26,9 @@
   --accent-foreground: #0C1322;
 
   /* Allure blue brand palette (redesign) */
-  --brand: #0E2C6B;
+  --brand: #3B82F6;
   --brand-foreground: #FFFFFF;
-  --brand-2: #1A4BAF;
+  --brand-2: #2563EB;
   --brand-3: #5BB8F5;
   --brand-muted: #E7EEFB;
 
@@ -189,6 +189,27 @@ html {
 /* Brand-tinted text accent */
 .gradient-text {
   color: var(--brand-2);
+}
+
+/* ——— Section background textures ——— */
+
+/* Fine dot grid — adds tactile depth to flat muted sections */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(59, 130, 246, 0.11) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Soft radial glow from top center — light source from above */
+.bg-glow-top {
+  background-image: radial-gradient(ellipse 80% 45% at 50% -5%, rgba(59, 130, 246, 0.06) 0%, transparent 62%);
+}
+
+/* Both combined */
+.bg-dots-glow {
+  background-image:
+    radial-gradient(ellipse 80% 45% at 50% -5%, rgba(59, 130, 246, 0.06) 0%, transparent 62%),
+    radial-gradient(circle, rgba(59, 130, 246, 0.11) 1px, transparent 1px);
+  background-size: auto, 26px 26px;
 }
 
 /* Editorial big quote mark */
