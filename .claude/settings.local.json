@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(Get-ChildItem -Recurse -Force)",
-      "Bash(Select-Object -First 50 FullName)"
+      "Bash(Select-Object -First 50 FullName)",
+      "WebFetch(domain:www.ebonui.com)"
     ]
   }
 }

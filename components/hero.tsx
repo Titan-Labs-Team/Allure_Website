@@ -68,10 +68,10 @@ export default function Hero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0A2153]/40 via-transparent to-transparent" />
-      <div className="absolute inset-0 z-[5] opacity-90">
+      <div className="absolute inset-0 z-[5] opacity-60">
         <LightRays
           raysOrigin="top-center"
-          raysColor="#FFF5C0"
+          raysColor="#FFFFFF"
           raysSpeed={1.0}
           lightSpread={1.2}
           rayLength={2.0}
@@ -115,7 +115,7 @@ export default function Hero() {
               className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base px-8 h-14 rounded-full gap-2.5 border-0 transition-all duration-300 shadow-lg shadow-brand/25"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="w-5 h-5" />
+                <WhatsAppIcon className="size-7" />
                 Solicitar orçamento
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>

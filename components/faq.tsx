@@ -91,14 +91,14 @@ export default function FAQ() {
           <div className="mt-10 flex justify-center">
             <Button
               asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2.5 rounded-full h-13 px-8 border-0 shadow-lg shadow-brand/25"
+              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
             >
               <a
                 href="https://wa.me/5517991604404?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <WhatsAppIcon className="w-5 h-5" />
+                <WhatsAppIcon className="size-7" />
                 Tirar minha dúvida
               </a>
             </Button>

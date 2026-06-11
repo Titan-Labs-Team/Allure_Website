@@ -44,7 +44,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       href={WA_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col rounded-2xl overflow-hidden border border-border bg-card card-hover"
+      className="group relative flex flex-col rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm shadow-[1.95px_1.95px_2.6px_#00000026]"
     >
       {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden">

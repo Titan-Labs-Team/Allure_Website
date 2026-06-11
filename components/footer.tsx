@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 interface FooterLinkProps {
   href: string;
@@ -42,8 +43,7 @@ const footerColumns: FooterColumnProps[] = [
 const socialLinks = [
   { icon: <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Facebook" },
   { icon: <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Instagram" },
-  { icon: <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "LinkedIn" },
-  { icon: <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "YouTube" },
+  { icon: <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5" />, href: "https://wa.me/5517991604404", label: "WhatsApp" },
 ];
 
 function FooterLink({ href, children }: FooterLinkProps) {
@@ -139,10 +139,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <div className="flex items-start gap-2 text-white/60 text-xs sm:text-sm">
+                <a
+                  href="https://maps.google.com/?q=Av.+Comendador+Alfredo+Maffei,+1387,+São+Carlos,+SP"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
+                >
                   <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
-                  <span>São Paulo, SP</span>
-                </div>
+                  <span>Av. Comendador Alfredo Maffei, 1387 — Sala 33<br />Centro, São Carlos — SP, 13561-270</span>
+                </a>
               </li>
             </ul>
           </div>

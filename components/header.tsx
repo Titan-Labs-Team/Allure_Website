@@ -67,7 +67,7 @@ export default function Header() {
             {/* CTA Button */}
             <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-brand/25 transition-all">
               <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="w-5 h-5" />
+                <WhatsAppIcon className="w-6 h-6" />
                 Solicitar orçamento
               </a>
             </Button>

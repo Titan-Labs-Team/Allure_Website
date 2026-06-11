@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Check } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, BadgeCheck, Home, Building2, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -16,12 +18,13 @@ const guarantees = [
 
 export default function FinalCTA() {
   const { ref, isVisible } = useScrollAnimation();
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", type: "" });
   const [sent, setSent] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Olá! Sou ${form.name}. Telefone: ${form.phone}. E-mail: ${form.email}. Gostaria de um orçamento de energia solar.`;
+    const type = form.type ? ` Tipo de imóvel: ${form.type}.` : "";
+    const text = `Olá! Sou ${form.name}.${type} Telefone: ${form.phone}. E-mail: ${form.email}. Gostaria de um orçamento de energia solar.`;
     setSent(true);
     window.open(`https://wa.me/5517991604404?text=${encodeURIComponent(text)}`, "_blank");
   };
@@ -32,35 +35,48 @@ export default function FinalCTA() {
   return (
     <section id="contato" className="bg-white bg-glow-top text-foreground">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-36 scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
           {/* Copy */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-brand-3" />
-              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-muted-foreground font-medium">
-                Fale com a Allure
-              </span>
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-px w-10 bg-brand-3" />
+                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-muted-foreground font-medium">
+                  Fale com a Allure
+                </span>
+              </div>
+              <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
+                Pronto para gerar a sua própria energia?
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-9">
+                Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
+              </p>
+              <ul className="flex flex-wrap gap-x-7 gap-y-3">
+                {guarantees.map((g) => (
+                  <li key={g} className="flex items-center gap-2.5 text-foreground/80">
+                    <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
+                    <span className="text-sm">{g}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
-              Pronto para gerar a sua própria energia?
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-9">
-              Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
-            </p>
-            <ul className="flex flex-wrap gap-x-7 gap-y-3">
-              {guarantees.map((g) => (
-                <li key={g} className="flex items-center gap-2.5 text-foreground/80">
-                  <span className="w-5 h-5 rounded-full bg-brand-3/30 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3 h-3 text-brand-3" strokeWidth={2.5} />
-                  </span>
-                  <span className="text-sm">{g}</span>
-                </li>
-              ))}
-            </ul>
+
+            {/* Logo — fills remaining space */}
+            <div className="mt-10 lg:mt-0 flex-1 flex items-center pl-12 pt-6">
+              <Image
+                src="/images/logo-allure.png"
+                alt="Allure Solar"
+                width={320}
+                height={110}
+                className="object-contain w-full max-w-sm lg:max-w-md"
+              />
+            </div>
           </div>
 
           {/* Form */}
-          <div className="bg-muted text-foreground rounded-2xl p-8 sm:p-10 shadow-lg border border-border">
+          <div className="relative bg-muted text-foreground rounded-2xl p-8 sm:p-10 shadow-lg">
+            <div className="pointer-events-none absolute inset-0 size-full rounded-[inherit] border-[3.5px] border-brand/50" />
+            <ShineBorder shineColor={["#1D4ED8", "#3B82F6", "#93C5FD", "#3B82F6", "#1D4ED8"]} duration={4} borderWidth={3.5} />
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Nome completo</label>
@@ -97,6 +113,36 @@ export default function FinalCTA() {
                   placeholder="voce@email.com"
                   className="w-full h-13 px-4 rounded-xl bg-white border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
                 />
+              </div>
+
+              {/* Tipo de imóvel */}
+              <div>
+                <p className="block text-sm font-medium text-foreground mb-2.5">Tipo de imóvel</p>
+                <div className="flex flex-col gap-1.5 text-sm">
+                  {[
+                    { value: "Casa", Icon: Home },
+                    { value: "Empresa", Icon: Building2 },
+                    { value: "Indústria", Icon: Factory },
+                  ].map(({ value, Icon }) => (
+                    <label key={value} className="relative flex cursor-pointer overflow-hidden">
+                      <input
+                        type="radio"
+                        name="property-type"
+                        value={value}
+                        checked={form.type === value}
+                        onChange={() => setForm((f) => ({ ...f, type: value }))}
+                        className="peer absolute left-[-9999px]"
+                      />
+                      <span className="flex items-center gap-2 rounded-[20px] py-1.5 pl-1.5 pr-3 text-muted-foreground duration-200 ease-linear
+                        before:flex before:h-5 before:w-5 before:shrink-0 before:rounded-full before:border-2 before:border-solid before:border-muted-foreground/50 before:bg-white before:shadow-[inset_0_0_0_0_0.125em_transparent] before:duration-200 before:ease-linear before:content-['']
+                        hover:bg-border/60
+                        peer-checked:bg-brand peer-checked:text-white peer-checked:before:border-white/60 peer-checked:before:shadow-[inset_0_0_0_4px_rgba(255,255,255,0.6)]">
+                        <Icon className="w-4 h-4 shrink-0" strokeWidth={1.6} />
+                        {value}
+                      </span>
+                    </label>
+                  ))}
+                </div>
               </div>
 
               <Button

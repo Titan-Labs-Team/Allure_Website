@@ -57,7 +57,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="group relative flex flex-col rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover">
+    <figure className="group relative flex flex-col rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover card-shadow-sm shadow-[1.95px_1.95px_2.6px_#00000026]">
       {/* Stars + Google badge */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1">
@@ -105,7 +105,7 @@ export default function Testimonials() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-24 sm:py-28 lg:py-36 bg-muted bg-dots">
+    <section className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">
@@ -147,10 +147,10 @@ export default function Testimonials() {
             <Button
               size="lg"
               asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base px-9 h-14 rounded-full gap-2.5 border-0 shadow-lg shadow-brand/25"
+              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="w-5 h-5" />
+                <WhatsAppIcon className="size-7" />
                 Quero economizar também
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>

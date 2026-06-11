@@ -178,7 +178,7 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.scale(dpr, dpr);
-      ctx.strokeStyle = hexToRgba(color, 0.38); ctx.lineWidth = 1.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.strokeStyle = hexToRgba(color, 0.72); ctx.lineWidth = 1.6; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       const left = borderOffset, top = borderOffset, bw = width - 2 * borderOffset, bh = height - 2 * borderOffset;
       const maxR = Math.min(bw, bh) / 2, radius = Math.min(borderRadius, maxR);
       const perimeter = 2 * (bw + bh) + 2 * Math.PI * radius;
