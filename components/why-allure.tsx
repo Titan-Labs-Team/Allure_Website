@@ -62,11 +62,11 @@ export default function WhyAllure() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="por-que-allure" className="py-24 sm:py-28 lg:py-32 bg-muted bg-dots">
+    <section id="por-que-allure" className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
       <div ref={ref} className={`max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
 
         {/* Header */}
-        <div className="grid lg:grid-cols-12 gap-8 items-end mb-14 lg:mb-16">
+        <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-12">
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-10 bg-brand-3" />

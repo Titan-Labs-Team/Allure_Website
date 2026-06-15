@@ -46,14 +46,14 @@ export default function FAQ() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-24 sm:py-28 lg:py-36 bg-muted bg-dots">
+    <section className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
       <div
         ref={ref}
         className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
       >
         <div className="max-w-3xl mx-auto">
           {/* Centered header */}
-          <div className="text-center mb-12 lg:mb-16">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-10 bg-brand-3" />
               <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-semibold">

@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   keywords: ['energia solar', 'painéis solares', 'economia de energia', 'sustentabilidade', 'energia renovável'],
   authors: [{ name: 'Allure' }],
   generator: 'v0.app',
+  icons: {
+    icon: '/images/logo-site.png',
+    apple: '/images/logo-site.png',
+  },
 }
 
 export const viewport: Viewport = {

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Sun, Cpu, TrendingDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
@@ -38,10 +39,29 @@ export default function HowItWorks() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="como-funciona" className="py-14 sm:py-16 lg:py-20 bg-[#071626]">
+    <section id="como-funciona" className="relative py-14 sm:py-16 lg:py-20 bg-[#071626] overflow-hidden">
+
+      {/* Corner images */}
+      <div className="pointer-events-none absolute bottom-6 -left-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none animate-float">
+        <Image
+          src="/images/paineis1.png"
+          alt=""
+          fill
+          className="object-contain object-bottom"
+        />
+      </div>
+      <div className="pointer-events-none absolute bottom-6 -right-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none animate-float [animation-delay:1.5s]">
+        <Image
+          src="/images/paineis1.png"
+          alt=""
+          fill
+          className="object-contain object-bottom scale-x-[-1]"
+        />
+      </div>
+
       <div
         ref={ref}
-        className={`max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
+        className={`relative z-10 max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
       >
         {/* Header */}
         <div className="text-center mb-10 lg:mb-12">
