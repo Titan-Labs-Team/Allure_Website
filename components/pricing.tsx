@@ -35,12 +35,12 @@ const pricingFactors: PricingFactorProps[] = [
 
 function PricingFactorCard({ icon, title, description }: PricingFactorProps) {
   return (
-    <div className="bg-background rounded-2xl p-6 border border-border text-center hover:border-secondary/50 hover:shadow-xl transition-all duration-300 card-hover group">
+    <div className="bg-background rounded-2xl p-6 border border-border text-center hover:border-secondary/50 hover:shadow-xl transition-all duration-300 card-hover group min-w-0">
       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary/10 to-accent/10 flex items-center justify-center text-secondary mx-auto mb-4 group-hover:scale-110 transition-transform">
         {icon}
       </div>
-      <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <h3 className="font-semibold text-foreground mb-2 text-pretty">{title}</h3>
+      <p className="text-sm text-muted-foreground text-pretty">{description}</p>
     </div>
   );
 }

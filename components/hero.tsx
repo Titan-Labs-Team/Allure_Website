@@ -85,7 +85,7 @@ export default function Hero() {
 
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="min-h-[calc(78vh+10px)] flex flex-col justify-center pt-32 pb-16">
+        <div className="min-h-[calc(78dvh+10px)] flex flex-col justify-center pt-32 pb-16">
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
             <span className="h-px w-10 bg-brand-3" />

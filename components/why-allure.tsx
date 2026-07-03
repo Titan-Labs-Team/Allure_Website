@@ -84,7 +84,7 @@ export default function WhyAllure() {
           {differentials.map(({ Icon, stat, unit, title, description, featured }) => (
             <div
               key={title}
-              className={`group relative flex flex-col rounded-2xl p-7 lg:p-8 border transition-all duration-500 hover:-translate-y-1 ${
+              className={`group relative flex flex-col min-w-0 rounded-2xl p-7 lg:p-8 border transition-all duration-500 hover:-translate-y-1 ${
                 featured
                   ? "bg-brand border-brand shadow-xl shadow-brand/20 text-white"
                   : "bg-white border-border shadow-sm hover:shadow-md hover:border-brand/30"
@@ -98,9 +98,9 @@ export default function WhyAllure() {
               </div>
 
               {/* Stat */}
-              <div className="flex items-baseline gap-1.5 mb-3">
+              <div className="flex flex-wrap items-baseline gap-1.5 mb-3">
                 <span className={`font-display font-bold tracking-tight leading-none ${
-                  featured ? "text-white text-5xl lg:text-6xl" : "text-brand text-5xl lg:text-6xl"
+                  featured ? "text-white text-4xl sm:text-5xl lg:text-6xl" : "text-brand text-4xl sm:text-5xl lg:text-6xl"
                 }`}>
                   {stat}
                 </span>
@@ -114,14 +114,14 @@ export default function WhyAllure() {
               </div>
 
               {/* Title */}
-              <h3 className={`font-display font-semibold text-lg tracking-tight mb-2 ${
+              <h3 className={`font-display font-semibold text-lg tracking-tight mb-2 text-pretty ${
                 featured ? "text-white" : "text-foreground"
               }`}>
                 {title}
               </h3>
 
               {/* Description */}
-              <p className={`text-sm leading-relaxed ${
+              <p className={`text-sm leading-relaxed text-pretty ${
                 featured ? "text-white/70" : "text-muted-foreground"
               }`}>
                 {description}

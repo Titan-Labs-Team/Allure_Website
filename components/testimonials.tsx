@@ -53,7 +53,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="group relative flex flex-col rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover card-shadow-sm">
+    <figure className="group relative flex flex-col min-w-0 rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover card-shadow-sm">
       {/* Stars + Google badge */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1">
@@ -67,7 +67,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         </div>
       </div>
 
-      <blockquote className="font-display text-lg sm:text-xl leading-snug tracking-tight text-foreground flex-1">
+      <blockquote className="font-display text-lg sm:text-xl leading-snug tracking-tight text-foreground flex-1 text-pretty">
         {t.quote}
       </blockquote>
 
@@ -85,10 +85,10 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             t.initials
           )}
         </div>
-        <div className="flex-1">
-          <p className="font-medium text-sm text-foreground flex items-center gap-1.5">
-            {t.name}
-            <BadgeCheck className="w-4 h-4 text-brand-2" strokeWidth={2.2} aria-label="Cliente verificado" />
+        <div className="flex-1 min-w-0">
+          <p className="font-medium text-sm text-foreground flex items-center gap-1.5 flex-wrap">
+            <span className="truncate">{t.name}</span>
+            <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} aria-label="Cliente verificado" />
           </p>
           <p className="text-xs text-muted-foreground">{t.city}</p>
         </div>

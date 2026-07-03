@@ -118,13 +118,13 @@ export default function FinalCTA() {
               {/* Tipo de imóvel */}
               <div>
                 <p className="block text-sm font-medium text-foreground mb-2.5">Tipo de imóvel</p>
-                <div className="flex flex-col gap-1.5 text-sm">
+                <div className="grid grid-cols-3 gap-2 text-sm">
                   {[
                     { value: "Casa", Icon: Home },
                     { value: "Empresa", Icon: Building2 },
                     { value: "Indústria", Icon: Factory },
                   ].map(({ value, Icon }) => (
-                    <label key={value} className="relative flex cursor-pointer overflow-hidden">
+                    <label key={value} className="relative flex cursor-pointer overflow-hidden min-w-0">
                       <input
                         type="radio"
                         name="property-type"
@@ -133,12 +133,12 @@ export default function FinalCTA() {
                         onChange={() => setForm((f) => ({ ...f, type: value }))}
                         className="peer absolute left-[-9999px]"
                       />
-                      <span className="flex items-center gap-2 rounded-[20px] py-1.5 pl-1.5 pr-3 text-muted-foreground duration-200 ease-linear
+                      <span className="flex items-center justify-center gap-1.5 w-full rounded-[20px] py-1.5 pl-1.5 pr-3 text-muted-foreground duration-200 ease-linear
                         before:flex before:h-5 before:w-5 before:shrink-0 before:rounded-full before:border-2 before:border-solid before:border-muted-foreground/50 before:bg-white before:shadow-[inset_0_0_0_0_0.125em_transparent] before:duration-200 before:ease-linear before:content-['']
                         hover:bg-border/60
                         peer-checked:bg-brand peer-checked:text-white peer-checked:before:border-white/60 peer-checked:before:shadow-[inset_0_0_0_4px_rgba(255,255,255,0.6)]">
                         <Icon className="w-4 h-4 shrink-0" strokeWidth={1.6} />
-                        {value}
+                        <span className="truncate">{value}</span>
                       </span>
                     </label>
                   ))}

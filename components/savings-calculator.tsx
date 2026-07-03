@@ -76,7 +76,7 @@ export default function SavingsCalculator() {
               </div>
 
               {/* Outputs */}
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="rounded-xl bg-brand-muted p-5">
                   <div className="flex items-center gap-2 text-brand-2 mb-2">
                     <TrendingDown className="w-4 h-4" />

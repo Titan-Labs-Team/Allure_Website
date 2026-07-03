@@ -37,27 +37,38 @@ export default function HowItWorks() {
   return (
     <section id="como-funciona" className="relative section-py bg-[#071626] overflow-hidden">
 
-      {/* Corner images — dimmed and blurred so they read as ambient backdrop, not foreground detail */}
-      <div className="pointer-events-none absolute bottom-6 -left-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite]">
+      {/* Corner images — dimmed and blurred so they read as ambient backdrop, not foreground detail.
+          Sized down below md: so the fixed-aspect artwork doesn't dominate narrow viewports. */}
+      <div className="pointer-events-none absolute bottom-6 -left-10 w-[26rem] h-[20rem] md:w-[70rem] md:h-[56rem] lg:w-[90rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite]">
         <Image
-          src="/images/paineis1.png"
+          src="/images/solar.png"
           alt=""
           fill
           className="object-contain object-bottom"
         />
       </div>
-      <div className="pointer-events-none absolute bottom-6 -right-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite] [animation-delay:2.5s]">
+      <div className="pointer-events-none absolute bottom-6 -right-10 w-[26rem] h-[20rem] md:w-[70rem] md:h-[56rem] lg:w-[90rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite] [animation-delay:2.5s]">
         <Image
-          src="/images/paineis1.png"
+          src="/images/solar.png"
           alt=""
           fill
           className="object-contain object-bottom scale-x-[-1]"
         />
       </div>
 
-      {/* Scrim — keeps panels recognizable at the edges, fully clears the copy zone for AA contrast */}
+      {/* Scrim — keeps panels recognizable at the edges, fully clears the copy zone for AA contrast.
+          Mobile gets a vertical fade (holds up on narrow/tall viewports); md+ switches to the
+          wide radial shape tuned for the desktop aspect ratio. */}
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0 z-[1] md:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(7,22,38,0.55) 0%, #071626 30%, #071626 70%, rgba(7,22,38,0.55) 100%)",
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] hidden md:block"
         style={{
           background:
             "radial-gradient(ellipse 70% 65% at 50% 42%, #071626 0%, rgba(7,22,38,0.85) 45%, rgba(7,22,38,0.55) 72%, rgba(7,22,38,0.3) 100%)",
@@ -86,16 +97,22 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="relative">
-          {/* Connecting line — desktop only */}
-          <div
-            className="hidden lg:block absolute top-[21px] h-[2px] rounded-full bg-white/20"
-            style={{ left: "calc(16.67% + 21px)", right: "calc(16.67% + 21px)" }}
-            aria-hidden
-          />
+          {/* Connecting line — sits behind the step circles (z-0 vs their z-10 opaque fill) so
+              the circles visually clip it at each end automatically. The 1/6-of-width inset
+              matches half a grid column in the 3-col layout below (100% / 3 cols / 2), the same
+              relationship the grid itself uses, so it stays correct if the section's max-width
+              changes; only the 21px nudge (half the 42px circle) is a fixed design value. md:+
+              only, matching the breakpoint the step grid collapses at. */}
+          <div className="hidden md:block absolute top-[21px] left-[calc(100%/6+21px)] right-[calc(100%/6+21px)] h-[2px] rounded-full bg-white/20 z-0" aria-hidden />
 
-          <div className={`grid lg:grid-cols-3 gap-10 lg:gap-8 stagger-children ${isVisible ? "visible" : ""}`}>
-            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
-              <div key={num} className="flex flex-col items-center text-center">
+          <div className={`grid md:grid-cols-3 gap-14 md:gap-8 stagger-children ${isVisible ? "visible" : ""}`}>
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
+              <div
+                key={num}
+                className={`relative flex flex-col items-center text-center min-w-0 ${
+                  i > 0 ? "pt-14 md:pt-0 before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-16 before:h-px before:bg-white/15 md:before:hidden" : ""
+                }`}
+              >
                 {/* Step circle */}
                 <div className="w-[42px] h-[42px] rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/40 flex items-center justify-center mb-6 relative z-10">
                   <span className="font-display font-bold text-white text-base leading-none">{num}</span>
@@ -107,10 +124,10 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display text-lg font-semibold tracking-tight text-white mb-2">{title}</h3>
+                <h3 className="font-display text-lg font-semibold tracking-tight text-white mb-2 text-pretty">{title}</h3>
 
                 {/* Description */}
-                <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem]">{description}</p>
+                <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem] text-pretty">{description}</p>
 
                 {/* Metric chip */}
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">

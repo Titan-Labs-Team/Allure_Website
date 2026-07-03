@@ -44,7 +44,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       href={WA_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
+      className="group relative flex flex-col min-w-0 rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
     >
       {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden">
@@ -62,13 +62,13 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       </div>
 
       {/* Body */}
-      <div className="flex flex-col flex-1 p-6 lg:p-7">
-        <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground mb-5">{title}</h3>
+      <div className="flex flex-col flex-1 min-w-0 p-6 lg:p-7">
+        <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground mb-5 text-pretty">{title}</h3>
         <ul className="space-y-3 mb-7 flex-1">
           {benefits.map((b) => (
-            <li key={b} className="flex items-center gap-3 text-muted-foreground">
+            <li key={b} className="flex items-center gap-3 text-muted-foreground min-w-0">
               <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
-              <span className="text-sm">{b}</span>
+              <span className="text-sm text-pretty">{b}</span>
             </li>
           ))}
         </ul>
