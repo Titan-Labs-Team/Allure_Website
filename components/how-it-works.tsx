@@ -103,36 +103,36 @@ export default function HowItWorks() {
               relationship the grid itself uses, so it stays correct if the section's max-width
               changes; only the 21px nudge (half the 42px circle) is a fixed design value. md:+
               only, matching the breakpoint the step grid collapses at. */}
-          <div className="hidden md:block absolute top-[21px] left-[calc(100%/6+21px)] right-[calc(100%/6+21px)] h-[2px] rounded-full bg-white/20 z-0" aria-hidden />
+          {/* line sits at the vertical center of the step circle: 18px mobile (36px circle),
+              21px md+ (42px circle). Inset by 1/6 of width (half a column) + half the circle. */}
+          <div className="block absolute top-[18px] md:top-[21px] left-[calc(100%/6+18px)] md:left-[calc(100%/6+21px)] right-[calc(100%/6+18px)] md:right-[calc(100%/6+21px)] h-[2px] rounded-full bg-white/20 z-0" aria-hidden />
 
-          <div className={`grid md:grid-cols-3 gap-14 md:gap-8 stagger-children ${isVisible ? "visible" : ""}`}>
-            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
+          <div className={`grid grid-cols-3 gap-3 md:gap-8 stagger-children ${isVisible ? "visible" : ""}`}>
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
               <div
                 key={num}
-                className={`relative flex flex-col items-center text-center min-w-0 ${
-                  i > 0 ? "pt-14 md:pt-0 before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-16 before:h-px before:bg-white/15 md:before:hidden" : ""
-                }`}
+                className="relative flex flex-col items-center text-center min-w-0"
               >
                 {/* Step circle */}
-                <div className="w-[42px] h-[42px] rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/40 flex items-center justify-center mb-6 relative z-10">
-                  <span className="font-display font-bold text-white text-base leading-none">{num}</span>
+                <div className="w-9 h-9 sm:w-[42px] sm:h-[42px] rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/40 flex items-center justify-center mb-4 sm:mb-6 relative z-10">
+                  <span className="font-display font-bold text-white text-sm sm:text-base leading-none">{num}</span>
                 </div>
 
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
-                  <Icon className="w-7 h-7 text-white" strokeWidth={1.5} />
+                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4">
+                  <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" strokeWidth={1.5} />
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display text-lg font-semibold tracking-tight text-white mb-2 text-pretty">{title}</h3>
+                <h3 className="font-display text-sm sm:text-lg font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">{title}</h3>
 
-                {/* Description */}
-                <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem] text-pretty">{description}</p>
+                {/* Description — hidden on the tight 3-col mobile layout; title + metric carry the meaning there */}
+                <p className="hidden sm:block text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem] text-pretty">{description}</p>
 
                 {/* Metric chip */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
-                  <span className="font-display font-bold text-base leading-none text-white">{highlight}</span>
-                  <span className="text-[0.7rem] text-white/50">{highlightLabel}</span>
+                <div className="mt-2 sm:mt-0 inline-flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
+                  <span className="font-display font-bold text-sm sm:text-base leading-none text-white">{highlight}</span>
+                  <span className="text-[0.62rem] sm:text-[0.7rem] text-white/50 leading-tight text-center text-pretty">{highlightLabel}</span>
                 </div>
               </div>
             ))}

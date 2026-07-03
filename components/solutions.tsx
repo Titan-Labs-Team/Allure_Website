@@ -44,7 +44,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       href={WA_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col min-w-0 rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
+      className="group relative flex flex-col min-w-0 shrink-0 w-[82%] snap-start md:w-auto rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
     >
       {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden">
@@ -105,11 +105,15 @@ export default function Solutions() {
             </p>
           </div>
 
-          <div className={`grid md:grid-cols-3 gap-6 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
+          {/* Mobile: horizontal snap carousel bleeding to the screen edge (-mx-5 px-5)
+              with a reading gutter. md+: reverts to the 3-column grid. */}
+          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
             {solutions.map((s) => (
               <SolutionCard key={s.tag} {...s} />
             ))}
           </div>
+          {/* Swipe hint — mobile only */}
+          <p className="md:hidden mt-4 text-center text-xs text-muted-foreground">Arraste para ver mais →</p>
         </div>
       </div>
     </section>

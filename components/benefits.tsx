@@ -30,14 +30,14 @@ const benefits: Benefit[] = [
 
 function BenefitCard({ image, title, description, large, featured }: Benefit & { large?: boolean; featured?: boolean }) {
   return (
-    <article className={`group relative overflow-hidden rounded-2xl border border-border card-hover card-shadow-sm min-w-0 ${large ? "lg:row-span-2" : ""}`}>
+    <article className={`group relative overflow-hidden rounded-2xl border border-border card-hover card-shadow-sm min-w-0 ${large ? "col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}>
       {featured && (
         <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-amber-400 text-amber-950 text-[0.65rem] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full shadow-lg shadow-amber-400/30">
           <Flame className="w-3 h-3" strokeWidth={2.5} />
           Destaque
         </div>
       )}
-      <div className={`relative ${large ? "h-full min-h-[320px] lg:min-h-[560px]" : "aspect-[16/10]"}`}>
+      <div className={`relative ${large ? "h-full min-h-[240px] sm:min-h-[320px] lg:min-h-[560px]" : "aspect-[4/5] sm:aspect-[16/10]"}`}>
         <Image
           src={image}
           alt={title}
@@ -46,12 +46,13 @@ function BenefitCard({ image, title, description, large, featured }: Benefit & {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0E2C6B]/70 via-[#0E2C6B]/20 to-transparent" />
       </div>
-      <div className="absolute bottom-0 left-0 right-0 p-7 lg:p-8 min-w-0">
-        <h3 className={`font-display font-semibold tracking-tight text-brand-foreground mb-2 flex flex-wrap items-center gap-2 text-pretty ${large ? "text-2xl lg:text-3xl" : "text-xl"}`}>
+      <div className={`absolute bottom-0 left-0 right-0 min-w-0 ${large ? "p-6 sm:p-7 lg:p-8" : "p-4 sm:p-7 lg:p-8"}`}>
+        <h3 className={`font-display font-semibold tracking-tight text-brand-foreground mb-2 flex flex-wrap items-center gap-2 text-pretty ${large ? "text-xl sm:text-2xl lg:text-3xl" : "text-base sm:text-xl"}`}>
           {title}
-          <BadgeCheck className="w-5 h-5 text-white/70 flex-shrink-0" strokeWidth={2.2} />
+          <BadgeCheck className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 flex-shrink-0" strokeWidth={2.2} />
         </h3>
-        <p className="text-brand-foreground/75 text-sm sm:text-base leading-relaxed max-w-md text-pretty">{description}</p>
+        {/* Description hidden on the tight small cards at mobile; large card and all desktop keep it */}
+        <p className={`text-brand-foreground/75 text-sm sm:text-base leading-relaxed max-w-md text-pretty ${large ? "" : "hidden sm:block"}`}>{description}</p>
       </div>
     </article>
   );

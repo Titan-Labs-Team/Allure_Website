@@ -62,7 +62,7 @@ export default function FinalCTA() {
             </div>
 
             {/* Logo — fills remaining space */}
-            <div className="mt-10 lg:mt-0 flex-1 flex items-center pl-12 pt-6">
+            <div className="mt-10 lg:mt-0 flex-1 flex items-center justify-center lg:justify-start pl-0 lg:pl-12 pt-6">
               <Image
                 src="/images/logo-allure.png"
                 alt="Allure Solar"

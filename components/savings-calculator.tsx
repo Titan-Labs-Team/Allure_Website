@@ -30,7 +30,7 @@ export default function SavingsCalculator() {
   }, [bill]);
 
   return (
-    <section className="section-py-lg bg-[#071626]">
+    <section className="section-py-lg bg-[#071626] overflow-hidden">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -76,23 +76,23 @@ export default function SavingsCalculator() {
               </div>
 
               {/* Outputs */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="rounded-xl bg-brand-muted p-5">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
+                <div className="rounded-xl bg-brand-muted p-4 sm:p-5 min-w-0">
                   <div className="flex items-center gap-2 text-brand-2 mb-2">
-                    <TrendingDown className="w-4 h-4" />
+                    <TrendingDown className="w-4 h-4 flex-shrink-0" />
                     <span className="text-xs font-medium uppercase tracking-wide">Economia anual</span>
                   </div>
-                  <p className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-brand">
+                  <p className="font-display text-xl sm:text-3xl font-semibold tracking-tight text-brand">
                     {formatBRL(annualSavings)}
                   </p>
                 </div>
-                <div className="rounded-xl bg-background border border-border p-5">
+                <div className="rounded-xl bg-background border border-border p-4 sm:p-5 min-w-0">
                   <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                    <CalendarClock className="w-4 h-4" />
+                    <CalendarClock className="w-4 h-4 flex-shrink-0" />
                     <span className="text-xs font-medium uppercase tracking-wide">Retorno em</span>
                   </div>
-                  <p className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
-                    {roiYears.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} <span className="text-lg text-muted-foreground">anos</span>
+                  <p className="font-display text-xl sm:text-3xl font-semibold tracking-tight text-foreground">
+                    {roiYears.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} <span className="text-base sm:text-lg text-muted-foreground">anos</span>
                   </p>
                 </div>
               </div>

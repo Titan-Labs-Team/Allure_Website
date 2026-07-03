@@ -53,7 +53,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="group relative flex flex-col min-w-0 rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover card-shadow-sm">
+    <figure className="group relative flex flex-col min-w-0 shrink-0 w-[82%] snap-start md:w-auto rounded-2xl bg-card border border-border p-7 sm:p-8 lg:p-9 card-hover card-shadow-sm">
       {/* Stars + Google badge */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1">
@@ -132,11 +132,15 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className={`grid md:grid-cols-3 gap-6 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
+          {/* Mobile: horizontal snap carousel that bleeds to the screen edge (-mx-5 px-5)
+              while keeping a reading gutter. md+: reverts to the 3-column grid. */}
+          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
             {testimonials.map((t) => (
               <TestimonialCard key={t.name} t={t} />
             ))}
           </div>
+          {/* Swipe hint — mobile only */}
+          <p className="md:hidden mt-4 text-center text-xs text-muted-foreground">Arraste para ver mais →</p>
 
           {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-14 flex justify-center">

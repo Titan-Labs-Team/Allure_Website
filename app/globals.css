@@ -82,6 +82,13 @@
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv01";
   }
+  /* Hard clamp against horizontal scroll — nothing should push the page wider
+     than the viewport. Safety net so any stray overflowing child (e.g. glow
+     bleed) can't create a page-level horizontal scrollbar on mobile. */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
   ::selection {
     background: var(--brand);
     color: var(--brand-foreground);
@@ -261,4 +268,13 @@ html {
 }
 .link-quiet:hover {
   gap: 0.6rem;
+}
+
+/* Hide scrollbar on horizontal scroll-snap carousels (mobile testimonials) */
+.no-scrollbar {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                  /* WebKit */
 }
