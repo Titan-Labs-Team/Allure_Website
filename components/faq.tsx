@@ -6,8 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { ArrowUpRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface FAQItem {
@@ -46,7 +45,7 @@ export default function FAQ() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
+    <section className="section-py bg-muted bg-dots">
       <div
         ref={ref}
         className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
@@ -61,8 +60,8 @@ export default function FAQ() {
               </span>
               <span className="h-px w-10 bg-brand-3" />
             </div>
-            <h2 className="font-display font-bold tracking-tight text-5xl sm:text-6xl lg:text-7xl text-foreground mb-4">
-              FAQ
+            <h2 className="font-display font-semibold tracking-tight text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
+              Perguntas frequentes
             </h2>
             <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
               Ainda com dúvidas? Nossa equipe técnica responde em minutos pelo WhatsApp.
@@ -87,21 +86,17 @@ export default function FAQ() {
             ))}
           </Accordion>
 
-          {/* CTA */}
+          {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-10 flex justify-center">
-            <Button
-              asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
+            <a
+              href="https://wa.me/5517991604404?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-quiet text-brand-2 hover:text-brand"
             >
-              <a
-                href="https://wa.me/5517991604404?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WhatsAppIcon className="size-7" />
-                Tirar minha dúvida
-              </a>
-            </Button>
+              Tirar minha dúvida
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>

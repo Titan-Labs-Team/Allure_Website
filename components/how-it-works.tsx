@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import { Sun, Cpu, TrendingDown, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20garantir%20a%20minha%20economia%20com%20energia%20solar.";
 
 const steps = [
   {
@@ -39,10 +35,10 @@ export default function HowItWorks() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="como-funciona" className="relative py-14 sm:py-16 lg:py-20 bg-[#071626] overflow-hidden">
+    <section id="como-funciona" className="relative section-py bg-[#071626] overflow-hidden">
 
-      {/* Corner images */}
-      <div className="pointer-events-none absolute bottom-6 -left-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none animate-float">
+      {/* Corner images — dimmed and blurred so they read as ambient backdrop, not foreground detail */}
+      <div className="pointer-events-none absolute bottom-6 -left-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite]">
         <Image
           src="/images/paineis1.png"
           alt=""
@@ -50,7 +46,7 @@ export default function HowItWorks() {
           className="object-contain object-bottom"
         />
       </div>
-      <div className="pointer-events-none absolute bottom-6 -right-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none animate-float [animation-delay:1.5s]">
+      <div className="pointer-events-none absolute bottom-6 -right-10 w-[70rem] lg:w-[90rem] h-[56rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite] [animation-delay:2.5s]">
         <Image
           src="/images/paineis1.png"
           alt=""
@@ -58,6 +54,16 @@ export default function HowItWorks() {
           className="object-contain object-bottom scale-x-[-1]"
         />
       </div>
+
+      {/* Scrim — keeps panels recognizable at the edges, fully clears the copy zone for AA contrast */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 65% at 50% 42%, #071626 0%, rgba(7,22,38,0.85) 45%, rgba(7,22,38,0.55) 72%, rgba(7,22,38,0.3) 100%)",
+        }}
+        aria-hidden
+      />
 
       <div
         ref={ref}
@@ -91,12 +97,12 @@ export default function HowItWorks() {
             {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
               <div key={num} className="flex flex-col items-center text-center">
                 {/* Step circle */}
-                <div className="w-[42px] h-[42px] rounded-full bg-white/15 ring-2 ring-white/40 flex items-center justify-center mb-6 relative z-10">
+                <div className="w-[42px] h-[42px] rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/40 flex items-center justify-center mb-6 relative z-10">
                   <span className="font-display font-bold text-white text-base leading-none">{num}</span>
                 </div>
 
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
                   <Icon className="w-7 h-7 text-white" strokeWidth={1.5} />
                 </div>
 
@@ -107,7 +113,7 @@ export default function HowItWorks() {
                 <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem]">{description}</p>
 
                 {/* Metric chip */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/10">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
                   <span className="font-display font-bold text-base leading-none text-white">{highlight}</span>
                   <span className="text-[0.7rem] text-white/50">{highlightLabel}</span>
                 </div>
@@ -116,19 +122,15 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Quiet link — primary conversion stays with hero + final CTA */}
         <div className="mt-10 lg:mt-12 flex justify-center">
-          <Button
-            size="lg"
-            asChild
-            className="group bg-white text-brand hover:bg-white/90 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-black/20"
+          <a
+            href="#contato"
+            className="link-quiet text-white/60 hover:text-white"
           >
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-              <WhatsAppIcon className="size-7" />
-              Garanta sua economia
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </Button>
+            Ver simulação de economia
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>

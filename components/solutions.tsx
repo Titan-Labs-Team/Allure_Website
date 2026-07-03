@@ -44,7 +44,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       href={WA_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm shadow-[1.95px_1.95px_2.6px_#00000026]"
+      className="group relative flex flex-col rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
     >
       {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden">
@@ -72,8 +72,8 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
             </li>
           ))}
         </ul>
-        <span className="inline-flex items-center justify-center gap-2 w-full bg-brand text-white font-semibold text-sm h-11 rounded-full transition-all duration-300 group-hover:bg-brand-2 group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:scale-[1.02]">
-          Solicitar projeto
+        <span className="link-quiet text-brand-2 group-hover:text-brand">
+          Ver detalhes
           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>
@@ -85,7 +85,7 @@ export default function Solutions() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="servicos" className="py-24 sm:py-28 lg:py-36 bg-background">
+    <section id="servicos" className="section-py bg-background">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">

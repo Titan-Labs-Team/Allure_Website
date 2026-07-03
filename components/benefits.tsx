@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import { ArrowUpRight, BadgeCheck, Flame } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20saber%20como%20a%20energia%20solar%20pode%20me%20ajudar.";
 
 interface Benefit {
   image: string;
@@ -34,7 +30,7 @@ const benefits: Benefit[] = [
 
 function BenefitCard({ image, title, description, large, featured }: Benefit & { large?: boolean; featured?: boolean }) {
   return (
-    <article className={`group relative overflow-hidden rounded-2xl border border-border card-hover card-shadow-sm shadow-[1.95px_1.95px_2.6px_#00000026] ${large ? "lg:row-span-2" : ""}`}>
+    <article className={`group relative overflow-hidden rounded-2xl border border-border card-hover card-shadow-sm ${large ? "lg:row-span-2" : ""}`}>
       {featured && (
         <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-amber-400 text-amber-950 text-[0.65rem] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full shadow-lg shadow-amber-400/30">
           <Flame className="w-3 h-3" strokeWidth={2.5} />
@@ -65,7 +61,7 @@ export default function Benefits() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-background">
+    <section className="section-py bg-background">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-14">
@@ -92,19 +88,12 @@ export default function Benefits() {
             <BenefitCard {...benefits[2]} />
           </div>
 
-          {/* CTA */}
+          {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-12 flex justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
-            >
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="size-7" />
-                Quero esses benefícios
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Button>
+            <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+              Quero esses benefícios
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>

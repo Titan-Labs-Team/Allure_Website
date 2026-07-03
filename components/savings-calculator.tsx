@@ -30,7 +30,7 @@ export default function SavingsCalculator() {
   }, [bill]);
 
   return (
-    <section className="py-24 sm:py-28 lg:py-36 bg-[#071626]">
+    <section className="section-py-lg bg-[#071626]">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -104,11 +104,11 @@ export default function SavingsCalculator() {
 
               <Button
                 asChild
-                size="lg"
-                className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-full gap-2.5 h-14 shadow-lg shadow-brand/25"
+                variant="outline"
+                className="w-full border-brand/40 text-brand-2 hover:bg-brand-muted hover:text-brand font-semibold rounded-full gap-2.5 h-12"
               >
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="size-7" />
+                  <WhatsAppIcon className="size-5" />
                   Quero meu orçamento detalhado
                 </a>
               </Button>

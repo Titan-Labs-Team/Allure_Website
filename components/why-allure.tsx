@@ -1,11 +1,7 @@
 "use client";
 
 import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20conhecer%20os%20diferenciais%20da%20Allure.";
 
 const differentials = [
   {
@@ -62,7 +58,7 @@ export default function WhyAllure() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="por-que-allure" className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
+    <section id="por-que-allure" className="section-py bg-muted bg-dots">
       <div ref={ref} className={`max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
 
         {/* Header */}
@@ -139,19 +135,12 @@ export default function WhyAllure() {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* Quiet link — primary conversion stays with hero + final CTA */}
         <div className="mt-12 flex justify-center">
-          <Button
-            size="lg"
-            asChild
-            className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
-          >
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-              <WhatsAppIcon className="size-7" />
-              Falar com um especialista
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </Button>
+          <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+            Falar com um especialista
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
         </div>
 
       </div>
