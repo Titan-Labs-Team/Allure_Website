@@ -1,7 +1,9 @@
 "use client";
 
-import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useRef, useLayoutEffect } from "react";
+import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight, Flame } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const differentials = [
   {
@@ -55,11 +57,72 @@ const differentials = [
 ];
 
 export default function WhyAllure() {
-  const { ref, isVisible } = useScrollAnimation();
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const lineFillRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          reduce: "(prefers-reduced-motion: reduce)",
+          motion: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const { reduce } = context.conditions as { reduce: boolean };
+
+          if (reduce) {
+            // Reduced motion: everything visible, line full, no scrub.
+            gsap.set(".roadmap-item", { opacity: 1, y: 0 });
+            if (lineFillRef.current) gsap.set(lineFillRef.current, { height: "100%" });
+            return;
+          }
+
+          // Line fill grows with scroll (scrub).
+          if (lineFillRef.current) {
+            gsap.to(lineFillRef.current, {
+              height: "100%",
+              ease: "none",
+              scrollTrigger: {
+                trigger: timelineRef.current,
+                start: "top 70%",
+                end: "bottom 70%",
+                scrub: true,
+              },
+            });
+          }
+
+          // Each item fades + rises in when it enters.
+          gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((el) => {
+            gsap.fromTo(
+              el,
+              { opacity: 0, y: 30 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 80%",
+                  toggleActions: "play none none reverse",
+                },
+              }
+            );
+          });
+        }
+      );
+    }, timelineRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section id="por-que-allure" className="section-py bg-muted bg-dots">
-      <div ref={ref} className={`max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-12">
@@ -79,64 +142,113 @@ export default function WhyAllure() {
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children ${isVisible ? "visible" : ""}`}>
-          {differentials.map(({ Icon, stat, unit, title, description, featured }) => (
-            <div
-              key={title}
-              className={`group relative flex flex-col min-w-0 rounded-2xl p-7 lg:p-8 border transition-all duration-500 hover:-translate-y-1 ${
-                featured
-                  ? "bg-brand border-brand shadow-xl shadow-brand/20 text-white"
-                  : "bg-white border-border shadow-sm hover:shadow-md hover:border-brand/30"
-              }`}
-            >
-              {/* Icon */}
-              <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-6 ${
-                featured ? "bg-white/15" : "bg-brand-muted"
-              }`}>
-                <Icon className={`w-5 h-5 ${featured ? "text-white" : "text-brand-2"}`} strokeWidth={1.8} />
-              </div>
+        {/* Roadmap timeline */}
+        <div ref={timelineRef} className="relative mx-auto max-w-3xl mt-4">
+          {/* Line track (full, gray) + fill (brand, scrub-animated) */}
+          <div
+            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-border"
+            aria-hidden
+          />
+          <div
+            ref={lineFillRef}
+            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 w-[2px] bg-brand origin-top"
+            style={{ height: 0 }}
+            aria-hidden
+          />
 
-              {/* Stat */}
-              <div className="flex flex-wrap items-baseline gap-1.5 mb-3">
-                <span className={`font-display font-bold tracking-tight leading-none ${
-                  featured ? "text-white text-4xl sm:text-5xl lg:text-6xl" : "text-brand text-4xl sm:text-5xl lg:text-6xl"
-                }`}>
-                  {stat}
-                </span>
-                {unit && (
-                  <span className={`font-display font-semibold text-xl ${
-                    featured ? "text-white/70" : "text-brand/60"
-                  }`}>
-                    {unit}
-                  </span>
-                )}
-              </div>
+          <div className="flex flex-col gap-10 sm:gap-14">
+            {differentials.map(({ Icon, stat, unit, title, description, featured }, i) => {
+              const rightSide = i % 2 === 1;
+              return (
+                <div
+                  key={title}
+                  className={`roadmap-item relative grid grid-cols-[2.5rem_1fr] lg:grid-cols-2 items-center gap-x-4 lg:gap-x-12`}
+                >
+                  {/* Node / icon on the central line */}
+                  <div className="lg:col-span-2 lg:row-start-1 lg:col-start-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 z-10 flex justify-center">
+                    <div
+                      className={`w-12 h-12 rounded-full flex items-center justify-center border-4 border-muted ${
+                        featured ? "bg-brand shadow-lg shadow-brand/30" : "bg-white ring-1 ring-border"
+                      }`}
+                    >
+                      <Icon
+                        className={`w-5 h-5 ${featured ? "text-white" : "text-brand-2"}`}
+                        strokeWidth={1.8}
+                      />
+                    </div>
+                  </div>
 
-              {/* Title */}
-              <h3 className={`font-display font-semibold text-lg tracking-tight mb-2 text-pretty ${
-                featured ? "text-white" : "text-foreground"
-              }`}>
-                {title}
-              </h3>
+                  {/* Content card */}
+                  <div
+                    className={`lg:row-start-1 ${
+                      rightSide ? "lg:col-start-2 lg:pl-8" : "lg:col-start-1 lg:pr-8 lg:text-right"
+                    }`}
+                  >
+                    <div
+                      className={`relative rounded-2xl border p-6 ${
+                        featured
+                          ? "bg-brand border-brand text-white shadow-xl shadow-brand/20"
+                          : "bg-white border-border card-shadow-sm"
+                      }`}
+                    >
+                      {featured && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-white mb-3">
+                          <Flame className="w-3 h-3" strokeWidth={2} />
+                          Destaque
+                        </span>
+                      )}
 
-              {/* Description */}
-              <p className={`text-sm leading-relaxed text-pretty ${
-                featured ? "text-white/70" : "text-muted-foreground"
-              }`}>
-                {description}
-              </p>
+                      {/* Stat */}
+                      <div
+                        className={`flex flex-wrap items-baseline gap-1.5 mb-2 ${
+                          rightSide ? "" : "lg:justify-end"
+                        }`}
+                      >
+                        <span
+                          className={`font-display font-bold tracking-tight leading-none text-4xl sm:text-5xl ${
+                            featured ? "text-white" : "text-brand"
+                          }`}
+                        >
+                          {stat}
+                        </span>
+                        {unit && (
+                          <span
+                            className={`font-display font-semibold text-base sm:text-xl ${
+                              featured ? "text-white/70" : "text-brand/60"
+                            }`}
+                          >
+                            {unit}
+                          </span>
+                        )}
+                      </div>
 
-              {/* Featured accent line */}
-              {featured && (
-                <div className="absolute top-0 left-8 right-8 h-[2px] rounded-full bg-white/30" />
-              )}
-            </div>
-          ))}
+                      {/* Title */}
+                      <h3
+                        className={`font-display font-semibold text-lg tracking-tight mb-1.5 text-pretty ${
+                          featured ? "text-white" : "text-foreground"
+                        }`}
+                      >
+                        {title}
+                      </h3>
+
+                      {/* Description */}
+                      <p
+                        className={`text-sm leading-relaxed text-pretty ${
+                          featured ? "text-white/70" : "text-muted-foreground"
+                        }`}
+                      >
+                        {description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Quiet link — primary conversion stays with hero + final CTA */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
             Falar com um especialista
             <ArrowUpRight className="w-4 h-4" />
