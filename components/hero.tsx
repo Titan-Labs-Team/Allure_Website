@@ -54,7 +54,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden">
+    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[100dvh] sm:min-h-0">
       {/* Parallax background */}
       <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
         <Image
@@ -84,21 +84,24 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="min-h-[calc(78dvh+10px)] flex flex-col justify-center pt-32 pb-16">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
-            <span className="h-px w-10 bg-brand-3" />
-            <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-foreground/70 font-medium">
-              Engenharia solar premium
-            </span>
-          </div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex-1 flex flex-col">
+        {/* Mobile: justify-between spreads the 3 blocks to fill the hero; sm+ keeps the centered stack */}
+        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-between sm:justify-center pt-28 sm:pt-32 pb-12 sm:pb-16">
+          <div>
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
+              <span className="h-px w-10 bg-brand-3" />
+              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-foreground/70 font-medium">
+                Engenharia solar premium
+              </span>
+            </div>
 
-          {/* Headline */}
-          <h1 className="font-display font-semibold tracking-tight text-pretty text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl animate-fade-in-up">
-            <span className="block">Sua energia,</span>
-            <span className="block text-brand-3">gerada pelo sol.</span>
-          </h1>
+            {/* Headline */}
+            <h1 className="font-display font-semibold tracking-tight text-pretty text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl animate-fade-in-up">
+              <span className="block">Sua energia,</span>
+              <span className="block text-brand-3">gerada pelo sol.</span>
+            </h1>
+          </div>
 
           {/* Subtitle */}
           <p className="mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl animate-fade-in-up">
@@ -111,7 +114,7 @@ export default function Hero() {
             <Button
               size="lg"
               asChild
-              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-10 h-16 rounded-full gap-3 border-0 transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5"
+              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg px-6 sm:px-10 h-16 rounded-full gap-3 border-0 transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="size-7" />
@@ -157,13 +160,13 @@ export default function Hero() {
             </div>
 
             {/* Right anchor — Google rating */}
-            <div className="hidden lg:flex flex-col items-end flex-shrink-0 w-44 gap-1">
+            <div className="hidden lg:flex flex-col items-center flex-shrink-0 w-44 gap-1">
               <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3 h-3 fill-white/40 text-white/40" />
+                  <Star key={s} className="w-3 h-3 fill-accent text-accent" />
                 ))}
               </div>
-              <span className="text-xs font-medium text-white/45">4.9 no Google · +380 avaliações</span>
+              <span className="text-xs font-medium text-white/45 text-center">4.9 no Google · +380 avaliações</span>
             </div>
 
           </div>

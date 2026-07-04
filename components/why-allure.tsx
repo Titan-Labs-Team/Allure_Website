@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef, useLayoutEffect } from "react";
-import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight, Flame } from "lucide-react";
+import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight, Flame, Send } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 const differentials = [
   {
@@ -58,10 +59,28 @@ const differentials = [
 
 export default function WhyAllure() {
   const timelineRef = useRef<HTMLDivElement>(null);
-  const lineFillRef = useRef<HTMLDivElement>(null);
+  const pathTrackRef = useRef<SVGPathElement>(null);
+  const pathFillRef = useRef<SVGPathElement>(null);
+  const planeRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+    const wrap = timelineRef.current;
+    const track = pathTrackRef.current;
+    const fill = pathFillRef.current;
+    const plane = planeRef.current;
+    if (!wrap || !track || !fill || !plane) return;
+
+    // Straight vertical path sized to the timeline's rendered height; re-measured
+    // before every ScrollTrigger refresh (resize, font load, etc.).
+    const buildPath = () => {
+      const d = `M 1 0 V ${wrap.offsetHeight}`;
+      track.setAttribute("d", d);
+      fill.setAttribute("d", d);
+    };
+    buildPath();
+    ScrollTrigger.addEventListener("refreshInit", buildPath);
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -75,49 +94,89 @@ export default function WhyAllure() {
           const { reduce } = context.conditions as { reduce: boolean };
 
           if (reduce) {
-            // Reduced motion: everything visible, line full, no scrub.
-            gsap.set(".roadmap-item", { opacity: 1, y: 0 });
-            if (lineFillRef.current) gsap.set(lineFillRef.current, { height: "100%" });
+            // Reduced motion: line fully drawn, no plane, opacity-only card fade.
+            gsap.set(fill, { strokeDashoffset: 0 });
+            gsap.set(plane, { autoAlpha: 0 });
+            gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((item) => {
+              gsap.fromTo(
+                item,
+                { opacity: 0 },
+                {
+                  opacity: 1,
+                  duration: 0.6,
+                  ease: "power1.out",
+                  scrollTrigger: { trigger: item, start: "top 85%", once: true },
+                }
+              );
+            });
             return;
           }
 
-          // Line fill grows with scroll (scrub).
-          if (lineFillRef.current) {
-            gsap.to(lineFillRef.current, {
-              height: "100%",
-              ease: "none",
+          // Line draw + plane flight share one scrubbed timeline, so the tip of
+          // the drawn line and the plane always ride the same 70%-viewport mark.
+          // The fill path has pathLength=1, so dashoffset 1→0 draws it end to end.
+          gsap.set(plane, { autoAlpha: 1 });
+          gsap
+            .timeline({
+              defaults: { ease: "none" },
               scrollTrigger: {
-                trigger: timelineRef.current,
+                trigger: wrap,
                 start: "top 70%",
                 end: "bottom 70%",
                 scrub: true,
+                invalidateOnRefresh: true,
               },
-            });
-          }
-
-          // Each item fades + rises in when it enters.
-          gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((el) => {
-            gsap.fromTo(
-              el,
-              { opacity: 0, y: 30 },
+            })
+            .fromTo(fill, { strokeDashoffset: 1 }, { strokeDashoffset: 0 }, 0)
+            .to(
+              plane,
               {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 80%",
-                  toggleActions: "play none none reverse",
+                motionPath: {
+                  path: track,
+                  align: track,
+                  alignOrigin: [0.5, 0.5],
+                  autoRotate: true,
                 },
-              }
+              },
+              0
             );
+
+          // Cards pop exactly when the plane passes them: each item's center
+          // crosses the same 70%-viewport line the plane rides on.
+          gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((item, i) => {
+            const card = item.querySelector<HTMLElement>(".roadmap-card");
+            const node = item.querySelector<HTMLElement>(".roadmap-node");
+            if (!card || !node) return;
+
+            const tilt = i % 2 === 1 ? 1.5 : -1.5;
+            gsap.set(card, {
+              opacity: 0,
+              scale: 0.8,
+              rotate: tilt * 2,
+              willChange: "transform, opacity",
+            });
+            gsap.set(node, { scale: 0, opacity: 0 });
+
+            gsap
+              .timeline({
+                scrollTrigger: { trigger: item, start: "center 70%", once: true },
+                defaults: { ease: "power3.out" },
+              })
+              .to(node, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)" }, 0)
+              // drop-shadow (not box-shadow) so Tailwind's ring utilities stay intact
+              .to(node, { filter: "drop-shadow(0 0 12px rgba(59,130,246,0.4))", duration: 0.4, ease: "power2.out" }, "<0.2")
+              .to(card, { opacity: 1, scale: 1.08, rotate: tilt, duration: 0.5 }, 0.05)
+              .to(card, { scale: 1, rotate: 0, duration: 0.4, ease: "power2.out" }, ">")
+              .set(card, { clearProps: "willChange" });
           });
         }
       );
     }, timelineRef);
 
-    return () => ctx.revert();
+    return () => {
+      ScrollTrigger.removeEventListener("refreshInit", buildPath);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -144,17 +203,38 @@ export default function WhyAllure() {
 
         {/* Roadmap timeline */}
         <div ref={timelineRef} className="relative mx-auto max-w-3xl mt-4">
-          {/* Line track (full, gray) + fill (brand, scrub-animated) */}
-          <div
-            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-border"
+          {/* SVG rail: gray track + brand fill (drawn via dashoffset). The plane
+              rides the same path with MotionPathPlugin, scrubbed to scroll. */}
+          <svg
+            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 h-full w-[2px] overflow-visible pointer-events-none"
             aria-hidden
-          />
+          >
+            <path
+              ref={pathTrackRef}
+              d="M 1 0 V 1"
+              fill="none"
+              strokeWidth={2}
+              style={{ stroke: "var(--border)" }}
+            />
+            <path
+              ref={pathFillRef}
+              d="M 1 0 V 1"
+              fill="none"
+              strokeWidth={2}
+              strokeLinecap="round"
+              pathLength={1}
+              style={{ stroke: "var(--brand)", strokeDasharray: 1, strokeDashoffset: 1 }}
+            />
+          </svg>
+
+          {/* Plane that flies down the rail at the tip of the drawn line */}
           <div
-            ref={lineFillRef}
-            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 w-[2px] bg-brand origin-top"
-            style={{ height: 0 }}
+            ref={planeRef}
+            className="absolute top-0 left-0 z-20 w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center shadow-lg shadow-brand/40 opacity-0 will-change-transform"
             aria-hidden
-          />
+          >
+            <Send className="w-4 h-4 rotate-45" strokeWidth={2} />
+          </div>
 
           <div className="flex flex-col gap-10 sm:gap-14">
             {differentials.map(({ Icon, stat, unit, title, description, featured }, i) => {
@@ -167,7 +247,7 @@ export default function WhyAllure() {
                   {/* Node / icon on the central line */}
                   <div className="lg:col-span-2 lg:row-start-1 lg:col-start-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 z-10 flex justify-center">
                     <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center border-4 border-muted ${
+                      className={`roadmap-node w-12 h-12 rounded-full flex items-center justify-center border-4 border-muted ${
                         featured ? "bg-brand shadow-lg shadow-brand/30" : "bg-white ring-1 ring-border"
                       }`}
                     >
@@ -185,7 +265,7 @@ export default function WhyAllure() {
                     }`}
                   >
                     <div
-                      className={`relative rounded-2xl border p-6 ${
+                      className={`roadmap-card relative rounded-2xl border p-6 ${
                         featured
                           ? "bg-brand border-brand text-white shadow-xl shadow-brand/20"
                           : "bg-white border-border card-shadow-sm"
