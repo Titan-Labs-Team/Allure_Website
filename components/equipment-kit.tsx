@@ -39,7 +39,7 @@ const equipments: EquipmentCardProps[] = [
 
 function EquipmentCard({ name, image, description }: EquipmentCardProps) {
   return (
-    <div className="group bg-background rounded-2xl overflow-hidden border border-border hover:border-secondary/50 transition-all duration-300 card-hover">
+    <div className="group bg-background rounded-2xl overflow-hidden border border-border hover:border-secondary/50 transition-all duration-300 card-hover min-w-0">
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
           src={image}
@@ -48,9 +48,9 @@ function EquipmentCard({ name, image, description }: EquipmentCardProps) {
           className="object-cover group-hover:scale-110 transition-transform duration-500"
         />
       </div>
-      <div className="p-5">
-        <h3 className="font-semibold text-foreground mb-1">{name}</h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
+      <div className="p-5 min-w-0">
+        <h3 className="font-semibold text-foreground mb-1 text-pretty">{name}</h3>
+        <p className="text-sm text-muted-foreground text-pretty">{description}</p>
       </div>
     </div>
   );

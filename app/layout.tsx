@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Inter_Tight } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,9 +8,9 @@ const inter = Inter({
   variable: '--font-inter'
 });
 
-const interTight = Inter_Tight({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: '--font-inter-tight',
+  variable: '--font-jakarta',
   weight: ['500', '600', '700', '800'],
 });
 
@@ -39,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="bg-background">
-      <body className={`${inter.variable} ${interTight.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

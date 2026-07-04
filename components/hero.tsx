@@ -28,12 +28,11 @@ function HeroStat({ stat }: { stat: Stat }) {
   const { ref, formatted } = useCountUp({ end: stat.end });
   return (
     <div className="flex flex-col items-center text-center">
-      <p className="font-display font-bold tracking-tight text-2xl sm:text-[1.75rem] leading-none text-white">
+      <p className="font-display font-semibold tracking-tight text-lg sm:text-xl leading-none text-white/85">
         <span ref={ref}>{formatted}</span>
-        <span className="text-brand-3">{stat.suffix}</span>
+        <span className="text-white/50">{stat.suffix}</span>
       </p>
-      <p className="mt-1.5 text-[0.8rem] font-semibold text-white/65">{stat.label}</p>
-      <p className="mt-0.5 text-[0.72rem] text-white/35">{stat.description}</p>
+      <p className="mt-1.5 text-[0.72rem] font-medium text-white/45">{stat.label}</p>
     </div>
   );
 }
@@ -55,7 +54,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden">
+    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[100dvh] sm:min-h-0">
       {/* Parallax background */}
       <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
         <Image
@@ -85,21 +84,24 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="min-h-[calc(78vh+10px)] flex flex-col justify-center pt-32 pb-16">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
-            <span className="h-px w-10 bg-brand-3" />
-            <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-foreground/70 font-medium">
-              Engenharia solar premium
-            </span>
-          </div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex-1 flex flex-col">
+        {/* Mobile: justify-between spreads the 3 blocks to fill the hero; sm+ keeps the centered stack */}
+        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-between sm:justify-center pt-28 sm:pt-32 pb-12 sm:pb-16">
+          <div>
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
+              <span className="h-px w-10 bg-brand-3" />
+              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-foreground/70 font-medium">
+                Engenharia solar premium
+              </span>
+            </div>
 
-          {/* Headline */}
-          <h1 className="font-display font-semibold tracking-tight text-pretty text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl animate-fade-in-up">
-            <span className="block">Sua energia,</span>
-            <span className="block text-brand-3">gerada pelo sol.</span>
-          </h1>
+            {/* Headline */}
+            <h1 className="font-display font-semibold tracking-tight text-pretty text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] max-w-5xl animate-fade-in-up">
+              <span className="block">Sua energia,</span>
+              <span className="block text-brand-3">gerada pelo sol.</span>
+            </h1>
+          </div>
 
           {/* Subtitle */}
           <p className="mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl animate-fade-in-up">
@@ -112,7 +114,7 @@ export default function Hero() {
             <Button
               size="lg"
               asChild
-              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base px-8 h-14 rounded-full gap-2.5 border-0 transition-all duration-300 shadow-lg shadow-brand/25"
+              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg px-6 sm:px-10 h-16 rounded-full gap-3 border-0 transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5"
             >
               <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="size-7" />
@@ -123,51 +125,48 @@ export default function Hero() {
 
             <button
               onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 text-brand-foreground/70 hover:text-brand-foreground text-sm font-medium transition-colors group"
+              className="link-quiet text-brand-foreground/60 hover:text-brand-foreground/90"
             >
-              <span className="w-9 h-9 rounded-full border border-brand-foreground/25 flex items-center justify-center group-hover:border-brand-foreground/60 transition-colors">
-                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              </span>
               Como funciona
+              <ChevronDown className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Stats strip — anchored to bottom of hero */}
-      <div className="relative z-10 border-t border-white/10 bg-black/25 backdrop-blur-[2px]">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-6 sm:py-7">
+      {/* Stats strip — anchored to bottom of hero, kept quiet so it never competes with the CTA above */}
+      <div className="relative z-10 border-t border-white/10 bg-black/35 backdrop-blur-[2px]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 sm:py-5">
           <div className="flex items-center gap-6">
 
             {/* Left anchor */}
             <div className="hidden lg:flex flex-col flex-shrink-0 w-44 gap-0.5">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-white/30 font-medium">Fundada em 2012</span>
-              <span className="text-sm font-semibold text-white/60 leading-snug">Engenharia solar<br/>certificada</span>
+              <span className="text-[0.62rem] uppercase tracking-[0.2em] text-white/25 font-medium">Fundada em 2012</span>
+              <span className="text-xs font-medium text-white/45 leading-snug">Engenharia solar certificada</span>
             </div>
 
             {/* Stats — centered, flex-1 */}
-            <div className="flex-1 flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-0">
+            <div className="flex-1 flex flex-row flex-wrap items-center justify-center gap-y-4 gap-x-0">
               {stats.map((stat, i) => (
                 <div key={stat.label} className="flex items-center">
                   <div className="px-5 sm:px-8">
                     <HeroStat stat={stat} />
                   </div>
                   {i < stats.length - 1 && (
-                    <span className="w-px h-9 bg-white/15 flex-shrink-0" aria-hidden />
+                    <span className="w-px h-7 bg-white/10 flex-shrink-0" aria-hidden />
                   )}
                 </div>
               ))}
             </div>
 
             {/* Right anchor — Google rating */}
-            <div className="hidden lg:flex flex-col items-end flex-shrink-0 w-44 gap-1">
+            <div className="hidden lg:flex flex-col items-center flex-shrink-0 w-44 gap-1">
               <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                  <Star key={s} className="w-3 h-3 fill-accent text-accent" />
                 ))}
               </div>
-              <span className="text-sm font-semibold text-white/60">4.9 no Google</span>
-              <span className="text-[0.68rem] text-white/30">+380 avaliações</span>
+              <span className="text-xs font-medium text-white/45 text-center">4.9 no Google · +380 avaliações</span>
             </div>
 
           </div>

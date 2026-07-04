@@ -42,7 +42,7 @@
 
 @theme inline {
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-display: var(--font-inter-tight), var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), 'Inter', system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -81,6 +81,13 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv01";
+  }
+  /* Hard clamp against horizontal scroll — nothing should push the page wider
+     than the viewport. Safety net so any stray overflowing child (e.g. glow
+     bleed) can't create a page-level horizontal scrollbar on mobile. */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
   }
   ::selection {
     background: var(--brand);
@@ -202,10 +209,10 @@ html {
   box-shadow: 0 30px 60px -24px rgba(14, 44, 107, 0.32);
 }
 .card-shadow-md:hover {
-  box-shadow: 0px 5px 15px #00000059 !important;
+  box-shadow: 0 12px 28px -10px rgba(14, 44, 107, 0.38) !important;
 }
 .card-shadow-sm:hover {
-  box-shadow: 1.95px 1.95px 2.6px #00000026 !important;
+  box-shadow: 0 8px 20px -8px rgba(14, 44, 107, 0.28) !important;
 }
 
 /* Brand-tinted text accent */
@@ -238,4 +245,36 @@ html {
 .quote-mark {
   font-family: var(--font-display);
   line-height: 0.7;
+}
+
+/* ——— Section rhythm scale ——— */
+/* Standard content sections */
+.section-py { padding-top: 5rem; padding-bottom: 5.5rem; }
+@media (min-width: 1024px) { .section-py { padding-top: 6.5rem; padding-bottom: 7rem; } }
+
+/* Hero-weight sections (savings calculator, final CTA) */
+.section-py-lg { padding-top: 6rem; padding-bottom: 6.5rem; }
+@media (min-width: 1024px) { .section-py-lg { padding-top: 8.5rem; padding-bottom: 9rem; } }
+
+/* Quiet text-link CTA — replaces repeated filled pill buttons in mid-page sections */
+/* Color is set per usage via Tailwind text-* utility */
+.link-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: gap 0.25s cubic-bezier(0.16,1,0.3,1), color 0.25s ease;
+}
+.link-quiet:hover {
+  gap: 0.6rem;
+}
+
+/* Hide scrollbar on horizontal scroll-snap carousels (mobile testimonials) */
+.no-scrollbar {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                  /* WebKit */
 }

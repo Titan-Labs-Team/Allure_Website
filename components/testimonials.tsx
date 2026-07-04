@@ -13,11 +13,7 @@ function GoogleLogo({ className }: { className?: string }) {
     </svg>
   );
 }
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20fazer%20parte%20de%20quem%20economiza%20com%20a%20Allure.";
 
 interface Testimonial {
   name: string;
@@ -57,7 +53,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="group relative flex flex-col rounded-2xl bg-card border border-border p-8 lg:p-9 card-hover card-shadow-sm shadow-[1.95px_1.95px_2.6px_#00000026]">
+    <figure className="group relative flex flex-col min-w-0 shrink-0 w-[82%] snap-start md:w-auto rounded-2xl bg-card border border-border p-7 sm:p-8 lg:p-9 card-hover card-shadow-sm">
       {/* Stars + Google badge */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1">
@@ -71,7 +67,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         </div>
       </div>
 
-      <blockquote className="font-display text-lg sm:text-xl leading-snug tracking-tight text-foreground flex-1">
+      <blockquote className="font-display text-lg sm:text-xl leading-snug tracking-tight text-foreground flex-1 text-pretty">
         {t.quote}
       </blockquote>
 
@@ -89,10 +85,10 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             t.initials
           )}
         </div>
-        <div className="flex-1">
-          <p className="font-medium text-sm text-foreground flex items-center gap-1.5">
-            {t.name}
-            <BadgeCheck className="w-4 h-4 text-brand-2" strokeWidth={2.2} aria-label="Cliente verificado" />
+        <div className="flex-1 min-w-0">
+          <p className="font-medium text-sm text-foreground flex items-center gap-1.5 flex-wrap">
+            <span className="truncate">{t.name}</span>
+            <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} aria-label="Cliente verificado" />
           </p>
           <p className="text-xs text-muted-foreground">{t.city}</p>
         </div>
@@ -105,7 +101,7 @@ export default function Testimonials() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
+    <section className="section-py bg-muted bg-dots">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">
@@ -136,25 +132,22 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className={`grid md:grid-cols-3 gap-6 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
+          {/* Mobile: horizontal snap carousel that bleeds to the screen edge (-mx-5 px-5)
+              while keeping a reading gutter. md+: reverts to the 3-column grid. */}
+          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
             {testimonials.map((t) => (
               <TestimonialCard key={t.name} t={t} />
             ))}
           </div>
+          {/* Swipe hint — mobile only */}
+          <p className="md:hidden mt-4 text-center text-xs text-muted-foreground">Arraste para ver mais →</p>
 
-          {/* CTA */}
+          {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-14 flex justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
-            >
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="size-7" />
-                Quero economizar também
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Button>
+            <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+              Quero economizar também
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>

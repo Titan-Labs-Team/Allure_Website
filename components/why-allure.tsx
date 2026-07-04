@@ -1,11 +1,10 @@
 "use client";
 
-import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Quero%20conhecer%20os%20diferenciais%20da%20Allure.";
+import { useRef, useLayoutEffect } from "react";
+import { ShieldCheck, Zap, Headphones, Award, Wrench, Users, ArrowUpRight, Flame, Send } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 const differentials = [
   {
@@ -59,11 +58,130 @@ const differentials = [
 ];
 
 export default function WhyAllure() {
-  const { ref, isVisible } = useScrollAnimation();
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const pathTrackRef = useRef<SVGPathElement>(null);
+  const pathFillRef = useRef<SVGPathElement>(null);
+  const planeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+    const wrap = timelineRef.current;
+    const track = pathTrackRef.current;
+    const fill = pathFillRef.current;
+    const plane = planeRef.current;
+    if (!wrap || !track || !fill || !plane) return;
+
+    // Straight vertical path sized to the timeline's rendered height; re-measured
+    // before every ScrollTrigger refresh (resize, font load, etc.).
+    const buildPath = () => {
+      const d = `M 1 0 V ${wrap.offsetHeight}`;
+      track.setAttribute("d", d);
+      fill.setAttribute("d", d);
+    };
+    buildPath();
+    ScrollTrigger.addEventListener("refreshInit", buildPath);
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          reduce: "(prefers-reduced-motion: reduce)",
+          motion: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const { reduce } = context.conditions as { reduce: boolean };
+
+          if (reduce) {
+            // Reduced motion: line fully drawn, no plane, opacity-only card fade.
+            gsap.set(fill, { strokeDashoffset: 0 });
+            gsap.set(plane, { autoAlpha: 0 });
+            gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((item) => {
+              gsap.fromTo(
+                item,
+                { opacity: 0 },
+                {
+                  opacity: 1,
+                  duration: 0.6,
+                  ease: "power1.out",
+                  scrollTrigger: { trigger: item, start: "top 85%", once: true },
+                }
+              );
+            });
+            return;
+          }
+
+          // Line draw + plane flight share one scrubbed timeline, so the tip of
+          // the drawn line and the plane always ride the same 70%-viewport mark.
+          // The fill path has pathLength=1, so dashoffset 1→0 draws it end to end.
+          gsap.set(plane, { autoAlpha: 1 });
+          gsap
+            .timeline({
+              defaults: { ease: "none" },
+              scrollTrigger: {
+                trigger: wrap,
+                start: "top 70%",
+                end: "bottom 70%",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            })
+            .fromTo(fill, { strokeDashoffset: 1 }, { strokeDashoffset: 0 }, 0)
+            .to(
+              plane,
+              {
+                motionPath: {
+                  path: track,
+                  align: track,
+                  alignOrigin: [0.5, 0.5],
+                  autoRotate: true,
+                },
+              },
+              0
+            );
+
+          // Cards pop exactly when the plane passes them: each item's center
+          // crosses the same 70%-viewport line the plane rides on.
+          gsap.utils.toArray<HTMLElement>(".roadmap-item").forEach((item, i) => {
+            const card = item.querySelector<HTMLElement>(".roadmap-card");
+            const node = item.querySelector<HTMLElement>(".roadmap-node");
+            if (!card || !node) return;
+
+            const tilt = i % 2 === 1 ? 1.5 : -1.5;
+            gsap.set(card, {
+              opacity: 0,
+              scale: 0.8,
+              rotate: tilt * 2,
+              willChange: "transform, opacity",
+            });
+            gsap.set(node, { scale: 0, opacity: 0 });
+
+            gsap
+              .timeline({
+                scrollTrigger: { trigger: item, start: "center 70%", once: true },
+                defaults: { ease: "power3.out" },
+              })
+              .to(node, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)" }, 0)
+              // drop-shadow (not box-shadow) so Tailwind's ring utilities stay intact
+              .to(node, { filter: "drop-shadow(0 0 12px rgba(59,130,246,0.4))", duration: 0.4, ease: "power2.out" }, "<0.2")
+              .to(card, { opacity: 1, scale: 1.08, rotate: tilt, duration: 0.5 }, 0.05)
+              .to(card, { scale: 1, rotate: 0, duration: 0.4, ease: "power2.out" }, ">")
+              .set(card, { clearProps: "willChange" });
+          });
+        }
+      );
+    }, timelineRef);
+
+    return () => {
+      ScrollTrigger.removeEventListener("refreshInit", buildPath);
+      ctx.revert();
+    };
+  }, []);
 
   return (
-    <section id="por-que-allure" className="py-16 sm:py-20 lg:py-24 bg-muted bg-dots">
-      <div ref={ref} className={`max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
+    <section id="por-que-allure" className="section-py bg-muted bg-dots">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-12">
@@ -83,75 +201,138 @@ export default function WhyAllure() {
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children ${isVisible ? "visible" : ""}`}>
-          {differentials.map(({ Icon, stat, unit, title, description, featured }) => (
-            <div
-              key={title}
-              className={`group relative flex flex-col rounded-2xl p-7 lg:p-8 border transition-all duration-500 hover:-translate-y-1 ${
-                featured
-                  ? "bg-brand border-brand shadow-xl shadow-brand/20 text-white"
-                  : "bg-white border-border shadow-sm hover:shadow-md hover:border-brand/30"
-              }`}
-            >
-              {/* Icon */}
-              <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-6 ${
-                featured ? "bg-white/15" : "bg-brand-muted"
-              }`}>
-                <Icon className={`w-5 h-5 ${featured ? "text-white" : "text-brand-2"}`} strokeWidth={1.8} />
-              </div>
+        {/* Roadmap timeline */}
+        <div ref={timelineRef} className="relative mx-auto max-w-3xl mt-4">
+          {/* SVG rail: gray track + brand fill (drawn via dashoffset). The plane
+              rides the same path with MotionPathPlugin, scrubbed to scroll. */}
+          <svg
+            className="absolute left-5 lg:left-1/2 lg:-translate-x-1/2 top-0 h-full w-[2px] overflow-visible pointer-events-none"
+            aria-hidden
+          >
+            <path
+              ref={pathTrackRef}
+              d="M 1 0 V 1"
+              fill="none"
+              strokeWidth={2}
+              style={{ stroke: "var(--border)" }}
+            />
+            <path
+              ref={pathFillRef}
+              d="M 1 0 V 1"
+              fill="none"
+              strokeWidth={2}
+              strokeLinecap="round"
+              pathLength={1}
+              style={{ stroke: "var(--brand)", strokeDasharray: 1, strokeDashoffset: 1 }}
+            />
+          </svg>
 
-              {/* Stat */}
-              <div className="flex items-baseline gap-1.5 mb-3">
-                <span className={`font-display font-bold tracking-tight leading-none ${
-                  featured ? "text-white text-5xl lg:text-6xl" : "text-brand text-5xl lg:text-6xl"
-                }`}>
-                  {stat}
-                </span>
-                {unit && (
-                  <span className={`font-display font-semibold text-xl ${
-                    featured ? "text-white/70" : "text-brand/60"
-                  }`}>
-                    {unit}
-                  </span>
-                )}
-              </div>
+          {/* Plane that flies down the rail at the tip of the drawn line */}
+          <div
+            ref={planeRef}
+            className="absolute top-0 left-0 z-20 w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center shadow-lg shadow-brand/40 opacity-0 will-change-transform"
+            aria-hidden
+          >
+            <Send className="w-4 h-4 rotate-45" strokeWidth={2} />
+          </div>
 
-              {/* Title */}
-              <h3 className={`font-display font-semibold text-lg tracking-tight mb-2 ${
-                featured ? "text-white" : "text-foreground"
-              }`}>
-                {title}
-              </h3>
+          <div className="flex flex-col gap-10 sm:gap-14">
+            {differentials.map(({ Icon, stat, unit, title, description, featured }, i) => {
+              const rightSide = i % 2 === 1;
+              return (
+                <div
+                  key={title}
+                  className={`roadmap-item relative grid grid-cols-[2.5rem_1fr] lg:grid-cols-2 items-center gap-x-4 lg:gap-x-12`}
+                >
+                  {/* Node / icon on the central line */}
+                  <div className="lg:col-span-2 lg:row-start-1 lg:col-start-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 z-10 flex justify-center">
+                    <div
+                      className={`roadmap-node w-12 h-12 rounded-full flex items-center justify-center border-4 border-muted ${
+                        featured ? "bg-brand shadow-lg shadow-brand/30" : "bg-white ring-1 ring-border"
+                      }`}
+                    >
+                      <Icon
+                        className={`w-5 h-5 ${featured ? "text-white" : "text-brand-2"}`}
+                        strokeWidth={1.8}
+                      />
+                    </div>
+                  </div>
 
-              {/* Description */}
-              <p className={`text-sm leading-relaxed ${
-                featured ? "text-white/70" : "text-muted-foreground"
-              }`}>
-                {description}
-              </p>
+                  {/* Content card */}
+                  <div
+                    className={`lg:row-start-1 ${
+                      rightSide ? "lg:col-start-2 lg:pl-8" : "lg:col-start-1 lg:pr-8 lg:text-right"
+                    }`}
+                  >
+                    <div
+                      className={`roadmap-card relative rounded-2xl border p-6 ${
+                        featured
+                          ? "bg-brand border-brand text-white shadow-xl shadow-brand/20"
+                          : "bg-white border-border card-shadow-sm"
+                      }`}
+                    >
+                      {featured && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-white mb-3">
+                          <Flame className="w-3 h-3" strokeWidth={2} />
+                          Destaque
+                        </span>
+                      )}
 
-              {/* Featured accent line */}
-              {featured && (
-                <div className="absolute top-0 left-8 right-8 h-[2px] rounded-full bg-white/30" />
-              )}
-            </div>
-          ))}
+                      {/* Stat */}
+                      <div
+                        className={`flex flex-wrap items-baseline gap-1.5 mb-2 ${
+                          rightSide ? "" : "lg:justify-end"
+                        }`}
+                      >
+                        <span
+                          className={`font-display font-bold tracking-tight leading-none text-4xl sm:text-5xl ${
+                            featured ? "text-white" : "text-brand"
+                          }`}
+                        >
+                          {stat}
+                        </span>
+                        {unit && (
+                          <span
+                            className={`font-display font-semibold text-base sm:text-xl ${
+                              featured ? "text-white/70" : "text-brand/60"
+                            }`}
+                          >
+                            {unit}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h3
+                        className={`font-display font-semibold text-lg tracking-tight mb-1.5 text-pretty ${
+                          featured ? "text-white" : "text-foreground"
+                        }`}
+                      >
+                        {title}
+                      </h3>
+
+                      {/* Description */}
+                      <p
+                        className={`text-sm leading-relaxed text-pretty ${
+                          featured ? "text-white/70" : "text-muted-foreground"
+                        }`}
+                      >
+                        {description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-12 flex justify-center">
-          <Button
-            size="lg"
-            asChild
-            className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-lg px-12 h-16 rounded-full gap-3 border-0 shadow-lg shadow-brand/25"
-          >
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-              <WhatsAppIcon className="size-7" />
-              Falar com um especialista
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </Button>
+        {/* Quiet link — primary conversion stays with hero + final CTA */}
+        <div className="mt-14 flex justify-center">
+          <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+            Falar com um especialista
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
         </div>
 
       </div>

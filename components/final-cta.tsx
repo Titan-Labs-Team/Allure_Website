@@ -34,10 +34,10 @@ export default function FinalCTA() {
 
   return (
     <section id="contato" className="bg-white bg-glow-top text-foreground">
-      <div ref={ref} className={`px-5 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-36 scroll-animate ${isVisible ? "visible" : ""}`}>
+      <div ref={ref} className={`px-5 sm:px-6 lg:px-8 section-py-lg scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          {/* Copy */}
-          <div className="flex flex-col justify-between">
+          {/* Copy — min-w-0: grid items default to min-width:auto and refuse to shrink */}
+          <div className="min-w-0 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px w-10 bg-brand-3" />
@@ -62,7 +62,7 @@ export default function FinalCTA() {
             </div>
 
             {/* Logo — fills remaining space */}
-            <div className="mt-10 lg:mt-0 flex-1 flex items-center pl-12 pt-6">
+            <div className="mt-10 lg:mt-0 flex-1 flex items-center justify-center lg:justify-start pl-0 lg:pl-12 pt-6">
               <Image
                 src="/images/logo-allure.png"
                 alt="Allure Solar"
@@ -74,7 +74,7 @@ export default function FinalCTA() {
           </div>
 
           {/* Form */}
-          <div className="relative bg-muted text-foreground rounded-2xl p-8 sm:p-10 shadow-lg">
+          <div className="min-w-0 relative bg-muted text-foreground rounded-2xl p-6 sm:p-10 shadow-lg">
             <div className="pointer-events-none absolute inset-0 size-full rounded-[inherit] border-[3.5px] border-brand/50" />
             <ShineBorder shineColor={["#1D4ED8", "#3B82F6", "#93C5FD", "#3B82F6", "#1D4ED8"]} duration={4} borderWidth={3.5} />
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -118,13 +118,13 @@ export default function FinalCTA() {
               {/* Tipo de imóvel */}
               <div>
                 <p className="block text-sm font-medium text-foreground mb-2.5">Tipo de imóvel</p>
-                <div className="flex flex-col gap-1.5 text-sm">
+                <div className="grid grid-cols-3 gap-2 text-sm">
                   {[
                     { value: "Casa", Icon: Home },
                     { value: "Empresa", Icon: Building2 },
                     { value: "Indústria", Icon: Factory },
                   ].map(({ value, Icon }) => (
-                    <label key={value} className="relative flex cursor-pointer overflow-hidden">
+                    <label key={value} className="relative flex cursor-pointer overflow-hidden min-w-0">
                       <input
                         type="radio"
                         name="property-type"
@@ -133,12 +133,13 @@ export default function FinalCTA() {
                         onChange={() => setForm((f) => ({ ...f, type: value }))}
                         className="peer absolute left-[-9999px]"
                       />
-                      <span className="flex items-center gap-2 rounded-[20px] py-1.5 pl-1.5 pr-3 text-muted-foreground duration-200 ease-linear
-                        before:flex before:h-5 before:w-5 before:shrink-0 before:rounded-full before:border-2 before:border-solid before:border-muted-foreground/50 before:bg-white before:shadow-[inset_0_0_0_0_0.125em_transparent] before:duration-200 before:ease-linear before:content-['']
+                      {/* Mobile: no radio circle (checked state = bg-brand), tighter text; sm+: full pill with circle */}
+                      <span className="flex items-center justify-center gap-1 sm:gap-1.5 w-full rounded-[20px] py-2 sm:py-1.5 px-1.5 sm:pl-1.5 sm:pr-3 text-xs sm:text-sm text-muted-foreground duration-200 ease-linear
+                        before:hidden sm:before:flex before:h-5 before:w-5 before:shrink-0 before:rounded-full before:border-2 before:border-solid before:border-muted-foreground/50 before:bg-white before:shadow-[inset_0_0_0_0_0.125em_transparent] before:duration-200 before:ease-linear before:content-['']
                         hover:bg-border/60
                         peer-checked:bg-brand peer-checked:text-white peer-checked:before:border-white/60 peer-checked:before:shadow-[inset_0_0_0_4px_rgba(255,255,255,0.6)]">
                         <Icon className="w-4 h-4 shrink-0" strokeWidth={1.6} />
-                        {value}
+                        <span className="truncate">{value}</span>
                       </span>
                     </label>
                   ))}
@@ -148,13 +149,14 @@ export default function FinalCTA() {
               <Button
                 type="submit"
                 size="lg"
-                className="group w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-full gap-2.5 h-14"
+                className="group w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg rounded-full gap-2.5 whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5 transition-all duration-300"
               >
+                <WhatsAppIcon className="size-6" />
                 {sent ? "Abrindo o WhatsApp..." : "Solicitar orçamento gratuito"}
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
 
-              <div className="flex items-center justify-center gap-2 text-muted-foreground text-xs pt-1">
+              <div className="flex flex-wrap items-center justify-center gap-2 text-muted-foreground text-xs pt-1">
                 <WhatsAppIcon className="w-4 h-4 text-brand-2" />
                 <span>Prefere falar agora?</span>
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="text-brand-2 font-medium hover:underline">
