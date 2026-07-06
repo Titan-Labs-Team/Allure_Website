@@ -95,44 +95,51 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connecting line — sits behind the step circles (z-0 vs their z-10 opaque fill) so
-              the circles visually clip it at each end automatically. The 1/6-of-width inset
-              matches half a grid column in the 3-col layout below (100% / 3 cols / 2), the same
-              relationship the grid itself uses, so it stays correct if the section's max-width
-              changes; only the 21px nudge (half the 42px circle) is a fixed design value. md:+
-              only, matching the breakpoint the step grid collapses at. */}
-          {/* line sits at the vertical center of the step circle: 18px mobile (36px circle),
-              21px md+ (42px circle). Inset by 1/6 of width (half a column) + half the circle. */}
-          <div className="block absolute top-[18px] md:top-[21px] left-[calc(100%/6+18px)] md:left-[calc(100%/6+21px)] right-[calc(100%/6+18px)] md:right-[calc(100%/6+21px)] h-[2px] rounded-full bg-white/20 z-0" aria-hidden />
-
-          <div className={`grid grid-cols-3 gap-3 md:gap-8 stagger-children ${isVisible ? "visible" : ""}`}>
-            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
-              <div
-                key={num}
-                className="relative flex flex-col items-center text-center min-w-0"
-              >
-                {/* Step circle */}
-                <div className="w-9 h-9 sm:w-[42px] sm:h-[42px] rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/40 flex items-center justify-center mb-4 sm:mb-6 relative z-10">
-                  <span className="font-display font-bold text-white text-sm sm:text-base leading-none">{num}</span>
+        {/* Steps — editorial rail: big structural numeral anchors each step instead of a
+            uniform icon-card grid. Left-aligned rows on mobile (rail runs down the left edge),
+            top-aligned columns on desktop (rail runs across the top edge). Text always visible;
+            nothing is hidden behind the breakpoint. */}
+        <div className={`stagger-children ${isVisible ? "visible" : ""}`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
+              <div key={num} className="relative flex md:flex-col gap-5 md:gap-0 min-w-0">
+                {/* Rail segment — vertical on mobile (runs behind the numeral column),
+                    horizontal on desktop (runs across the top, above each step). */}
+                <div className="flex md:hidden flex-col items-center w-9 shrink-0">
+                  <span className="font-display font-bold text-3xl leading-none text-white/25 tabular-nums">
+                    {String(num).padStart(2, "0")}
+                  </span>
+                  {i < steps.length - 1 && (
+                    <span className="mt-3 flex-1 w-px bg-gradient-to-b from-white/25 to-transparent" aria-hidden />
+                  )}
+                </div>
+                <div className="hidden md:flex items-center gap-4 mb-6">
+                  <span className="font-display font-bold text-4xl lg:text-5xl leading-none text-white/25 tabular-nums">
+                    {String(num).padStart(2, "0")}
+                  </span>
+                  {i < steps.length - 1 && (
+                    <span className="hidden lg:block flex-1 h-px bg-gradient-to-r from-white/25 to-transparent" aria-hidden />
+                  )}
                 </div>
 
-                {/* Icon */}
-                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4">
-                  <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" strokeWidth={1.5} />
-                </div>
+                {/* Step body */}
+                <div className="flex-1 min-w-0 pb-1 md:pb-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-3" strokeWidth={1.5} />
+                  </div>
 
-                {/* Title */}
-                <h3 className="font-display text-sm sm:text-lg font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">{title}</h3>
+                  <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
+                    {title}
+                  </h3>
 
-                {/* Description — hidden on the tight 3-col mobile layout; title + metric carry the meaning there */}
-                <p className="hidden sm:block text-white/55 text-sm leading-relaxed mb-5 max-w-[14rem] text-pretty">{description}</p>
+                  <p className="text-white/55 text-sm leading-relaxed mb-4 max-w-[26rem] md:max-w-none text-pretty">
+                    {description}
+                  </p>
 
-                {/* Metric chip */}
-                <div className="mt-2 sm:mt-0 inline-flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
-                  <span className="font-display font-bold text-sm sm:text-base leading-none text-white">{highlight}</span>
-                  <span className="text-[0.62rem] sm:text-[0.7rem] text-white/50 leading-tight text-center text-pretty">{highlightLabel}</span>
+                  <p className="text-sm">
+                    <span className="font-display font-bold text-white">{highlight}</span>
+                    <span className="text-white/45"> — {highlightLabel}</span>
+                  </p>
                 </div>
               </div>
             ))}
