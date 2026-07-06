@@ -1,13 +1,17 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, BadgeCheck, Flame } from "lucide-react";
+import { ArrowUpRight, Flame, Sun, Home, Zap } from "lucide-react";
+import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface Benefit {
   image: string;
   title: string;
   description: string;
+  Icon: typeof Sun;
+  featured?: boolean;
 }
 
 const benefits: Benefit[] = [
@@ -15,87 +19,242 @@ const benefits: Benefit[] = [
     image: "/images/benefit-economy.jpg",
     title: "Reduza até 90% da conta de luz",
     description: "A economia começa já no primeiro mês e se acumula ao longo de mais de duas décadas de geração.",
+    Icon: Sun,
+    featured: true,
   },
   {
     image: "/images/benefit-value.jpg",
     title: "Valorize o seu imóvel",
     description: "Imóveis com sistema solar instalado são mais procurados e valorizados no mercado.",
+    Icon: Home,
   },
   {
     image: "/images/benefit-autonomy.jpg",
     title: "Conquiste autonomia energética",
     description: "Menos dependência das distribuidoras e proteção contra os reajustes constantes da tarifa.",
+    Icon: Zap,
   },
 ];
 
-function BenefitCard({ image, title, description, large, featured }: Benefit & { large?: boolean; featured?: boolean }) {
+const NARROW_WIDTH = 90;
+const EXPANDED_WIDTH = 440;
+const restWidth = (EXPANDED_WIDTH + NARROW_WIDTH * (benefits.length - 1) - EXPANDED_WIDTH) / (benefits.length - 1);
+
+function Panel({
+  benefit,
+  isActive,
+  onActivate,
+  panelRef,
+}: {
+  benefit: Benefit;
+  isActive: boolean;
+  onActivate: () => void;
+  panelRef: (el: HTMLButtonElement | null) => void;
+}) {
+  const { image, title, description, Icon, featured } = benefit;
+  const [isMobileInView, setIsMobileInView] = useState(false);
+  const elRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const el = elRef.current;
+    if (!el) return;
+
+    const mm = gsap.matchMedia();
+    mm.add("(max-width: 1023px)", () => {
+      const observer = new IntersectionObserver(
+        ([entry]) => setIsMobileInView(entry.isIntersecting),
+        { threshold: 0.55 }
+      );
+      observer.observe(el);
+      return () => {
+        observer.disconnect();
+        setIsMobileInView(false);
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  const showContent = isActive || isMobileInView;
+
   return (
-    <article className={`group relative overflow-hidden rounded-2xl border border-border card-hover card-shadow-sm min-w-0 ${large ? "col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}>
+    <button
+      ref={(el) => {
+        elRef.current = el;
+        panelRef(el);
+      }}
+      type="button"
+      onClick={onActivate}
+      onMouseEnter={onActivate}
+      onFocus={onActivate}
+      aria-expanded={showContent}
+      aria-label={title}
+      className="
+        group relative overflow-hidden text-left rounded-2xl border border-border shrink-0
+        h-56 lg:h-[26rem] w-full lg:w-auto
+        transition-[height] duration-500
+      "
+    >
+      <Image
+        src={image}
+        alt={title}
+        fill
+        className={`object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${showContent ? "scale-100" : "scale-110"}`}
+      />
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ${showContent ? "bg-[#0E2C6B]/10" : "bg-[#0E2C6B]/55"}`}
+      />
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-[#0E2C6B]/85 via-[#0E2C6B]/10 to-transparent transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"}`}
+      />
+
       {featured && (
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-amber-400 text-amber-950 text-[0.65rem] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full shadow-lg shadow-amber-400/30">
+        <div
+          className={`
+            absolute top-4 right-4 z-10 flex items-center gap-1.5 whitespace-nowrap bg-amber-400 text-amber-950 text-[0.65rem] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full shadow-lg shadow-amber-400/30
+            transition-opacity duration-300
+            ${showContent ? "opacity-100 delay-500" : "opacity-0 delay-0 pointer-events-none"}
+          `}
+        >
           <Flame className="w-3 h-3" strokeWidth={2.5} />
           Destaque
         </div>
       )}
-      <div className={`relative ${large ? "h-full min-h-[240px] sm:min-h-[320px] lg:min-h-[560px]" : "aspect-[4/5] sm:aspect-[16/10]"}`}>
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0E2C6B]/70 via-[#0E2C6B]/20 to-transparent" />
+
+      <div
+        className={`
+          absolute w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-white/15 backdrop-blur-sm ring-1 ring-white/25
+          flex items-center justify-center flex-shrink-0 transition-opacity duration-300 z-10
+          left-5 top-5 lg:left-6 lg:top-6
+          ${showContent ? "opacity-100" : "opacity-0"}
+        `}
+      >
+        <Icon className="w-4 h-4 lg:w-5 lg:h-5 text-white" strokeWidth={1.75} />
       </div>
-      <div className={`absolute bottom-0 left-0 right-0 min-w-0 ${large ? "p-6 sm:p-7 lg:p-8" : "p-4 sm:p-7 lg:p-8"}`}>
-        <h3 className={`font-display font-semibold tracking-tight text-brand-foreground mb-2 flex flex-wrap items-center gap-2 text-pretty ${large ? "text-xl sm:text-2xl lg:text-3xl" : "text-base sm:text-xl"}`}>
+
+      {/* Collapsed-rail vertical label — desktop only, mobile never has a narrow collapsed state */}
+      <span
+        className={`
+          hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+          text-white font-display font-semibold text-sm tracking-tight whitespace-nowrap
+          transition-opacity duration-300
+          ${isActive ? "opacity-0 duration-100" : "opacity-100 rotate-180 delay-500"}
+        `}
+        style={{ writingMode: "vertical-rl" }}
+      >
+        {title}
+      </span>
+
+      <div className="absolute left-5 right-5 bottom-5 lg:left-6 lg:right-6 lg:bottom-16 z-10">
+        {/* Mobile: title always visible, independent of scroll-driven reveal. Desktop: title lives in the animated block below instead. */}
+        <h3 className="lg:hidden font-display font-semibold tracking-tight text-white text-base text-pretty">
           {title}
-          <BadgeCheck className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 flex-shrink-0" strokeWidth={2.2} />
         </h3>
-        {/* Description hidden on the tight small cards at mobile; large card and all desktop keep it */}
-        <p className={`text-brand-foreground/75 text-sm sm:text-base leading-relaxed max-w-md text-pretty ${large ? "" : "hidden sm:block"}`}>{description}</p>
+
+        <div
+          className={`
+            transition-all duration-500
+            ${showContent ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-2 pointer-events-none delay-0"}
+          `}
+        >
+          <h3 className="hidden lg:block font-display font-semibold tracking-tight text-white text-2xl mb-2 text-pretty">
+            {title}
+          </h3>
+          <p className="text-white/80 leading-relaxed text-pretty max-w-md text-xs lg:text-base line-clamp-2 lg:line-clamp-none mt-1 lg:mt-0">
+            {description}
+          </p>
+        </div>
       </div>
-    </article>
+    </button>
   );
 }
 
 export default function Benefits() {
   const { ref, isVisible } = useScrollAnimation();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const panelsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const isDesktopRef = useRef(false);
+
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      isDesktopRef.current = true;
+      panelsRef.current.forEach((panel, i) => {
+        if (!panel) return;
+        gsap.set(panel, { width: i === activeIndex ? EXPANDED_WIDTH : restWidth });
+      });
+
+      return () => {
+        isDesktopRef.current = false;
+        panelsRef.current.forEach((panel) => {
+          if (!panel) return;
+          gsap.set(panel, { clearProps: "width" });
+        });
+      };
+    });
+
+    return () => mm.revert();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktopRef.current) return;
+    panelsRef.current.forEach((panel, i) => {
+      if (!panel) return;
+      gsap.to(panel, {
+        width: i === activeIndex ? EXPANDED_WIDTH : restWidth,
+        duration: 0.65,
+        ease: "power3.inOut",
+      });
+    });
+  }, [activeIndex]);
 
   return (
-    <section className="section-py bg-background">
+    <section className="section-py bg-background overflow-hidden">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-14">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                  Vantagens
-                </span>
-              </div>
-              <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground max-w-2xl">
-                Mais que economia. Um ativo para a sua vida.
-              </h2>
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[42%_58%] gap-8 lg:gap-12 items-center">
+          {/* Left column — text only, nothing else lives here */}
+          <div className="min-w-0">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-px w-10 bg-brand-3" />
+              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
+                Vantagens
+              </span>
             </div>
-            <p className="lg:col-span-4 text-muted-foreground leading-relaxed">
+            <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground">
+              Mais que economia. Um ativo para a sua vida.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mt-4">
               Produzir a própria energia é uma decisão financeira inteligente — e profundamente sustentável.
             </p>
           </div>
 
-          {/* Asymmetric bento grid */}
-          <div className={`grid lg:grid-cols-2 gap-6 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
-            <BenefitCard {...benefits[0]} large featured />
-            <BenefitCard {...benefits[1]} />
-            <BenefitCard {...benefits[2]} />
+          {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
+              Mobile falls back to a stacked/tappable list since fixed px widths don't work under 1024px. */}
+          <div className="flex lg:justify-end min-w-0">
+            <div className="flex flex-col lg:flex-row items-stretch w-full lg:w-auto gap-3 lg:gap-[14px]">
+              {benefits.map((benefit, i) => (
+                <Panel
+                  key={benefit.title}
+                  benefit={benefit}
+                  isActive={i === activeIndex}
+                  onActivate={() => setActiveIndex(i)}
+                  panelRef={(el) => {
+                    panelsRef.current[i] = el;
+                  }}
+                />
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* Quiet link — primary conversion stays with hero + final CTA */}
-          <div className="mt-12 flex justify-center">
-            <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
-              Quero esses benefícios
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
+        <div className="mt-12 flex justify-center">
+          <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+            Quero esses benefícios
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
