@@ -70,10 +70,10 @@ export default function Hero() {
         />
         {/* Desktop image */}
         <Image
-          src="/images/hero-solar.jpeg"
+          src="/images/nova-hero.jpeg"
           alt="Casa moderna com painéis solares no telhado sob céu azul"
           fill
-          className="object-cover object-center scale-110 hidden sm:block"
+          className="object-cover object-[center_65%] scale-110 hidden sm:block"
           priority
         />
       </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Sun, Home, Zap } from "lucide-react";
+import { ArrowUpRight, Sun, Home, Zap, TrendingDown, TrendingUp, Leaf, ShieldCheck } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -31,6 +31,24 @@ const benefits: Benefit[] = [
     title: "Conquiste autonomia energética",
     description: "Menos dependência das distribuidoras e proteção contra os reajustes constantes da tarifa.",
     Icon: Zap,
+  },
+];
+
+const miniFeatures = [
+  {
+    Icon: TrendingDown,
+    title: "Reduza seus custos",
+    description: "Reduza em até 90% sua conta de luz.",
+  },
+  {
+    Icon: TrendingUp,
+    title: "Valorização do imóvel",
+    description: "Imóveis com energia solar valem mais no mercado.",
+  },
+  {
+    Icon: Leaf,
+    title: "Conquista sustentável",
+    description: "Energia limpa hoje, um amanhã melhor sempre.",
   },
 ];
 
@@ -89,7 +107,7 @@ function Panel({
       aria-label={title}
       className="
         group relative overflow-hidden text-left rounded-2xl border border-border shrink-0
-        h-56 lg:h-[26rem] w-full lg:w-auto
+        h-56 lg:h-full w-full lg:w-auto
         transition-[height] duration-500
       "
     >
@@ -188,8 +206,8 @@ export default function Benefits() {
   return (
     <section className="section-py bg-background overflow-hidden">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[42%_58%] gap-8 lg:gap-12 items-center">
-          {/* Left column — text only, nothing else lives here */}
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[42%_58%] gap-8 lg:gap-12 items-stretch">
+          {/* Left column */}
           <div className="min-w-0">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-10 bg-brand-3" />
@@ -198,17 +216,44 @@ export default function Benefits() {
               </span>
             </div>
             <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground">
-              Mais que economia. Um ativo para a sua vida.
+              Mais que economia.{" "}
+              <span className="block">Um ativo para a <span className="text-brand">sua vida.</span></span>
             </h2>
-            <p className="text-muted-foreground leading-relaxed mt-4">
+            <p className="text-muted-foreground leading-relaxed mt-4 mb-8">
               Produzir a própria energia é uma decisão financeira inteligente — e profundamente sustentável.
+            </p>
+
+            {/* Mini feature cards */}
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-8">
+              {miniFeatures.map(({ Icon, title, description }) => (
+                <div key={title} className="flex flex-col gap-1.5 py-2">
+                  <div className="w-11 h-11 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
+                    <Icon className="w-5 h-5 text-brand-2" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="font-display font-semibold text-sm text-foreground leading-snug">{title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-xl px-8 py-4 text-sm transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)] hover:-translate-y-0.5"
+            >
+              Quero esses benefícios
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+
+            <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
+              Projeto personalizado e sem compromisso
             </p>
           </div>
 
           {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
               Mobile falls back to a stacked/tappable list since fixed px widths don't work under 1024px. */}
-          <div className="flex lg:justify-end min-w-0">
-            <div className="flex flex-col lg:flex-row items-stretch w-full lg:w-auto gap-3 lg:gap-[14px]">
+          <div className="flex lg:justify-end min-w-0 h-full">
+            <div className="flex flex-col lg:flex-row items-stretch w-full lg:w-auto gap-3 lg:gap-[14px] h-full">
               {benefits.map((benefit, i) => (
                 <Panel
                   key={benefit.title}
@@ -224,15 +269,6 @@ export default function Benefits() {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-center">
-          <a
-            href="#contato"
-            className="link-quiet card-hover justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
-          >
-            Quero esses benefícios
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </div>
       </div>
     </section>
   );

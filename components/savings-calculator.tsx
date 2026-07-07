@@ -124,8 +124,7 @@ export default function SavingsCalculator() {
 
               <Button
                 asChild
-                variant="outline"
-                className="w-full border-brand/40 text-brand-2 hover:bg-brand-muted hover:text-brand font-semibold rounded-full gap-2.5 h-12"
+                className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-full gap-2.5 h-12 border-0 shadow-md shadow-brand/25"
               >
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="size-5" />
