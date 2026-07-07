@@ -105,7 +105,7 @@ export default function WhyAllure() {
                   opacity: 1,
                   duration: 0.6,
                   ease: "power1.out",
-                  scrollTrigger: { trigger: item, start: "top 85%", once: true },
+                  scrollTrigger: { trigger: item, start: "top 85%", toggleActions: "play none none reverse" },
                 }
               );
             });
@@ -159,7 +159,7 @@ export default function WhyAllure() {
 
             gsap
               .timeline({
-                scrollTrigger: { trigger: item, start: "center 70%", once: true },
+                scrollTrigger: { trigger: item, start: "center 70%", toggleActions: "play none none reverse" },
                 defaults: { ease: "power3.out" },
               })
               .to(node, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)" }, 0)

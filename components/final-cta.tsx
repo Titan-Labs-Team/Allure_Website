@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, BadgeCheck, Home, Building2, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,19 @@ export default function FinalCTA() {
   const { ref, isVisible } = useScrollAnimation();
   const [form, setForm] = useState({ name: "", phone: "", email: "", type: "" });
   const [sent, setSent] = useState<boolean>(false);
+  const [activeGuarantee, setActiveGuarantee] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setActiveGuarantee((prev) => (prev + 1) % guarantees.length);
+        setFade(true);
+      }, 300);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,11 +52,21 @@ export default function FinalCTA() {
           {/* Copy — min-w-0: grid items default to min-width:auto and refuse to shrink */}
           <div className="min-w-0 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-5">
                 <span className="h-px w-10 bg-brand-3" />
                 <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-muted-foreground font-medium">
                   Fale com a Allure
                 </span>
+              </div>
+              {/* Logo below eyebrow */}
+              <div className="mb-6">
+                <Image
+                  src="/images/logo-allure.png"
+                  alt="Allure Solar"
+                  width={220}
+                  height={75}
+                  className="object-contain"
+                />
               </div>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
                 Pronto para gerar a sua própria energia?
@@ -51,26 +74,17 @@ export default function FinalCTA() {
               <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-9">
                 Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
               </p>
-              <ul className="flex flex-wrap gap-x-7 gap-y-3">
-                {guarantees.map((g) => (
-                  <li key={g} className="flex items-center gap-2.5 text-foreground/80">
-                    <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
-                    <span className="text-sm">{g}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-center gap-2.5 h-7">
+                <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
+                <span
+                  className="text-sm text-foreground/80 transition-opacity duration-300"
+                  style={{ opacity: fade ? 1 : 0 }}
+                >
+                  {guarantees[activeGuarantee]}
+                </span>
+              </div>
             </div>
 
-            {/* Logo — fills remaining space */}
-            <div className="mt-10 lg:mt-0 flex-1 flex items-center justify-center lg:justify-start pl-0 lg:pl-12 pt-6">
-              <Image
-                src="/images/logo-allure.png"
-                alt="Allure Solar"
-                width={320}
-                height={110}
-                className="object-contain w-full max-w-sm lg:max-w-md"
-              />
-            </div>
           </div>
 
           {/* Form */}

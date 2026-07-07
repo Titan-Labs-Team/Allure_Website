@@ -109,24 +109,49 @@ export default function Header() {
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl border-t border-border animate-fade-in-up">
-            <nav className="flex flex-col p-6 gap-4">
-              {navLinks.map((link) => (
-                <NavLink key={link.href} href={link.href} onClick={closeMenu}>
-                  {link.label}
-                </NavLink>
-              ))}
-              <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full mt-4 h-11 border-0 shadow-md shadow-brand/25">
-                <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="w-4 h-4" />
-                  Solicitar orçamento
-                </a>
-              </Button>
-            </nav>
+        {/* Mobile Navigation — grid-rows trick for smooth open/close */}
+        <div
+          className={`lg:hidden absolute top-full left-0 right-0 grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isMenuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
+        >
+          <div className="overflow-hidden min-h-0">
+            <div className="bg-white border-t border-border shadow-xl">
+              <nav className="flex flex-col px-6 py-5">
+                {navLinks.map((link, i) => (
+                  <div
+                    key={link.href}
+                    className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border-b border-border/50 py-3.5"
+                    style={{
+                      opacity: isMenuOpen ? 1 : 0,
+                      transform: isMenuOpen ? "translateY(0)" : "translateY(-8px)",
+                      transitionDelay: isMenuOpen ? `${i * 55 + 80}ms` : "0ms",
+                    }}
+                  >
+                    <NavLink href={link.href} onClick={closeMenu}>
+                      {link.label}
+                    </NavLink>
+                  </div>
+                ))}
+                <div
+                  className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4"
+                  style={{
+                    opacity: isMenuOpen ? 1 : 0,
+                    transform: isMenuOpen ? "translateY(0)" : "translateY(-8px)",
+                    transitionDelay: isMenuOpen ? `${navLinks.length * 55 + 80}ms` : "0ms",
+                  }}
+                >
+                  <Button asChild className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full h-11 border-0 shadow-md shadow-brand/25">
+                    <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
+                      <WhatsAppIcon className="w-4 h-4" />
+                      Solicitar orçamento
+                    </a>
+                  </Button>
+                </div>
+              </nav>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
