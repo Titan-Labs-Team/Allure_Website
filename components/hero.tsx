@@ -60,11 +60,20 @@ export default function Hero() {
     <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
       {/* Parallax background */}
       <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
+        {/* Mobile image */}
+        <Image
+          src="/images/hero-solar-2.jpeg"
+          alt="Casa moderna com painéis solares no telhado sob céu azul"
+          fill
+          className="object-cover object-center scale-110 sm:hidden"
+          priority
+        />
+        {/* Desktop image */}
         <Image
           src="/images/hero-solar.jpeg"
           alt="Casa moderna com painéis solares no telhado sob céu azul"
           fill
-          className="object-cover object-center scale-110"
+          className="object-cover object-center scale-110 hidden sm:block"
           priority
         />
       </div>
@@ -113,7 +122,7 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="mt-5 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-5 animate-fade-in-up">
+          <div className="mt-5 sm:mt-9 flex flex-col items-center sm:items-start gap-4 animate-fade-in-up">
             <Button
               size="lg"
               asChild

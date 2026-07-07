@@ -27,7 +27,7 @@ const benefits: Benefit[] = [
     Icon: Home,
   },
   {
-    image: "/images/benefit-autonomy.jpg",
+    image: "/images/foto site.jpeg",
     title: "Conquiste autonomia energética",
     description: "Menos dependência das distribuidoras e proteção contra os reajustes constantes da tarifa.",
     Icon: Zap,
