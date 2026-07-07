@@ -272,7 +272,7 @@ export default function HowItWorks() {
         <div className="mt-10 lg:mt-12 flex justify-center">
           <a
             href="#contato"
-            className="link-quiet card-hover justify-center rounded-full bg-white px-8 py-4 sm:px-9 sm:py-5 font-semibold text-[#071626] hover:bg-white/90 transition-all shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.5)]"
+            className="inline-flex items-center gap-2 justify-center rounded-full bg-white px-8 py-4 sm:px-9 sm:py-5 font-semibold text-[#071626] hover:bg-white/90 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.5)]"
           >
             Ver simulação de economia
             <ArrowUpRight className="w-4 h-4" />

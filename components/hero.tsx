@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ChevronDown, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import LightRays from "@/components/light-rays";
 import { useCountUp } from "@/hooks/use-count-up";
@@ -41,25 +39,10 @@ function HeroStat({ stat }: { stat: Stat }) {
 }
 
 export default function Hero() {
-  const [offset, setOffset] = useState<number>(0);
-
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setOffset(window.scrollY));
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
-      {/* Parallax background */}
-      <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
+      {/* Background */}
+      <div className="absolute inset-0">
         {/* Mobile image */}
         <Image
           src="/images/hero-solar-2.jpeg"
@@ -122,18 +105,17 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="mt-5 sm:mt-9 flex flex-col items-center sm:items-start gap-4 animate-fade-in-up">
-            <Button
-              size="lg"
-              asChild
-              className="group w-full sm:w-auto bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg px-6 sm:px-10 h-16 rounded-full gap-3 border-0 transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5"
+          <div className="mt-5 sm:mt-9 flex flex-row flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 animate-fade-in-up">
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)]"
             >
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="size-7" />
-                Solicitar orçamento
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Button>
+              <WhatsAppIcon className="size-5" />
+              Solicitar orçamento
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
 
             <button
               onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}

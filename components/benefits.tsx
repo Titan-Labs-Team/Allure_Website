@@ -219,14 +219,14 @@ export default function Benefits() {
               Mais que economia.{" "}
               <span className="block">Um ativo para a <span className="text-brand">sua vida.</span></span>
             </h2>
-            <p className="text-muted-foreground leading-relaxed mt-4 mb-8">
+            <p className="text-muted-foreground leading-relaxed mt-4 mb-5">
               Produzir a própria energia é uma decisão financeira inteligente — e profundamente sustentável.
             </p>
 
             {/* Mini feature cards */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-8">
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-5">
               {miniFeatures.map(({ Icon, title, description }) => (
-                <div key={title} className="flex flex-col gap-1.5 py-2">
+                <div key={title} className="flex flex-col items-center text-center gap-1.5 py-2">
                   <div className="w-11 h-11 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
                     <Icon className="w-5 h-5 text-brand-2" strokeWidth={1.8} />
                   </div>
@@ -236,18 +236,20 @@ export default function Benefits() {
               ))}
             </div>
 
-            <a
-              href="#contato"
-              className="inline-flex items-center gap-2 bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-xl px-8 py-4 text-sm transition-all duration-300 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)] hover:-translate-y-0.5"
-            >
-              Quero esses benefícios
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-
-            <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
-              Projeto personalizado e sem compromisso
-            </p>
+            {/* CTA — desktop only (mobile version fica abaixo do grid) */}
+            <div className="hidden lg:flex flex-col items-start gap-3">
+              <a
+                href="#contato"
+                className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
+              >
+                Quero esses benefícios
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
+                Projeto personalizado e sem compromisso
+              </p>
+            </div>
           </div>
 
           {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
@@ -267,6 +269,21 @@ export default function Benefits() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* CTA — mobile only, centralizado abaixo dos cards de imagem */}
+        <div className="lg:hidden flex flex-col items-center gap-3 mt-8">
+          <a
+            href="#contato"
+            className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
+          >
+            Quero esses benefícios
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
+            Projeto personalizado e sem compromisso
+          </p>
         </div>
 
       </div>

@@ -7,8 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface FAQItem {
@@ -89,21 +87,15 @@ export default function FAQ() {
           </Accordion>
 
           <div className="mt-10 flex justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="group bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-sm px-7 h-11 rounded-full gap-2 border-0 shadow-md shadow-brand/25"
+            <a
+              href="https://wa.me/5517991604404?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
             >
-              <a
-                href="https://wa.me/5517991604404?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WhatsAppIcon className="size-4" />
-                Tirar minha dúvida
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Button>
+              Tirar minha dúvida
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>

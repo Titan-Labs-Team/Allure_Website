@@ -64,7 +64,7 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-brand/25 transition-all">
+            <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
               <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon className="w-6 h-6" />
                 Solicitar orçamento
@@ -141,7 +141,7 @@ export default function Header() {
                     transitionDelay: isMenuOpen ? `${navLinks.length * 55 + 80}ms` : "0ms",
                   }}
                 >
-                  <Button asChild className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full h-11 border-0 shadow-md shadow-brand/25">
+                  <Button asChild className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full h-11 border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
                     <a href="https://wa.me/5517991604404" target="_blank" rel="noopener noreferrer">
                       <WhatsAppIcon className="w-4 h-4" />
                       Solicitar orçamento

@@ -2,9 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
-import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { TrendingDown, CalendarClock, Leaf } from "lucide-react";
+import { TrendingDown, CalendarClock, Leaf, ArrowUpRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
 
@@ -122,15 +121,16 @@ export default function SavingsCalculator() {
                 <span>Estimativa baseada em economia média de 88% da conta.</span>
               </div>
 
-              <Button
-                asChild
-                className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold rounded-full gap-2.5 h-12 border-0 shadow-md shadow-brand/25"
+              <a
+                href={WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 px-6 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)]"
               >
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="size-5" />
-                  Quero meu orçamento detalhado
-                </a>
-              </Button>
+                <WhatsAppIcon className="size-6" />
+                Quero meu orçamento detalhado
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
             </div>
             </ElectricBorder>
           </div>
