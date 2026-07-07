@@ -132,9 +132,10 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Mobile: horizontal snap carousel that bleeds to the screen edge (-mx-5 px-5)
-              while keeping a reading gutter. md+: reverts to the 3-column grid. */}
-          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
+          {/* Mobile: horizontal snap carousel. Left edge inherits the section's own
+              px-5/sm:px-6 padding (so the first card lines up with the heading/paragraph
+              above it) — only the right side bleeds to the screen edge for the peek effect. */}
+          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mr-5 pr-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
             {testimonials.map((t) => (
               <TestimonialCard key={t.name} t={t} />
             ))}
@@ -144,7 +145,10 @@ export default function Testimonials() {
 
           {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-14 flex justify-center">
-            <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+            <a
+              href="#contato"
+              className="link-quiet card-hover justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
+            >
               Quero economizar também
               <ArrowUpRight className="w-4 h-4" />
             </a>

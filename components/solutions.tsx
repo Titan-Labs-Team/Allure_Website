@@ -105,9 +105,10 @@ export default function Solutions() {
             </p>
           </div>
 
-          {/* Mobile: horizontal snap carousel bleeding to the screen edge (-mx-5 px-5)
-              with a reading gutter. md+: reverts to the 3-column grid. */}
-          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
+          {/* Mobile: horizontal snap carousel. Left edge inherits the section's own
+              px-5/sm:px-6 padding (so the first card lines up with the heading/paragraph
+              above it) — only the right side bleeds to the screen edge for the peek effect. */}
+          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mr-5 pr-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
             {solutions.map((s) => (
               <SolutionCard key={s.tag} {...s} />
             ))}

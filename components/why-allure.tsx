@@ -329,7 +329,10 @@ export default function WhyAllure() {
 
         {/* Quiet link — primary conversion stays with hero + final CTA */}
         <div className="mt-14 flex justify-center">
-          <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+          <a
+            href="#contato"
+            className="link-quiet card-hover justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
+          >
             Falar com um especialista
             <ArrowUpRight className="w-4 h-4" />
           </a>

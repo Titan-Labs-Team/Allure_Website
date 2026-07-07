@@ -1,7 +1,10 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { Sun, Cpu, TrendingDown, ArrowUpRight } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const steps = [
@@ -33,6 +36,96 @@ const steps = [
 
 export default function HowItWorks() {
   const { ref, isVisible } = useScrollAnimation();
+  const mobileTimelineRef = useRef<HTMLDivElement>(null);
+  const pathTrackRef = useRef<SVGPathElement>(null);
+  const pathFillRef = useRef<SVGPathElement>(null);
+
+  // Mobile-only scroll timeline: a single line draws itself down the rail as the
+  // section scrolls, each step's icon node pops and its text fades in right behind
+  // the tip of the line. No bounding cards — content floats directly on the backdrop.
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const wrap = mobileTimelineRef.current;
+    const track = pathTrackRef.current;
+    const fill = pathFillRef.current;
+    if (!wrap || !track || !fill) return;
+
+    const buildPath = () => {
+      const d = `M 1 0 V ${wrap.offsetHeight}`;
+      track.setAttribute("d", d);
+      fill.setAttribute("d", d);
+    };
+    buildPath();
+    ScrollTrigger.addEventListener("refreshInit", buildPath);
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          reduce: "(prefers-reduced-motion: reduce)",
+          motion: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const { reduce } = context.conditions as { reduce: boolean };
+
+          if (reduce) {
+            gsap.set(fill, { strokeDashoffset: 0 });
+            gsap.utils.toArray<HTMLElement>(".how-step-mobile").forEach((item) => {
+              gsap.fromTo(
+                item,
+                { opacity: 0 },
+                {
+                  opacity: 1,
+                  duration: 0.6,
+                  ease: "power1.out",
+                  scrollTrigger: { trigger: item, start: "top 85%", once: true },
+                }
+              );
+            });
+            return;
+          }
+
+          gsap
+            .timeline({
+              defaults: { ease: "none" },
+              scrollTrigger: {
+                trigger: wrap,
+                start: "top 75%",
+                end: "bottom 75%",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            })
+            .fromTo(fill, { strokeDashoffset: 1 }, { strokeDashoffset: 0 });
+
+          gsap.utils.toArray<HTMLElement>(".how-step-mobile").forEach((item) => {
+            const node = item.querySelector<HTMLElement>(".how-step-node");
+            const body = item.querySelector<HTMLElement>(".how-step-body");
+            if (!node || !body) return;
+
+            gsap.set(node, { scale: 0, opacity: 0 });
+            gsap.set(body, { opacity: 0, y: 16 });
+
+            gsap
+              .timeline({
+                scrollTrigger: { trigger: item, start: "top 78%", once: true },
+                defaults: { ease: "power3.out" },
+              })
+              .to(node, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)" }, 0)
+              .to(node, { filter: "drop-shadow(0 0 10px rgba(91,184,245,0.5))", duration: 0.4 }, "<0.1")
+              .to(body, { opacity: 1, y: 0, duration: 0.5 }, 0.1);
+          });
+        }
+      );
+    }, mobileTimelineRef);
+
+    return () => {
+      ScrollTrigger.removeEventListener("refreshInit", buildPath);
+      ctx.revert();
+    };
+  }, []);
 
   return (
     <section id="como-funciona" className="relative section-py bg-[#071626] overflow-hidden">
@@ -95,25 +188,55 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps — editorial rail: big structural numeral anchors each step instead of a
-            uniform icon-card grid. Left-aligned rows on mobile (rail runs down the left edge),
-            top-aligned columns on desktop (rail runs across the top edge). Text always visible;
-            nothing is hidden behind the breakpoint. */}
-        <div className={`stagger-children ${isVisible ? "visible" : ""}`}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
-            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
-              <div key={num} className="relative flex md:flex-col gap-5 md:gap-0 min-w-0">
-                {/* Rail segment — vertical on mobile (runs behind the numeral column),
-                    horizontal on desktop (runs across the top, above each step). */}
-                <div className="flex md:hidden flex-col items-center w-9 shrink-0">
-                  <span className="font-display font-bold text-3xl leading-none text-white/25 tabular-nums">
-                    {String(num).padStart(2, "0")}
-                  </span>
-                  {i < steps.length - 1 && (
-                    <span className="mt-3 flex-1 w-px bg-gradient-to-b from-white/25 to-transparent" aria-hidden />
-                  )}
+        {/* Mobile: scroll-drawn vertical timeline. No cards — icon nodes ride a line that
+            fills in as the section scrolls, text floats directly on the backdrop. */}
+        <div ref={mobileTimelineRef} className="md:hidden relative">
+          <svg className="absolute left-5 top-0 h-full w-[2px] overflow-visible pointer-events-none" aria-hidden>
+            <path ref={pathTrackRef} d="M 1 0 V 1" fill="none" strokeWidth={2} style={{ stroke: "rgba(255,255,255,0.15)" }} />
+            <path
+              ref={pathFillRef}
+              d="M 1 0 V 1"
+              fill="none"
+              strokeWidth={2}
+              strokeLinecap="round"
+              pathLength={1}
+              style={{ stroke: "var(--brand-3)", strokeDasharray: 1, strokeDashoffset: 1 }}
+            />
+          </svg>
+
+          <div className="flex flex-col gap-10">
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
+              <div key={num} className="how-step-mobile grid grid-cols-[2.5rem_1fr] gap-x-4">
+                <div className="how-step-node relative z-10 w-10 h-10 rounded-full flex items-center justify-center border-4 border-[#071626] bg-[#0c2036] ring-1 ring-white/15">
+                  <Icon className="w-5 h-5 text-brand-3" strokeWidth={1.75} />
                 </div>
-                <div className="hidden md:flex items-center gap-4 mb-6">
+
+                <div className="how-step-body pt-1">
+                  <span className="block text-[0.65rem] font-semibold uppercase tracking-wider text-brand-3 mb-2">
+                    Etapa {String(num).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
+                    {title}
+                  </h3>
+                  <p className="text-white/55 text-sm leading-relaxed mb-3 text-pretty">
+                    {description}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-display font-bold text-white">{highlight}</span>
+                    <span className="text-white/45"> — {highlightLabel}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: editorial numeral rail */}
+        <div className={`hidden md:block stagger-children ${isVisible ? "visible" : ""}`}>
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
+              <div key={num} className="relative flex flex-col min-w-0">
+                <div className="flex items-center gap-4 mb-6">
                   <span className="font-display font-bold text-4xl lg:text-5xl leading-none text-white/25 tabular-nums">
                     {String(num).padStart(2, "0")}
                   </span>
@@ -122,9 +245,8 @@ export default function HowItWorks() {
                   )}
                 </div>
 
-                {/* Step body */}
-                <div className="flex-1 min-w-0 pb-1 md:pb-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-3 sm:mb-4">
+                <div className="flex-1 min-w-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-3" strokeWidth={1.5} />
                   </div>
 
@@ -132,7 +254,7 @@ export default function HowItWorks() {
                     {title}
                   </h3>
 
-                  <p className="text-white/55 text-sm leading-relaxed mb-4 max-w-[26rem] md:max-w-none text-pretty">
+                  <p className="text-white/55 text-sm leading-relaxed mb-4 text-pretty">
                     {description}
                   </p>
 
@@ -150,7 +272,7 @@ export default function HowItWorks() {
         <div className="mt-10 lg:mt-12 flex justify-center">
           <a
             href="#contato"
-            className="link-quiet text-white/60 hover:text-white"
+            className="link-quiet card-hover justify-center rounded-full bg-white px-8 py-4 sm:px-9 sm:py-5 font-semibold text-[#071626] hover:bg-white/90 transition-all shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.5)]"
           >
             Ver simulação de economia
             <ArrowUpRight className="w-4 h-4" />

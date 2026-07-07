@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Flame, Sun, Home, Zap } from "lucide-react";
+import { ArrowUpRight, Sun, Home, Zap } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -11,7 +11,6 @@ interface Benefit {
   title: string;
   description: string;
   Icon: typeof Sun;
-  featured?: boolean;
 }
 
 const benefits: Benefit[] = [
@@ -20,7 +19,6 @@ const benefits: Benefit[] = [
     title: "Reduza até 90% da conta de luz",
     description: "A economia começa já no primeiro mês e se acumula ao longo de mais de duas décadas de geração.",
     Icon: Sun,
-    featured: true,
   },
   {
     image: "/images/benefit-value.jpg",
@@ -51,7 +49,7 @@ function Panel({
   onActivate: () => void;
   panelRef: (el: HTMLButtonElement | null) => void;
 }) {
-  const { image, title, description, Icon, featured } = benefit;
+  const { image, title, description } = benefit;
   const [isMobileInView, setIsMobileInView] = useState(false);
   const elRef = useRef<HTMLButtonElement | null>(null);
 
@@ -107,30 +105,6 @@ function Panel({
       <div
         className={`absolute inset-0 bg-gradient-to-t from-[#0E2C6B]/85 via-[#0E2C6B]/10 to-transparent transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"}`}
       />
-
-      {featured && (
-        <div
-          className={`
-            absolute top-4 right-4 z-10 flex items-center gap-1.5 whitespace-nowrap bg-amber-400 text-amber-950 text-[0.65rem] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full shadow-lg shadow-amber-400/30
-            transition-opacity duration-300
-            ${showContent ? "opacity-100 delay-500" : "opacity-0 delay-0 pointer-events-none"}
-          `}
-        >
-          <Flame className="w-3 h-3" strokeWidth={2.5} />
-          Destaque
-        </div>
-      )}
-
-      <div
-        className={`
-          absolute w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-white/15 backdrop-blur-sm ring-1 ring-white/25
-          flex items-center justify-center flex-shrink-0 transition-opacity duration-300 z-10
-          left-5 top-5 lg:left-6 lg:top-6
-          ${showContent ? "opacity-100" : "opacity-0"}
-        `}
-      >
-        <Icon className="w-4 h-4 lg:w-5 lg:h-5 text-white" strokeWidth={1.75} />
-      </div>
 
       {/* Collapsed-rail vertical label — desktop only, mobile never has a narrow collapsed state */}
       <span
@@ -251,7 +225,10 @@ export default function Benefits() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <a href="#contato" className="link-quiet text-brand-2 hover:text-brand">
+          <a
+            href="#contato"
+            className="link-quiet card-hover justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
+          >
             Quero esses benefícios
             <ArrowUpRight className="w-4 h-4" />
           </a>

@@ -24,6 +24,9 @@ const stats: Stat[] = [
   { end: 98,   suffix: "%",     label: "Clientes satisfeitos",description: "recomendam a Allure" },
 ];
 
+// Mobile keeps only the two strongest signals — GWh and years-of-experience get dropped there.
+const mobileStats: Stat[] = [stats[0], stats[3]];
+
 function HeroStat({ stat }: { stat: Stat }) {
   const { ref, formatted } = useCountUp({ end: stat.end });
   return (
@@ -54,7 +57,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[100dvh] sm:min-h-0">
+    <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
       {/* Parallax background */}
       <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${offset * 0.18}px)` }}>
         <Image
@@ -110,7 +113,7 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-5 animate-fade-in-up">
+          <div className="mt-5 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-5 animate-fade-in-up">
             <Button
               size="lg"
               asChild
@@ -145,8 +148,21 @@ export default function Hero() {
               <span className="text-xs font-medium text-white/45 leading-snug">Engenharia solar certificada</span>
             </div>
 
-            {/* Stats — centered, flex-1 */}
-            <div className="flex-1 flex flex-row flex-wrap items-center justify-center gap-y-4 gap-x-0">
+            {/* Stats — mobile keeps only the two strongest signals so the strip stays
+                light next to the CTA; sm+ shows the full set of four. */}
+            <div className="flex-1 flex flex-row items-center justify-center sm:hidden">
+              {mobileStats.map((stat, i) => (
+                <div key={stat.label} className="flex items-center">
+                  <div className="px-5">
+                    <HeroStat stat={stat} />
+                  </div>
+                  {i < mobileStats.length - 1 && (
+                    <span className="w-px h-7 bg-white/10 flex-shrink-0" aria-hidden />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="hidden sm:flex flex-1 flex-row flex-wrap items-center justify-center gap-y-4 gap-x-0">
               {stats.map((stat, i) => (
                 <div key={stat.label} className="flex items-center">
                   <div className="px-5 sm:px-8">
