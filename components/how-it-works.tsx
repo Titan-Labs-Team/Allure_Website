@@ -231,38 +231,31 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* Desktop: editorial numeral rail */}
+        {/* Desktop: editorial numeral rail — each column centered so it lines up
+            with the centered header above instead of hugging the left edge. */}
         <div className={`hidden md:block stagger-children ${isVisible ? "visible" : ""}`}>
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
-            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }, i) => (
-              <div key={num} className="relative flex flex-col min-w-0">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="font-display font-bold text-4xl lg:text-5xl leading-none text-white/25 tabular-nums">
-                    {String(num).padStart(2, "0")}
+          <div className="grid md:grid-cols-3 gap-10 lg:gap-14">
+            {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
+              <div key={num} className="relative flex flex-col items-center text-center min-w-0">
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-3" strokeWidth={1.5} />
+                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-brand-3 text-[#071626] text-[0.65rem] font-bold flex items-center justify-center">
+                    {num}
                   </span>
-                  {i < steps.length - 1 && (
-                    <span className="hidden lg:block flex-1 h-px bg-gradient-to-r from-white/25 to-transparent" aria-hidden />
-                  )}
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-3" strokeWidth={1.5} />
-                  </div>
+                <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
+                  {title}
+                </h3>
 
-                  <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
-                    {title}
-                  </h3>
+                <p className="text-white/55 text-sm leading-relaxed mb-4 text-pretty max-w-xs">
+                  {description}
+                </p>
 
-                  <p className="text-white/55 text-sm leading-relaxed mb-4 text-pretty">
-                    {description}
-                  </p>
-
-                  <p className="text-sm">
-                    <span className="font-display font-bold text-white">{highlight}</span>
-                    <span className="text-white/45"> — {highlightLabel}</span>
-                  </p>
-                </div>
+                <p className="text-sm">
+                  <span className="font-display font-bold text-white">{highlight}</span>
+                  <span className="text-white/45"> — {highlightLabel}</span>
+                </p>
               </div>
             ))}
           </div>

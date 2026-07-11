@@ -37,7 +37,8 @@ export default function FinalCTA() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const type = form.type ? ` Tipo de imóvel: ${form.type}.` : "";
-    const text = `Olá! Sou ${form.name}.${type} Telefone: ${form.phone}. E-mail: ${form.email}. Gostaria de um orçamento de energia solar.`;
+    const email = form.email ? ` E-mail: ${form.email}.` : "";
+    const text = `Olá! Sou ${form.name}.${type} Telefone: ${form.phone}.${email} Gostaria de um orçamento de energia solar.`;
     setSent(true);
     window.open(`https://wa.me/5517991604404?text=${encodeURIComponent(text)}`, "_blank");
   };
@@ -93,7 +94,9 @@ export default function FinalCTA() {
             <ShineBorder shineColor={["#1D4ED8", "#3B82F6", "#93C5FD", "#3B82F6", "#1D4ED8"]} duration={4} borderWidth={3.5} />
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Nome completo</label>
+                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  Nome completo <span className="text-brand">*</span>
+                </label>
                 <input
                   id="name"
                   type="text"
@@ -105,7 +108,9 @@ export default function FinalCTA() {
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">Telefone / WhatsApp</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                  Telefone / WhatsApp <span className="text-brand">*</span>
+                </label>
                 <input
                   id="phone"
                   type="tel"
@@ -117,11 +122,12 @@ export default function FinalCTA() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">E-mail</label>
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  E-mail <span className="text-muted-foreground font-normal">(opcional)</span>
+                </label>
                 <input
                   id="email"
                   type="email"
-                  required
                   value={form.email}
                   onChange={update("email")}
                   placeholder="voce@email.com"

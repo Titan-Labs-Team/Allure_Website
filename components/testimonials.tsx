@@ -127,7 +127,7 @@ export default function Testimonials() {
                     <Star key={i} className="w-3.5 h-3.5 fill-accent text-accent" />
                   ))}
                 </span>
-                4,9 · +800 avaliações no Google
+                5,0 no Google
               </div>
             </div>
           </div>

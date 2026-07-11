@@ -3,30 +3,13 @@
 import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { TrendingDown, CalendarClock, Leaf, ArrowUpRight } from "lucide-react";
+import { TrendingDown, BadgePercent, Leaf, ArrowUpRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
 
 const SAVINGS_RATE = 0.88; // economia média
-const AVG_TARIFF_PER_KWH = 0.95; // tarifa média de energia (R$/kWh)
-const GENERATION_PER_KWP_PER_DAY = 4.5; // geração média (kWh/kWp/dia), considerando irradiação BR
-const OVERSIZE_FACTOR = 1.15; // folga de dimensionamento (perdas, fator de simultaneidade)
-
-// Custo por kWp decresce por faixa: sistemas maiores diluem custo fixo (projeto, mão de obra, inversor)
-const COST_PER_KWP_TABLE: { maxKwp: number; costPerKwp: number }[] = [
-  { maxKwp: 3, costPerKwp: 5200 },
-  { maxKwp: 5, costPerKwp: 4600 },
-  { maxKwp: 8, costPerKwp: 4200 },
-  { maxKwp: 15, costPerKwp: 3800 },
-  { maxKwp: 30, costPerKwp: 3500 },
-  { maxKwp: Infinity, costPerKwp: 3200 },
-];
-
-function costPerKwpFor(kwp: number) {
-  return COST_PER_KWP_TABLE.find((tier) => kwp <= tier.maxKwp)!.costPerKwp;
-}
 
 function formatBRL(v: number) {
   return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -36,16 +19,9 @@ export default function SavingsCalculator() {
   const { ref, isVisible } = useScrollAnimation();
   const [bill, setBill] = useState<number>(450);
 
-  const { annualSavings, roiYears } = useMemo(() => {
+  const annualSavings = useMemo(() => {
     const monthlySavings = bill * SAVINGS_RATE;
-    const annual = monthlySavings * 12;
-
-    const monthlyConsumptionKwh = bill / AVG_TARIFF_PER_KWH;
-    const requiredKwp = (monthlyConsumptionKwh / 30 / GENERATION_PER_KWP_PER_DAY) * OVERSIZE_FACTOR;
-    const systemCost = requiredKwp * costPerKwpFor(requiredKwp);
-
-    const roi = annual > 0 ? systemCost / annual : 0;
-    return { annualSavings: annual, roiYears: roi };
+    return monthlySavings * 12;
   }, [bill]);
 
   return (
@@ -107,11 +83,11 @@ export default function SavingsCalculator() {
                 </div>
                 <div className="rounded-xl bg-background border border-border p-4 sm:p-5 min-w-0">
                   <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                    <CalendarClock className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-xs font-medium uppercase tracking-wide">Retorno em</span>
+                    <BadgePercent className="w-4 h-4 flex-shrink-0" />
+                    <span className="text-xs font-medium uppercase tracking-wide">Economia em até</span>
                   </div>
                   <p className="font-display text-xl sm:text-3xl font-semibold tracking-tight text-foreground">
-                    {roiYears.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} <span className="text-base sm:text-lg text-muted-foreground">anos</span>
+                    90<span className="text-base sm:text-lg text-muted-foreground">%</span>
                   </p>
                 </div>
               </div>

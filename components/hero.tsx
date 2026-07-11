@@ -1,12 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, ChevronDown, Star } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import LightRays from "@/components/light-rays";
 import { useCountUp } from "@/hooks/use-count-up";
 
 const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
+
+const heroImages = [
+  { src: "/images/nova-hero.jpeg", alt: "Casa moderna com painéis solares no telhado sob céu azul" },
+  { src: "/images/hero-solar-2.jpeg", alt: "Instalação de painéis solares residenciais" },
+  { src: "/images/hero-solar.jpeg", alt: "Sistema fotovoltaico em funcionamento sob luz solar" },
+];
 
 interface Stat {
   end: number;
@@ -19,7 +26,7 @@ const stats: Stat[] = [
   { end: 1240, suffix: "+",     label: "Projetos instalados", description: "em todo o Brasil"    },
   { end: 38,   suffix: " GWh",  label: "Energia gerada",      description: "por ano na rede"     },
   { end: 12,   suffix: " anos", label: "De experiência",      description: "em engenharia solar" },
-  { end: 98,   suffix: "%",     label: "Clientes satisfeitos",description: "recomendam a Allure" },
+  { end: 100,  suffix: "%",     label: "Clientes satisfeitos",description: "recomendam a Allure" },
 ];
 
 // Mobile keeps only the two strongest signals — GWh and years-of-experience get dropped there.
@@ -39,27 +46,55 @@ function HeroStat({ stat }: { stat: Stat }) {
 }
 
 export default function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  // Auto-advance the background carousel every 5s; manual arrows just jump the index.
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  const goPrev = () => setCurrent((c) => (c - 1 + heroImages.length) % heroImages.length);
+  const goNext = () => setCurrent((c) => (c + 1) % heroImages.length);
+
   return (
     <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
-      {/* Background */}
+      {/* Background — auto-advancing carousel (3s), crossfades between slides */}
       <div className="absolute inset-0">
-        {/* Mobile image */}
-        <Image
-          src="/images/hero-solar-2.jpeg"
-          alt="Casa moderna com painéis solares no telhado sob céu azul"
-          fill
-          className="object-cover object-center scale-110 sm:hidden"
-          priority
-        />
-        {/* Desktop image */}
-        <Image
-          src="/images/nova-hero.jpeg"
-          alt="Casa moderna com painéis solares no telhado sob céu azul"
-          fill
-          className="object-cover object-[center_65%] scale-110 hidden sm:block"
-          priority
-        />
+        {heroImages.map((image, i) => (
+          <Image
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            fill
+            priority={i === 0}
+            className={`object-cover object-center scale-110 transition-opacity duration-1000 ease-in-out ${
+              i === current ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
       </div>
+
+      {/* Carousel arrows */}
+      <button
+        type="button"
+        onClick={goPrev}
+        aria-label="Imagem anterior"
+        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button
+        type="button"
+        onClick={goNext}
+        aria-label="Próxima imagem"
+        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0A2153]/40 via-transparent to-transparent" />
       <div className="absolute inset-0 z-[5] opacity-60">
@@ -173,7 +208,7 @@ export default function Hero() {
                   <Star key={s} className="w-3 h-3 fill-accent text-accent" />
                 ))}
               </div>
-              <span className="text-xs font-medium text-white/45 text-center">4.9 no Google · +380 avaliações</span>
+              <span className="text-xs font-medium text-white/45 text-center">5.0 no Google</span>
             </div>
 
           </div>
