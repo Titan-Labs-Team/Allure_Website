@@ -36,10 +36,21 @@ export default function FinalCTA() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const type = form.type ? ` Tipo de imóvel: ${form.type}.` : "";
-    const email = form.email ? ` E-mail: ${form.email}.` : "";
-    const text = `Olá! Sou ${form.name}.${type} Telefone: ${form.phone}.${email} Gostaria de um orçamento de energia solar.`;
+    const text = "Olá! Vim pelo site e gostaria de um orçamento de energia solar.";
     setSent(true);
+
+    const leadPayload = JSON.stringify({ name: form.name, phone: form.phone, email: form.email || undefined });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/api/lead", new Blob([leadPayload], { type: "application/json" }));
+    } else {
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: leadPayload,
+        keepalive: true,
+      }).catch(() => {});
+    }
+
     window.open(`https://wa.me/5517991604404?text=${encodeURIComponent(text)}`, "_blank");
   };
 
