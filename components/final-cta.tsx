@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import { ArrowUpRight, BadgeCheck, Home, Building2, Factory } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Home, Building2, Factory, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
@@ -34,6 +33,7 @@ export default function FinalCTA() {
     return () => clearInterval(interval);
   }, []);
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const type = form.type ? ` Tipo de imóvel: ${form.type}.` : "";
@@ -59,22 +59,42 @@ export default function FinalCTA() {
                   Fale com a Allure
                 </span>
               </div>
-              {/* Logo below eyebrow */}
-              <div className="mb-6">
-                <Image
-                  src="/images/logo-allure.png"
-                  alt="Allure Solar"
-                  width={220}
-                  height={75}
-                  className="object-contain"
-                />
-              </div>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
                 Pronto para gerar a sua própria energia?
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-9">
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-6">
                 Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
               </p>
+
+              {/* Social proof */}
+              <div className="flex items-center gap-4 py-5 mb-5 border-y border-border/50">
+                <div className="flex -space-x-2.5 shrink-0">
+                  {[
+                    { initials: "MS", bg: "#3B82F6" },
+                    { initials: "AR", bg: "#1D4ED8" },
+                    { initials: "FO", bg: "#2563EB" },
+                    { initials: "LC", bg: "#60A5FA" },
+                  ].map(({ initials, bg }) => (
+                    <div
+                      key={initials}
+                      className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shrink-0"
+                      style={{ backgroundColor: bg }}
+                    >
+                      {initials}
+                    </div>
+                  ))}
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-0.5 mb-0.5">
+                    {[1,2,3,4,5].map((s) => (
+                      <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                    <span className="text-sm font-semibold text-foreground ml-1.5">4.9</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
+                </div>
+              </div>
+
               <div className="flex items-center gap-2.5 h-7">
                 <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
                 <span
@@ -84,6 +104,7 @@ export default function FinalCTA() {
                   {guarantees[activeGuarantee]}
                 </span>
               </div>
+
             </div>
 
           </div>

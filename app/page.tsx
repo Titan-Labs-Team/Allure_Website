@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import Hero from "@/components/hero";
+import Partners from "@/components/partners";
 import HowItWorks from "@/components/how-it-works";
 import Solutions from "@/components/solutions";
 import Benefits from "@/components/benefits";
@@ -26,6 +27,7 @@ export default function HomePage() {
         <WhyAllure />
         <FinalCTA />
         <FAQ />
+        <Partners />
       </main>
 
       <Footer />

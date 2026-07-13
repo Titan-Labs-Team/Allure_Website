@@ -116,6 +116,9 @@ export default function WhyAllure() {
           // the drawn line and the plane always ride the same 70%-viewport mark.
           // The fill path has pathLength=1, so dashoffset 1→0 draws it end to end.
           gsap.set(plane, { autoAlpha: 1 });
+          const iconEl = plane.querySelector("svg");
+          if (iconEl) gsap.set(iconEl, { rotation: 135 });
+
           gsap
             .timeline({
               defaults: { ease: "none" },
@@ -125,6 +128,11 @@ export default function WhyAllure() {
                 end: "bottom 70%",
                 scrub: true,
                 invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                  if (iconEl) {
+                    gsap.set(iconEl, { rotation: self.direction === -1 ? -45 : 135 });
+                  }
+                },
               },
             })
             .fromTo(fill, { strokeDashoffset: 1 }, { strokeDashoffset: 0 }, 0)
@@ -135,7 +143,7 @@ export default function WhyAllure() {
                   path: track,
                   align: track,
                   alignOrigin: [0.5, 0.5],
-                  autoRotate: true,
+                  autoRotate: false,
                 },
               },
               0
@@ -233,7 +241,7 @@ export default function WhyAllure() {
             className="absolute top-0 left-0 z-20 w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center shadow-lg shadow-brand/40 opacity-0 will-change-transform"
             aria-hidden
           >
-            <Send className="w-4 h-4 rotate-45" strokeWidth={2} />
+            <Send className="w-4 h-4" strokeWidth={2} />
           </div>
 
           <div className="flex flex-col gap-10 sm:gap-14">
