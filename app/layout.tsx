@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   authors: [{ name: 'Allure' }],
   generator: 'v0.app',
   icons: {
-    icon: '/images/logo-site.png',
-    apple: '/images/logo-site.png',
+    icon: '/images/i1-rounded.png?v=3',
+    apple: '/images/i1-rounded.png?v=3',
   },
 }
 

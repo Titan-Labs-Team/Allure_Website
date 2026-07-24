@@ -154,7 +154,7 @@ export default function Hero() {
 
             <button
               onClick={() => document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" })}
-              className="link-quiet text-brand-foreground/60 hover:text-brand-foreground/90"
+              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/[0.06] bg-white/[0.02] px-8 py-4 sm:px-9 sm:py-5 text-brand-foreground/90 hover:bg-white/[0.06] transition-all duration-300"
             >
               Como funciona
               <ChevronDown className="w-4 h-4" />

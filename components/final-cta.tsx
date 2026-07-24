@@ -203,8 +203,7 @@ export default function FinalCTA() {
                 size="lg"
                 className="group w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg rounded-full gap-2.5 whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5 transition-all duration-300"
               >
-                <WhatsAppIcon className="size-6" />
-                {sent ? "Abrindo o WhatsApp..." : "Solicitar orçamento gratuito"}
+                {sent ? "Abrindo o WhatsApp..." : "Solicitar Orçamento Agora!"}
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
 
