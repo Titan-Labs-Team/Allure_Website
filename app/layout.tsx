@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { siteConfig } from '@/lib/site'
+import StructuredData from '@/components/structured-data'
 import './globals.css'
 
 const inter = Inter({ 
@@ -15,11 +17,63 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Allure | Energia Solar Residencial e Empresarial',
-  description: 'A Allure projeta e instala sistemas solares completos para você economizar até 95% na conta de luz. Energia inteligente. Engenharia que transforma.',
-  keywords: ['energia solar', 'painéis solares', 'economia de energia', 'sustentabilidade', 'energia renovável'],
-  authors: [{ name: 'Allure' }],
-  generator: 'v0.app',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: '%s | Allure Energia Solar',
+  },
+  description: siteConfig.description,
+  keywords: [
+    'energia solar',
+    'painéis solares',
+    'energia solar residencial',
+    'energia solar empresarial',
+    'sistema fotovoltaico',
+    'economia de energia',
+    'energia solar São Carlos',
+    'sustentabilidade',
+    'energia renovável',
+  ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  applicationName: siteConfig.name,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: 'Allure Energia Solar — economize até 95% na conta de luz',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   icons: {
     icon: '/images/i1-rounded.png?v=3',
     apple: '/images/i1-rounded.png?v=3',
@@ -40,6 +94,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="bg-background">
       <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
+        <StructuredData />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
