@@ -7,7 +7,7 @@ import { TrendingDown, BadgePercent, Leaf, ArrowUpRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
 
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
+const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
 
 const SAVINGS_RATE = 0.88; // economia média
 

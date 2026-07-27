@@ -41,7 +41,7 @@ Paleta de marca já definida via CSS vars — não inventar cores novas, usar as
 - Utilitário `.section-py` / `.section-py-lg`: escala de padding vertical padronizada entre sections
 - Utilitário `.card-hover` / `.card-shadow-sm` / `.card-shadow-md`: sombra tintada de azul (não preto puro) no hover de cards
 
-CTA do WhatsApp usa link direto `https://wa.me/5517991604404?text=...` (mensagem pré-preenchida por section, cada uma com texto de contexto diferente) — não é modal, não é formulário embutido no link.
+CTA do WhatsApp usa link direto `https://wa.me/5516997650595?text=...` (mensagem pré-preenchida por section, cada uma com texto de contexto diferente) — não é modal, não é formulário embutido no link.
 
 ## Histórico desta sessão (o que já foi feito)
 

@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { ArrowUpRight, BadgeCheck, Home, Building2, Factory, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
+const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
 
 const guarantees = [
   "Orçamento 100% gratuito",
@@ -51,7 +52,7 @@ export default function FinalCTA() {
       }).catch(() => {});
     }
 
-    window.open(`https://wa.me/5517991604404?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(`https://wa.me/5516997650595?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -80,27 +81,42 @@ export default function FinalCTA() {
               {/* Social proof */}
               <div className="flex items-center gap-4 py-5 mb-5 border-y border-border/50">
                 <div className="flex -space-x-2.5 shrink-0">
-                  {[
-                    { initials: "MS", bg: "#3B82F6" },
-                    { initials: "AR", bg: "#1D4ED8" },
-                    { initials: "FO", bg: "#2563EB" },
+                  {([
+                    { name: "Mi Devecchi", photo: "/images/d1.png" },
+                    { name: "Emerson Andreazi", photo: "/images/d2.png" },
+                    { name: "Bruno Meftefundes", photo: "/images/d3.jpg" },
                     { initials: "LC", bg: "#60A5FA" },
-                  ].map(({ initials, bg }) => (
-                    <div
-                      key={initials}
-                      className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shrink-0"
-                      style={{ backgroundColor: bg }}
-                    >
-                      {initials}
-                    </div>
-                  ))}
+                  ] as ({ name: string; photo: string } | { initials: string; bg: string })[]).map((person) =>
+                    "photo" in person ? (
+                      <div
+                        key={person.name}
+                        className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shrink-0"
+                      >
+                        <Image
+                          src={person.photo}
+                          alt={person.name}
+                          width={36}
+                          height={36}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        key={person.initials}
+                        className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shrink-0"
+                        style={{ backgroundColor: person.bg }}
+                      >
+                        {person.initials}
+                      </div>
+                    )
+                  )}
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-0.5 mb-0.5">
                     {[1,2,3,4,5].map((s) => (
                       <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                     ))}
-                    <span className="text-sm font-semibold text-foreground ml-1.5">4.9</span>
+                    <span className="text-sm font-semibold text-foreground ml-1.5">5.0</span>
                   </div>
                   <p className="text-xs text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
                 </div>

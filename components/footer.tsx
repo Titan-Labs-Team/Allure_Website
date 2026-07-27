@@ -43,7 +43,7 @@ const footerColumns: FooterColumnProps[] = [
 const socialLinks = [
   { icon: <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Facebook" },
   { icon: <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />, href: "#", label: "Instagram" },
-  { icon: <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5" />, href: "https://wa.me/5517991604404", label: "WhatsApp" },
+  { icon: <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5" />, href: "https://wa.me/5516997650595", label: "WhatsApp" },
 ];
 
 function FooterLink({ href, children }: FooterLinkProps) {
@@ -122,11 +122,11 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               <li>
                 <Link
-                  href="https://wa.me/5517991604404"
+                  href="https://wa.me/5516997650595"
                   className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
                 >
                   <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                  (17) 99160-4404
+                  (16) 99765-0595
                 </Link>
               </li>
               <li>

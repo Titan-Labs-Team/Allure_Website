@@ -31,7 +31,7 @@ export default function HomePage() {
       </main>
 
       <Footer />
-      <WhatsAppButton phoneNumber="5517991604404" message="Olá! Vim pelo site e gostaria de saber mais sobre energia solar." />
+      <WhatsAppButton phoneNumber="5516997650595" message="Olá! Vim pelo site e gostaria de saber mais sobre energia solar." />
     </>
   );
 }

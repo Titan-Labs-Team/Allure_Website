@@ -7,8 +7,8 @@ export const siteConfig = {
     "A Allure projeta e instala sistemas solares completos para você economizar até 95% na conta de luz. Energia inteligente. Engenharia que transforma.",
   ogImage: "/images/og-image.jpg",
   locale: "pt_BR",
-  phone: "+5517991604404",
-  phoneDisplay: "(17) 99160-4404",
+  phone: "+5516997650595",
+  phoneDisplay: "(16) 99765-0595",
   email: "contato@allure.com.br",
   address: {
     street: "Av. Comendador Alfredo Maffei, 1387 — Sala 33",

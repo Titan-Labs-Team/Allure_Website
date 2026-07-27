@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20se%20voc%C3%AAs%20atendem%20a%20minha%20cidade.";
+const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20se%20voc%C3%AAs%20atendem%20a%20minha%20cidade.";
 
 const cities = [
   "São José do Rio Preto",

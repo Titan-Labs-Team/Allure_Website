@@ -7,7 +7,7 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import LightRays from "@/components/light-rays";
 import { useCountUp } from "@/hooks/use-count-up";
 
-const WA_URL = "https://wa.me/5517991604404?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
+const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
 
 const heroImages = [
   { src: "/images/nova-hero.jpeg", alt: "Casa moderna com painéis solares no telhado sob céu azul" },
