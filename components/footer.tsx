@@ -131,11 +131,11 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="mailto:contato@allure.com.br"
+                  href="mailto:contato@allureenergiasolar.com.br"
                   className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs sm:text-sm"
                 >
                   <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                  contato@allure.com.br
+                  contato@allureenergiasolar.com.br
                 </Link>
               </li>
               <li>

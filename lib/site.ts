@@ -9,7 +9,7 @@ export const siteConfig = {
   locale: "pt_BR",
   phone: "+5516997650595",
   phoneDisplay: "(16) 99765-0595",
-  email: "contato@allure.com.br",
+  email: "contato@allureenergiasolar.com.br",
   address: {
     street: "Av. Comendador Alfredo Maffei, 1387 — Sala 33",
     locality: "São Carlos",

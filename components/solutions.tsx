@@ -64,7 +64,7 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
       {/* Body */}
       <div className="flex flex-col flex-1 min-w-0 p-6 lg:p-7">
         <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground mb-5 text-pretty">{title}</h3>
-        <ul className="space-y-3 mb-7 flex-1">
+        <ul className="space-y-3 mb-6 flex-1">
           {benefits.map((b) => (
             <li key={b} className="flex items-center gap-3 text-muted-foreground min-w-0">
               <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
@@ -72,7 +72,9 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
             </li>
           ))}
         </ul>
-        <span className="link-quiet text-brand-2 group-hover:text-brand">
+
+        {/* Filled CTA — centered, full width */}
+        <span className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-brand py-2.5 text-sm font-semibold text-white transition-colors duration-300 group-hover:bg-brand-2">
           Ver detalhes
           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>

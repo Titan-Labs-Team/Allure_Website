@@ -25,7 +25,7 @@ export default function SavingsCalculator() {
   }, [bill]);
 
   return (
-    <section className="section-py-lg bg-[#071626] overflow-hidden">
+    <section id="economia" className="section-py-lg bg-[#071626] overflow-hidden">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">

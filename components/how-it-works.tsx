@@ -128,7 +128,7 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section id="como-funciona" className="relative section-py bg-[#071626] overflow-hidden">
+    <section id="como-funciona" className="relative py-12 lg:py-16 bg-[#071626] overflow-hidden">
 
       {/* Corner images — dimmed and blurred so they read as ambient backdrop, not foreground detail.
           Sized down below md: so the fixed-aspect artwork doesn't dominate narrow viewports. */}
@@ -236,23 +236,25 @@ export default function HowItWorks() {
         <div className={`hidden md:block stagger-children ${isVisible ? "visible" : ""}`}>
           <div className="grid md:grid-cols-3 gap-10 lg:gap-14">
             {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
-              <div key={num} className="relative flex flex-col items-center text-center min-w-0">
-                <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-3" strokeWidth={1.5} />
-                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-brand-3 text-[#071626] text-[0.65rem] font-bold flex items-center justify-center">
-                    {num}
-                  </span>
+              <div key={num} className="flex flex-col items-center text-center min-w-0 h-full">
+                <div className="relative flex flex-1 flex-col items-center text-center w-full rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-6 lg:p-8 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 hover:-translate-y-1">
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+                    <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-brand-3" strokeWidth={1.5} />
+                    <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-brand-3 text-[#071626] text-[0.65rem] font-bold flex items-center justify-center">
+                      {num}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
+                    {title}
+                  </h3>
+
+                  <p className="text-white/55 text-sm leading-relaxed text-pretty max-w-xs">
+                    {description}
+                  </p>
                 </div>
 
-                <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white mb-2 text-pretty leading-snug">
-                  {title}
-                </h3>
-
-                <p className="text-white/55 text-sm leading-relaxed mb-4 text-pretty max-w-xs">
-                  {description}
-                </p>
-
-                <p className="text-sm">
+                <p className="mt-4 text-sm">
                   <span className="font-display font-bold text-white">{highlight}</span>
                   <span className="text-white/45"> — {highlightLabel}</span>
                 </p>

@@ -9,10 +9,10 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 const differentials = [
   {
     Icon: Zap,
-    stat: "7",
+    stat: "10",
     unit: "dias",
-    title: "Da aprovação à energia",
-    description: "Do projeto aprovado ao sistema funcionando — com equipe própria, sem terceiros e sem atrasos.",
+    title: "Entrega dos painéis",
+    description: "Seus painéis entregues em até 10 dias — com equipe própria, sem terceiros e sem atrasos.",
     featured: true,
   },
   {

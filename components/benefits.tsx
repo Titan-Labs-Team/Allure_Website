@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Sun, Home, Zap, TrendingDown, TrendingUp, Leaf, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, Sun, Home, Zap, TrendingDown, Leaf, ShieldCheck } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -37,24 +37,54 @@ const benefits: Benefit[] = [
 const miniFeatures = [
   {
     Icon: TrendingDown,
-    title: "Reduza seus custos",
-    description: "Reduza em até 90% sua conta de luz.",
+    title: "Até 90% de economia",
+    description: "Reduza sua conta de luz e economize todos os meses.",
   },
   {
-    Icon: TrendingUp,
-    title: "Valorização do imóvel",
+    Icon: Home,
+    title: "Valoriza seu imóvel",
     description: "Imóveis com energia solar valem mais no mercado.",
   },
   {
     Icon: Leaf,
-    title: "Conquista sustentável",
-    description: "Energia limpa hoje, um amanhã melhor sempre.",
+    title: "Energia limpa e sustentável",
+    description: "Produza sua própria energia e contribua com o planeta.",
   },
 ];
 
-const NARROW_WIDTH = 90;
-const EXPANDED_WIDTH = 440;
+const NARROW_WIDTH = 76;
+const EXPANDED_WIDTH = 560;
 const restWidth = (EXPANDED_WIDTH + NARROW_WIDTH * (benefits.length - 1) - EXPANDED_WIDTH) / (benefits.length - 1);
+
+function SimularCTA() {
+  return (
+    <div className="flex flex-col gap-3">
+      <a
+        href="#economia"
+        className="group flex items-center gap-4 w-full rounded-full bg-gradient-to-r from-brand-2 to-brand px-4 py-3.5 text-white shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] transition-all duration-300 hover:-translate-y-0.5"
+      >
+        <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-white shrink-0">
+          <Calculator className="w-6 h-6 text-brand-2" strokeWidth={2} />
+        </span>
+        <span className="flex-1 min-w-0 text-left">
+          <span className="block font-display font-bold uppercase tracking-wide text-sm sm:text-base leading-tight">
+            Simular minha economia
+          </span>
+          <span className="block text-xs sm:text-sm text-white/85 leading-snug mt-0.5 text-pretty">
+            Descubra quanto você pode economizar
+          </span>
+        </span>
+        <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5">
+          <ArrowRight className="w-5 h-5" />
+        </span>
+      </a>
+      <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground text-center text-pretty">
+        <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
+        Projeto personalizado • Sem compromisso • 100% online e gratuito
+      </p>
+    </div>
+  );
+}
 
 function Panel({
   benefit,
@@ -206,7 +236,7 @@ export default function Benefits() {
   return (
     <section className="section-py bg-background overflow-hidden">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[42%_58%] gap-8 lg:gap-12 items-stretch">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[34%_66%] gap-8 lg:gap-8 items-stretch">
           {/* Left column */}
           <div className="min-w-0">
             <div className="flex items-center gap-3 mb-6">
@@ -215,46 +245,35 @@ export default function Benefits() {
                 Vantagens
               </span>
             </div>
-            <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground">
-              Mais que economia.{" "}
-              <span className="block">Um ativo para a <span className="text-brand">sua vida.</span></span>
+            <h2 className="font-display font-bold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.02]">
+              Transforme sua conta de luz em <span className="text-brand">patrimônio.</span>
             </h2>
-            <p className="text-muted-foreground leading-relaxed mt-4 mb-5">
-              Produzir a própria energia é uma decisão financeira inteligente — e profundamente sustentável.
+            <p className="text-muted-foreground text-lg leading-relaxed mt-5 mb-6">
+              Economize até 90%, valorize seu imóvel e tenha independência energética por décadas.
             </p>
 
             {/* Mini feature cards */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-5">
+            <div className="grid grid-cols-3 divide-x divide-border mb-6">
               {miniFeatures.map(({ Icon, title, description }) => (
-                <div key={title} className="flex flex-col items-center text-center gap-1.5 py-2">
-                  <div className="w-11 h-11 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
+                <div key={title} className="flex flex-col items-center text-center gap-1.5 px-2 sm:px-3 py-2">
+                  <div className="w-12 h-12 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
                     <Icon className="w-5 h-5 text-brand-2" strokeWidth={1.8} />
                   </div>
-                  <h3 className="font-display font-semibold text-sm text-foreground leading-snug">{title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+                  <h3 className="font-display font-semibold text-sm text-foreground leading-snug text-pretty">{title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed text-pretty">{description}</p>
                 </div>
               ))}
             </div>
 
             {/* CTA — desktop only (mobile version fica abaixo do grid) */}
-            <div className="hidden lg:flex flex-col items-start gap-3">
-              <a
-                href="#contato"
-                className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 sm:px-9 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
-              >
-                Quero esses benefícios
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
-                Projeto personalizado e sem compromisso
-              </p>
+            <div className="hidden lg:block">
+              <SimularCTA />
             </div>
           </div>
 
           {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
               Mobile falls back to a stacked/tappable list since fixed px widths don't work under 1024px. */}
-          <div className="flex lg:justify-end min-w-0 h-full">
+          <div className="flex lg:justify-end min-w-0 h-full lg:min-h-[430px]">
             <div className="flex flex-col lg:flex-row items-stretch w-full lg:w-auto gap-3 lg:gap-[14px] h-full">
               {benefits.map((benefit, i) => (
                 <Panel
@@ -271,19 +290,9 @@ export default function Benefits() {
           </div>
         </div>
 
-        {/* CTA — mobile only, centralizado abaixo dos cards de imagem */}
-        <div className="lg:hidden flex flex-col items-center gap-3 mt-8">
-          <a
-            href="#contato"
-            className="inline-flex items-center gap-2 justify-center rounded-full bg-brand px-8 py-4 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.45)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.55)]"
-          >
-            Quero esses benefícios
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <ShieldCheck className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
-            Projeto personalizado e sem compromisso
-          </p>
+        {/* CTA — mobile only, abaixo dos cards de imagem */}
+        <div className="lg:hidden mt-8 max-w-md mx-auto">
+          <SimularCTA />
         </div>
 
       </div>
