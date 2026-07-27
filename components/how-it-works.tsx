@@ -134,7 +134,7 @@ export default function HowItWorks() {
           Sized down below md: so the fixed-aspect artwork doesn't dominate narrow viewports. */}
       <div className="pointer-events-none absolute bottom-6 -left-10 w-[26rem] h-[20rem] md:w-[70rem] md:h-[56rem] lg:w-[90rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite]">
         <Image
-          src="/images/solar.png"
+          src="/images/solar.jpg"
           alt=""
           fill
           className="object-contain object-bottom"
@@ -142,7 +142,7 @@ export default function HowItWorks() {
       </div>
       <div className="pointer-events-none absolute bottom-6 -right-10 w-[26rem] h-[20rem] md:w-[70rem] md:h-[56rem] lg:w-[90rem] lg:h-[70rem] select-none opacity-25 blur-[2px] [animation:float_7s_ease-in-out_infinite] [animation-delay:2.5s]">
         <Image
-          src="/images/solar.png"
+          src="/images/solar.jpg"
           alt=""
           fill
           className="object-contain object-bottom scale-x-[-1]"

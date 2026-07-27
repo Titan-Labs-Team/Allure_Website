@@ -19,7 +19,7 @@ const solutions: Solution[] = [
     icon: <Home className="w-5 h-5" strokeWidth={1.6} />,
     tag: "Residencial",
     title: "Para a sua casa",
-    image: "/images/residential-solar.png",
+    image: "/images/residential-solar.jpg",
     benefits: ["Reduza até 90% da conta", "Valorização do imóvel", "Instalação em até 7 dias"],
   },
   {
