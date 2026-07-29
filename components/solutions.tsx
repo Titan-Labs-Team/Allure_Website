@@ -99,11 +99,11 @@ export default function Solutions() {
                 </span>
               </div>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground max-w-2xl">
-                Engenharia solar para cada escala.
+                Engenharia solar para cada escala, em São Carlos.
               </h2>
             </div>
             <p className="lg:col-span-4 text-muted-foreground leading-relaxed">
-              Da residência ao parque industrial, cada projeto é dimensionado sob medida pela nossa equipe técnica.
+              Da residência ao parque industrial, cada projeto é dimensionado sob medida pela nossa equipe técnica em São Carlos e região.
             </p>
           </div>
 

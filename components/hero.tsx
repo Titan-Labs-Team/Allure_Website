@@ -135,7 +135,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p className="mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl animate-fade-in-up">
-            Projetamos e instalamos sistemas fotovoltaicos de alto desempenho que reduzem até{" "}
+            Projetamos e instalamos sistemas fotovoltaicos de alto desempenho em São Carlos e região, reduzindo até{" "}
             <span className="text-accent font-semibold">90% da sua conta de luz</span>. Engenharia que transforma luz em patrimônio.
           </p>
 

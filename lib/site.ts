@@ -2,9 +2,9 @@ export const siteConfig = {
   name: "Allure Energia Solar",
   shortName: "Allure",
   url: "https://www.allureenergiasolar.com.br",
-  title: "Allure | Energia Solar Residencial e Empresarial",
+  title: "Allure Energia Solar | Economize até 90% na Conta de Luz",
   description:
-    "A Allure projeta e instala sistemas solares completos para você economizar até 95% na conta de luz. Energia inteligente. Engenharia que transforma.",
+    "Especialistas em energia solar em São Carlos e região. A Allure projeta e instala sistemas fotovoltaicos completos para você economizar até 90% na conta de luz.",
   ogImage: "/images/og-image.jpg",
   locale: "pt_BR",
   phone: "+5516997650595",
