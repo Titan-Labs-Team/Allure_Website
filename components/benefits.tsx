@@ -228,37 +228,18 @@ export default function Benefits() {
     <section className="section-py bg-background">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto grid lg:grid-cols-[44%_56%] gap-8 lg:gap-8 items-stretch">
-          {/* Left column */}
-          <div className="min-w-0">
+          {/* Título + descrição */}
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
             <h2 className="font-display font-bold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.02]">
               Transforme sua conta de luz em <span className="text-brand">patrimônio.</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mt-5 mb-6">
+            <p className="text-muted-foreground text-lg leading-relaxed mt-5">
               Valorize seu imóvel e tenha independência energética por décadas.
             </p>
-
-            {/* Mini feature cards */}
-            <div className="grid grid-cols-3 divide-x divide-border mb-6">
-              {miniFeatures.map(({ Icon, title, description }) => (
-                <div key={title} className="flex flex-col items-center text-center gap-1.5 px-2 sm:px-3 py-2">
-                  <div className="w-12 h-12 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
-                    <Icon className="w-5 h-5 text-brand-2" strokeWidth={1.8} />
-                  </div>
-                  <h3 className="font-display font-semibold text-sm text-foreground leading-snug text-pretty">{title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed text-pretty">{description}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA — desktop only (mobile version fica abaixo do grid) */}
-            <div className="hidden lg:block max-w-[30rem]">
-              <SimularCTA />
-            </div>
           </div>
 
-          {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
-              Mobile falls back to a stacked/tappable list since fixed px widths don't work under 1024px. */}
-          <div className="relative flex lg:justify-end min-w-0 h-full lg:min-h-[430px]">
+          {/* Imagem — mobile: entre a descrição e os ícones; desktop: coluna direita ocupando as duas linhas */}
+          <div className="relative flex lg:justify-end min-w-0 h-full lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:min-h-[430px]">
             <div className="flex flex-col lg:flex-row items-stretch w-full gap-3 lg:gap-[14px] h-full">
               {benefits.map((benefit, i) => (
                 <Panel
@@ -281,6 +262,27 @@ export default function Benefits() {
               <p className="text-sm font-medium leading-snug text-pretty">
                 Investimento que se paga e continua gerando benefícios por mais de 25 anos.
               </p>
+            </div>
+          </div>
+
+          {/* Ícones (mini-features) + CTA desktop */}
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+            {/* Mini feature cards */}
+            <div className="grid grid-cols-3 divide-x divide-border">
+              {miniFeatures.map(({ Icon, title, description }) => (
+                <div key={title} className="flex flex-col items-center text-center gap-1.5 px-2 sm:px-3 py-2">
+                  <div className="w-12 h-12 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">
+                    <Icon className="w-5 h-5 text-brand-2" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="font-display font-semibold text-sm text-foreground leading-snug text-pretty">{title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed text-pretty">{description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA — desktop only (mobile version fica abaixo do grid) */}
+            <div className="hidden lg:block max-w-[30rem] mt-6">
+              <SimularCTA />
             </div>
           </div>
         </div>

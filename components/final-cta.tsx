@@ -41,20 +41,13 @@ export default function FinalCTA() {
 
   return (
     <section id="contato" className="relative overflow-hidden bg-white text-foreground">
-      {/* Fundo claro com aurora sutil — concentrada no topo */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(59,130,246,0.16),transparent_55%),radial-gradient(50%_42%_at_85%_0%,rgba(91,184,245,0.16),transparent_55%)]"
-        aria-hidden
-      />
-      <div className="pointer-events-none absolute -top-32 -left-20 w-[32rem] h-[32rem] rounded-full bg-brand/15 blur-[130px]" aria-hidden />
-      <div className="pointer-events-none absolute -top-28 right-0 w-[26rem] h-[26rem] rounded-full bg-brand-3/15 blur-[130px]" aria-hidden />
+      {/* Textura de pontos bem discreta no topo (sem manchas azuis) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-dots opacity-20 [mask-image:linear-gradient(to_bottom,#000,transparent)]" aria-hidden />
 
       <div ref={ref} className={`relative z-10 px-5 sm:px-6 lg:px-8 section-py-lg scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          {/* Copy — min-w-0: grid items default to min-width:auto and refuse to shrink */}
-          <div className="min-w-0 flex flex-col justify-between">
-            <div>
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-x-20 lg:gap-y-6 items-stretch">
+          {/* A: pill + título + parágrafo */}
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
               <span className="inline-flex items-center gap-2 rounded-full bg-brand-muted px-3.5 py-1.5 mb-5 text-xs sm:text-sm font-semibold uppercase tracking-wide text-brand-2">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white shrink-0">
                   <Check className="w-3 h-3" strokeWidth={3} />
@@ -67,10 +60,13 @@ export default function FinalCTA() {
                   sua própria energia?
                 </span>
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-6">
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
                 Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
               </p>
+          </div>
 
+          {/* B: ícones + social proof (no mobile vem DEPOIS do formulário) */}
+          <div className="min-w-0 order-last lg:order-none lg:col-start-1 lg:row-start-2">
               {/* Feature highlights — divisórias em gradiente com pontinho central */}
               <div className="grid grid-cols-3 mb-6">
                 {[
@@ -138,14 +134,10 @@ export default function FinalCTA() {
                   <p className="text-base text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
                 </div>
               </div>
-
-
-            </div>
-
           </div>
 
-          {/* Form */}
-          <div className="min-w-0 relative bg-muted text-foreground rounded-2xl p-6 sm:p-10 shadow-lg">
+          {/* Form (cadastro) — mobile: acima dos ícones; desktop: coluna direita */}
+          <div className="min-w-0 relative bg-muted text-foreground rounded-2xl p-6 sm:p-10 shadow-lg lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <div className="pointer-events-none absolute inset-0 size-full rounded-[inherit] border-[3.5px] border-brand/50" />
             <ShineBorder shineColor={["#1D4ED8", "#3B82F6", "#93C5FD", "#3B82F6", "#1D4ED8"]} duration={4} borderWidth={3.5} />
             <form onSubmit={handleSubmit} className="space-y-5">

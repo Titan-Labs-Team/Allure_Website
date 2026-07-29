@@ -92,21 +92,21 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {/* Mobile: justify-between spreads the 3 blocks to fill the hero; sm+ keeps the centered stack */}
-        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-between sm:justify-center pt-28 sm:pt-32 pb-12 sm:pb-16 text-center sm:text-left">
-          <div>
-
+        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-center pt-28 sm:pt-32 pb-12 sm:pb-16 text-center sm:text-left">
+          {/* Título + descrição agrupados (ficam próximos no mobile) */}
+          <div className="mb-10 sm:mb-0">
             {/* Headline */}
             <h1 className="font-display font-semibold tracking-tight text-pretty text-[2rem] leading-[1.1] sm:text-4xl lg:text-5xl xl:text-6xl max-w-3xl animate-fade-in-up">
               <span className="block">Economize até 90%</span>
               <span className="block">na sua conta de luz</span>
               <span className="block">com <span className="text-brand-3">energia solar</span></span>
             </h1>
-          </div>
 
-          {/* Subtitle */}
-          <p className="mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl animate-fade-in-up">
-            Soluções completas para residências, comércios e indústrias em São Carlos e região.
-          </p>
+            {/* Subtitle */}
+            <p className="mt-5 sm:mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl mx-auto sm:mx-0 animate-fade-in-up">
+              Soluções completas para residências, comércios e indústrias em São Carlos e região.
+            </p>
+          </div>
 
           {/* CTAs + métricas (marquee no mobile) */}
           <div className="mt-5 sm:mt-9">
@@ -129,26 +129,26 @@ export default function Hero() {
               Falar com um especialista
             </a>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Métricas passando — carrossel (mobile) */}
-            <div className="sm:hidden mt-7 overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
-              <div className="flex w-max items-center animate-marquee [animation-duration:22s]">
-                {[...metrics, ...metrics].map(({ Icon, value, label }, i) => (
-                  <div
-                    key={i}
-                    aria-hidden={i >= metrics.length}
-                    className="mr-3 flex shrink-0 items-center gap-2.5 rounded-xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-2.5"
-                  >
-                    <Icon className="w-5 h-5 text-white shrink-0" strokeWidth={1.8} />
-                    <div className="text-left">
-                      <p className="font-display font-bold text-sm text-white leading-none">{value}</p>
-                      <p className="mt-0.5 text-[0.65rem] leading-snug text-white/60 whitespace-nowrap">{label}</p>
-                    </div>
-                  </div>
-                ))}
+      {/* Métricas passando — carrossel (mobile), ancorado na base da hero */}
+      <div className="sm:hidden relative z-10 w-full overflow-hidden pb-10 [-webkit-mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
+        <div className="flex w-max items-center animate-marquee [animation-duration:22s]">
+          {[...metrics, ...metrics].map(({ Icon, value, label }, i) => (
+            <div
+              key={i}
+              aria-hidden={i >= metrics.length}
+              className="mr-3 flex shrink-0 items-center gap-2.5 rounded-xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-2.5"
+            >
+              <Icon className="w-5 h-5 text-white shrink-0" strokeWidth={1.8} />
+              <div className="text-left">
+                <p className="font-display font-bold text-sm text-white leading-none">{value}</p>
+                <p className="mt-0.5 text-[0.65rem] leading-snug text-white/60 whitespace-nowrap">{label}</p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 

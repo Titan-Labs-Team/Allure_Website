@@ -37,7 +37,7 @@ export function PartnerMarquee({
     <section className={sectionClassName}>
       <div className="max-w-7xl mx-auto">
         {title && (
-          <p className="text-center font-display font-medium tracking-tight text-lg sm:text-xl text-muted-foreground/80 text-pretty px-5 mt-0.5 mb-1 sm:mb-2">
+          <p className="text-center font-display font-medium tracking-tight text-base sm:text-xl text-muted-foreground/80 text-pretty px-5 mt-0.5 mb-1 sm:mb-2">
             {title}
           </p>
         )}
