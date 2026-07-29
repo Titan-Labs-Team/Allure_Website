@@ -49,7 +49,7 @@ export default function Header() {
               alt="Allure"
               width={170}
               height={54}
-              className="h-14 w-auto -mt-2"
+              className="h-11 sm:h-14 w-auto -mt-2"
             />
           </Link>
 
@@ -74,7 +74,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <Button
-            className="lg:hidden group"
+            className="lg:hidden group size-11"
             variant="ghost"
             size="icon"
             onClick={toggleMenu}
@@ -82,7 +82,7 @@ export default function Header() {
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
             <svg
-              className="pointer-events-none"
+              className="pointer-events-none size-[30px]"
               width={24}
               height={24}
               viewBox="0 0 24 24"

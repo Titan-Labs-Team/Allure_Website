@@ -58,7 +58,7 @@ export default function Hero() {
         type="button"
         onClick={goPrev}
         aria-label="Imagem anterior"
-        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white hidden sm:flex items-center justify-center hover:bg-white/20 transition-colors"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
@@ -66,7 +66,7 @@ export default function Hero() {
         type="button"
         onClick={goNext}
         aria-label="Próxima imagem"
-        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white hidden sm:flex items-center justify-center hover:bg-white/20 transition-colors"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
@@ -92,7 +92,7 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {/* Mobile: justify-between spreads the 3 blocks to fill the hero; sm+ keeps the centered stack */}
-        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-between sm:justify-center pt-28 sm:pt-32 pb-12 sm:pb-16">
+        <div className="flex-1 sm:min-h-[calc(78dvh+10px)] flex flex-col justify-between sm:justify-center pt-28 sm:pt-32 pb-12 sm:pb-16 text-center sm:text-left">
           <div>
 
             {/* Headline */}
@@ -108,8 +108,9 @@ export default function Hero() {
             Soluções completas para residências, comércios e indústrias em São Carlos e região.
           </p>
 
-          {/* CTAs */}
-          <div className="mt-5 sm:mt-9 flex flex-row flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 animate-fade-in-up">
+          {/* CTAs + métricas (marquee no mobile) */}
+          <div className="mt-5 sm:mt-9">
+            <div className="flex flex-row flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 animate-fade-in-up">
             <a
               href="#economia"
               className="inline-flex items-center gap-2 justify-center rounded-lg bg-brand px-6 py-4 sm:px-8 sm:py-5 font-semibold text-brand-foreground hover:bg-brand-2 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)]"
@@ -127,12 +128,32 @@ export default function Hero() {
               <WhatsAppIcon className="size-7 -my-1" />
               Falar com um especialista
             </a>
+            </div>
+
+            {/* Métricas passando — carrossel (mobile) */}
+            <div className="sm:hidden mt-7 overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
+              <div className="flex w-max items-center animate-marquee [animation-duration:22s]">
+                {[...metrics, ...metrics].map(({ Icon, value, label }, i) => (
+                  <div
+                    key={i}
+                    aria-hidden={i >= metrics.length}
+                    className="mr-3 flex shrink-0 items-center gap-2.5 rounded-xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-2.5"
+                  >
+                    <Icon className="w-5 h-5 text-white shrink-0" strokeWidth={1.8} />
+                    <div className="text-left">
+                      <p className="font-display font-bold text-sm text-white leading-none">{value}</p>
+                      <p className="mt-0.5 text-[0.65rem] leading-snug text-white/60 whitespace-nowrap">{label}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Metrics — card glass claro ancorado na base da hero */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pb-9 sm:pb-11">
+      {/* Metrics — card glass claro ancorado na base da hero (desktop/tablet) */}
+      <div className="hidden sm:block relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pb-9 sm:pb-11">
         <div className="rounded-2xl border border-black/5 bg-white shadow-[0_10px_40px_-12px_rgba(0,0,0,0.45)]">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-1 sm:gap-y-0 sm:divide-x sm:divide-black/10 sm:pl-10">
             {metrics.map(({ Icon, value, label }) => (
