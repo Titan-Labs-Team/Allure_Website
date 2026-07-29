@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Check, Clock, DollarSign, ShieldCheck, Lock, Home, Building2, Factory, Star } from "lucide-react";
+import { ArrowUpRight, Check, Clock, DollarSign, ShieldCheck, Home, Building2, Factory, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
@@ -75,7 +75,7 @@ export default function FinalCTA() {
               <div className="grid grid-cols-3 mb-6">
                 {[
                   { Icon: DollarSign, title: "Até 90% de economia", desc: "na sua conta de luz" },
-                  { Icon: Clock, title: "Resposta em até 24 horas", desc: "rápido e sem burocracia" },
+                  { Icon: Clock, title: "Resposta em até\n24 horas", desc: "rápido e sem burocracia" },
                   { Icon: ShieldCheck, title: "Projetos seguros e personalizados", desc: "para sua casa, empresa ou indústria" },
                 ].map(({ Icon, title, desc }, i) => (
                   <div
@@ -89,14 +89,14 @@ export default function FinalCTA() {
                     <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-muted mb-3">
                       <Icon className="w-5 h-5 text-brand" strokeWidth={1.9} />
                     </span>
-                    <p className="font-display font-semibold text-sm text-foreground leading-snug text-pretty">{title}</p>
+                    <p className="font-display font-semibold text-sm text-foreground leading-snug text-pretty whitespace-pre-line">{title}</p>
                     <p className="text-xs text-muted-foreground leading-snug mt-1 text-pretty">{desc}</p>
                   </div>
                 ))}
               </div>
 
               {/* Social proof */}
-              <div className="flex items-center gap-4 px-5 py-5 mb-6 rounded-2xl border border-border bg-white shadow-sm">
+              <div className="flex items-center gap-4 px-5 py-5 mb-6 rounded-2xl border border-border bg-white shadow-sm animate-float motion-reduce:animate-none">
                 <div className="flex -space-x-2.5 shrink-0">
                   {([
                     { name: "Mi Devecchi", photo: "/images/d1.png" },
@@ -225,24 +225,18 @@ export default function FinalCTA() {
               <Button
                 type="submit"
                 size="lg"
-                className="group w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg rounded-full gap-2.5 whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)] hover:-translate-y-0.5 transition-all duration-300"
+                className="group w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg rounded-full gap-2.5 whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 shadow-[0_8px_24px_-14px_rgba(59,130,246,0.35)] hover:shadow-[0_12px_30px_-12px_rgba(59,130,246,0.45)] hover:-translate-y-0.5 transition-all duration-300"
               >
                 {sent ? "Abrindo o WhatsApp..." : "Solicitar Orçamento Agora!"}
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
 
-              <div className="flex flex-wrap items-center justify-center gap-2 text-muted-foreground text-xs pt-1">
-                <WhatsAppIcon className="w-4 h-4 text-brand-2" />
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-muted-foreground text-xs">
                 <span>Prefere falar agora?</span>
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="text-brand-2 font-medium hover:underline">
+                <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-brand-2 font-medium hover:underline">
+                  <WhatsAppIcon className="w-4 h-4" />
                   Chamar no WhatsApp
                 </a>
-              </div>
-
-              {/* Mensagem de segurança */}
-              <div className="flex items-center justify-center gap-2 rounded-xl bg-brand-muted/60 px-4 py-2.5 text-xs text-muted-foreground text-center">
-                <Lock className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
-                Seus dados estão seguros. Não compartilhamos suas informações.
               </div>
             </form>
           </div>

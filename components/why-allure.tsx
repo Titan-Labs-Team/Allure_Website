@@ -270,7 +270,7 @@ export default function WhyAllure() {
                       className={`roadmap-card relative rounded-2xl border p-6 ${
                         featured
                           ? "bg-brand border-brand text-white shadow-xl shadow-brand/20"
-                          : "bg-white border-border card-shadow-sm"
+                          : "bg-white border-border shadow-[0_8px_20px_-8px_rgba(14,44,107,0.28)]"
                       }`}
                     >
                       {featured && (

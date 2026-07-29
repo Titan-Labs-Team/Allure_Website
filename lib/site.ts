@@ -55,6 +55,6 @@ export const faqItems: FaqItem[] = [
   {
     question: "É possível financiar energia solar?",
     answer:
-      "Sim! Trabalhamos com linhas de financiamento em até 84 parcelas. Na maioria dos casos, a parcela mensal é menor do que a economia gerada na conta de luz — ou seja, você já começa economizando desde o primeiro mês.",
+      "Sim! Trabalhamos com linhas de financiamento em até 72 parcelas e 120 dias de carência para começar a pagar. Na maioria dos casos, a parcela mensal é menor do que a economia gerada na conta de luz — ou seja, você já começa economizando desde o primeiro mês.",
   },
 ];

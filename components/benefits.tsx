@@ -225,16 +225,16 @@ export default function Benefits() {
   }, [activeIndex]);
 
   return (
-    <section className="section-py bg-background overflow-hidden">
+    <section className="section-py bg-background">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[34%_66%] gap-8 lg:gap-8 items-stretch">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[44%_56%] gap-8 lg:gap-8 items-stretch">
           {/* Left column */}
           <div className="min-w-0">
             <h2 className="font-display font-bold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.02]">
               Transforme sua conta de luz em <span className="text-brand">patrimônio.</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-5 mb-6">
-              Economize até 90%, valorize seu imóvel e tenha independência energética por décadas.
+              Valorize seu imóvel e tenha independência energética por décadas.
             </p>
 
             {/* Mini feature cards */}
@@ -251,7 +251,7 @@ export default function Benefits() {
             </div>
 
             {/* CTA — desktop only (mobile version fica abaixo do grid) */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block max-w-[30rem]">
               <SimularCTA />
             </div>
           </div>
@@ -273,8 +273,8 @@ export default function Benefits() {
               ))}
             </div>
 
-            {/* Card flutuante ("voando") na borda direita da imagem */}
-            <div className="hidden lg:block pointer-events-none absolute top-1/2 -right-5 -translate-y-1/2 z-20 w-48 rounded-2xl bg-gradient-to-br from-brand to-brand-2 p-5 text-white shadow-2xl shadow-brand/40 ring-1 ring-white/15 animate-float motion-reduce:animate-none">
+            {/* Card flutuante ("voando") no canto inferior direito, saindo ~40% pra baixo */}
+            <div className="hidden lg:block pointer-events-none absolute -bottom-14 -right-10 z-20 w-48 rounded-2xl bg-gradient-to-br from-brand to-brand-2 p-5 text-white shadow-2xl shadow-brand/40 ring-1 ring-white/15 animate-float motion-reduce:animate-none">
               <span className="flex items-center justify-center w-11 h-11 rounded-xl bg-white/15 mb-3">
                 <TrendingUp className="w-6 h-6 text-white" strokeWidth={2} />
               </span>

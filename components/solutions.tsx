@@ -16,21 +16,21 @@ interface Solution {
 
 const solutions: Solution[] = [
   {
-    icon: <Home className="w-5 h-5" strokeWidth={1.6} />,
+    icon: <Home className="w-6 h-6" strokeWidth={1.6} />,
     tag: "Residencial",
     title: "Para a sua casa",
     image: "/images/residential-solar.jpg",
     benefits: ["Reduza até 90% da conta", "Valorização do imóvel", "Instalação em até 7 dias"],
   },
   {
-    icon: <Building2 className="w-5 h-5" strokeWidth={1.6} />,
+    icon: <Building2 className="w-6 h-6" strokeWidth={1.6} />,
     tag: "Comercial",
     title: "Para a sua empresa",
     image: "/images/solar-panels.jpg",
     benefits: ["Previsibilidade de custos", "Marca mais sustentável", "Projeto sob demanda"],
   },
   {
-    icon: <Factory className="w-5 h-5" strokeWidth={1.6} />,
+    icon: <Factory className="w-6 h-6" strokeWidth={1.6} />,
     tag: "Industrial",
     title: "Para a sua indústria",
     image: "/images/team-installation.jpg",
@@ -55,8 +55,10 @@ function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand/40 via-brand/5 to-transparent" />
-        <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-background/90 backdrop-blur px-3.5 py-1.5 text-brand-2">
-          {icon}
+        <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-background/90 backdrop-blur pl-0 pr-4 py-[5px] text-brand-2">
+          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-muted shrink-0 -my-2.5">
+            {icon}
+          </span>
           <span className="text-xs font-semibold uppercase tracking-wider">{tag}</span>
         </div>
       </div>

@@ -126,21 +126,11 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Carrossel infinito (marquee): a track anima de 0 a -50% e a lista é
-              duplicada, então a segunda cópia entra onde a primeira sai. Pausa no
-              hover pra dar tempo de ler. overflow-hidden evita scroll horizontal. */}
-          <div className="group relative overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)]">
-            <div className="flex w-max items-stretch animate-marquee [animation-duration:55s] group-hover:[animation-play-state:paused] py-3">
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={i}
-                  className="shrink-0 w-[320px] sm:w-[400px] lg:w-[410px] px-3 sm:px-3.5"
-                  aria-hidden={i >= testimonials.length}
-                >
-                  <TestimonialCard t={t} />
-                </div>
-              ))}
-            </div>
+          {/* Grid estático dos 3 depoimentos */}
+          <div className={`grid gap-6 md:grid-cols-3 lg:gap-7 stagger-children ${isVisible ? "visible" : ""}`}>
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.name} t={t} />
+            ))}
           </div>
 
           {/* Quiet link — primary conversion stays with hero + final CTA */}
