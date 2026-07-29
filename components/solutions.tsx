@@ -87,23 +87,15 @@ export default function Solutions() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="servicos" className="section-py bg-background">
+    <section id="servicos" className="pt-14 lg:pt-20 pb-14 lg:pb-18 bg-muted bg-dots">
       <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                  Soluções
-                </span>
-              </div>
-              <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground max-w-2xl">
-                Engenharia solar para cada escala, em São Carlos.
-              </h2>
-            </div>
-            <p className="lg:col-span-4 text-muted-foreground leading-relaxed">
-              Da residência ao parque industrial, cada projeto é dimensionado sob medida pela nossa equipe técnica em São Carlos e região.
+          <div className="text-center mb-8 lg:mb-10">
+            <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground">
+              Soluções para cada necessidade
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mt-4 max-w-xl mx-auto">
+              Projetos personalizados para você economizar mais e investir no futuro.
             </p>
           </div>
 

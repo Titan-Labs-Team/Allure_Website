@@ -3,13 +3,19 @@
 import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { TrendingDown, BadgePercent, Leaf, ArrowUpRight } from "lucide-react";
+import { TrendingDown, BadgePercent, Leaf, ArrowUpRight, Clock, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
 
 const SAVINGS_RATE = 0.88; // economia média
+
+const highlights = [
+  { Icon: Clock, title: "Resultado na hora", desc: "Sua estimativa aparece na tela em segundos." },
+  { Icon: ShieldCheck, title: "Sem compromisso", desc: "Simule quantas vezes quiser, sem cadastro." },
+  { Icon: TrendingDown, title: "Baseado em dados reais", desc: "Cálculo a partir de projetos já instalados pela Allure." },
+];
 
 function formatBRL(v: number) {
   return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -25,24 +31,43 @@ export default function SavingsCalculator() {
   }, [bill]);
 
   return (
-    <section id="economia" className="section-py-lg bg-[#071626] overflow-hidden">
-      <div ref={ref} className={`px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
+    <section id="economia" className="relative section-py-lg bg-[#06101f] overflow-hidden">
+      {/* Aurora — gradientes radiais em azul da marca */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_15%_0%,rgba(59,130,246,0.38),transparent_60%),radial-gradient(55%_55%_at_100%_100%,rgba(91,184,245,0.30),transparent_60%),radial-gradient(45%_45%_at_88%_8%,rgba(37,99,235,0.28),transparent_60%)]"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute -top-32 -left-24 w-[34rem] h-[34rem] rounded-full bg-brand/25 blur-[140px] animate-float motion-reduce:animate-none" aria-hidden />
+      <div className="pointer-events-none absolute -bottom-32 -right-20 w-[30rem] h-[30rem] rounded-full bg-brand-3/25 blur-[140px] animate-float motion-reduce:animate-none [animation-delay:2.5s]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.14] bg-[linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(70%_60%_at_50%_35%,#000,transparent)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden />
+
+      <div ref={ref} className={`relative z-10 px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Copy */}
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                  Simulador
-                </span>
-              </div>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-white mb-5">
-                Descubra quanto você pode economizar.
+                Descubra quanto você <span className="text-brand-3">pode economizar.</span>
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
+              <p className="text-white/70 text-lg leading-relaxed max-w-md">
                 Arraste o valor da sua conta de luz mensal e veja, em segundos, sua economia anual estimada e em quanto tempo o investimento se paga.
               </p>
+
+              {/* Destaques */}
+              <ul className="mt-8 space-y-4 max-w-md">
+                {highlights.map(({ Icon, title, desc }) => (
+                  <li key={title} className="flex items-start gap-3.5">
+                    <span className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5 text-brand-3" strokeWidth={1.8} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-white font-medium leading-snug">{title}</p>
+                      <p className="text-white/50 text-sm leading-snug text-pretty">{desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Calculator card */}

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, BadgeCheck, Home, Building2, Factory, Star } from "lucide-react";
+import { ArrowUpRight, Check, Clock, DollarSign, ShieldCheck, Lock, Home, Building2, Factory, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
@@ -10,29 +10,10 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
 
-const guarantees = [
-  "Orçamento 100% gratuito",
-  "Resposta em minutos",
-  "Sem compromisso",
-];
-
 export default function FinalCTA() {
   const { ref, isVisible } = useScrollAnimation();
   const [form, setForm] = useState({ name: "", phone: "", email: "", type: "" });
   const [sent, setSent] = useState<boolean>(false);
-  const [activeGuarantee, setActiveGuarantee] = useState(0);
-  const [fade, setFade] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        setActiveGuarantee((prev) => (prev + 1) % guarantees.length);
-        setFade(true);
-      }, 300);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,51 +40,87 @@ export default function FinalCTA() {
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
   return (
-    <section id="contato" className="bg-white bg-glow-top text-foreground">
-      <div ref={ref} className={`px-5 sm:px-6 lg:px-8 section-py-lg scroll-animate ${isVisible ? "visible" : ""}`}>
+    <section id="contato" className="relative overflow-hidden bg-white text-foreground">
+      {/* Fundo claro com aurora sutil — concentrada no topo */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(59,130,246,0.16),transparent_55%),radial-gradient(50%_42%_at_85%_0%,rgba(91,184,245,0.16),transparent_55%)]"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute -top-32 -left-20 w-[32rem] h-[32rem] rounded-full bg-brand/15 blur-[130px]" aria-hidden />
+      <div className="pointer-events-none absolute -top-28 right-0 w-[26rem] h-[26rem] rounded-full bg-brand-3/15 blur-[130px]" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-dots opacity-20 [mask-image:linear-gradient(to_bottom,#000,transparent)]" aria-hidden />
+
+      <div ref={ref} className={`relative z-10 px-5 sm:px-6 lg:px-8 section-py-lg scroll-animate ${isVisible ? "visible" : ""}`}>
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
           {/* Copy — min-w-0: grid items default to min-width:auto and refuse to shrink */}
           <div className="min-w-0 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-3 mb-5">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-muted-foreground font-medium">
-                  Fale com a Allure
+              <span className="inline-flex items-center gap-2 rounded-full bg-brand-muted px-3.5 py-1.5 mb-5 text-xs sm:text-sm font-semibold uppercase tracking-wide text-brand-2">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white shrink-0">
+                  <Check className="w-3 h-3" strokeWidth={3} />
                 </span>
-              </div>
+                Orçamento 100% gratuito
+              </span>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[1.04]">
-                Pronto para gerar a sua própria energia?
+                Pronto para gerar a{" "}
+                <span className="bg-gradient-to-r from-brand to-brand-3 bg-clip-text text-transparent">
+                  sua própria energia?
+                </span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-6">
                 Deixe seus dados e um especialista entra em contato com um projeto personalizado para o seu consumo.
               </p>
 
+              {/* Feature highlights — divisórias em gradiente com pontinho central */}
+              <div className="grid grid-cols-3 mb-6">
+                {[
+                  { Icon: DollarSign, title: "Até 90% de economia", desc: "na sua conta de luz" },
+                  { Icon: Clock, title: "Resposta em até 24 horas", desc: "rápido e sem burocracia" },
+                  { Icon: ShieldCheck, title: "Projetos seguros e personalizados", desc: "para sua casa, empresa ou indústria" },
+                ].map(({ Icon, title, desc }, i) => (
+                  <div
+                    key={title}
+                    className={`relative flex flex-col items-center text-center px-2 sm:px-3 ${
+                      i > 0
+                        ? "before:absolute before:left-0 before:top-1 before:bottom-1 before:w-px before:bg-gradient-to-b before:from-transparent before:via-brand/40 before:to-transparent before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-brand/60 after:shadow-[0_0_6px_rgba(59,130,246,0.5)] after:content-['']"
+                        : ""
+                    }`}
+                  >
+                    <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-muted mb-3">
+                      <Icon className="w-5 h-5 text-brand" strokeWidth={1.9} />
+                    </span>
+                    <p className="font-display font-semibold text-sm text-foreground leading-snug text-pretty">{title}</p>
+                    <p className="text-xs text-muted-foreground leading-snug mt-1 text-pretty">{desc}</p>
+                  </div>
+                ))}
+              </div>
+
               {/* Social proof */}
-              <div className="flex items-center gap-4 py-5 mb-5 border-y border-border/50">
+              <div className="flex items-center gap-4 px-5 py-5 mb-6 rounded-2xl border border-border bg-white shadow-sm">
                 <div className="flex -space-x-2.5 shrink-0">
                   {([
                     { name: "Mi Devecchi", photo: "/images/d1.png" },
                     { name: "Emerson Andreazi", photo: "/images/d2.png" },
                     { name: "Bruno Meftefundes", photo: "/images/d3.jpg" },
-                    { initials: "LC", bg: "#60A5FA" },
+                    { initials: "+1.200", bg: "#2563EB" },
                   ] as ({ name: string; photo: string } | { initials: string; bg: string })[]).map((person) =>
                     "photo" in person ? (
                       <div
                         key={person.name}
-                        className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shrink-0"
+                        className="w-12 h-12 rounded-full border-2 border-white overflow-hidden shrink-0"
                       >
                         <Image
                           src={person.photo}
                           alt={person.name}
-                          width={36}
-                          height={36}
+                          width={48}
+                          height={48}
                           className="object-cover w-full h-full"
                         />
                       </div>
                     ) : (
                       <div
                         key={person.initials}
-                        className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shrink-0"
+                        className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white shrink-0 tracking-tight"
                         style={{ backgroundColor: person.bg }}
                       >
                         {person.initials}
@@ -114,23 +131,14 @@ export default function FinalCTA() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-0.5 mb-0.5">
                     {[1,2,3,4,5].map((s) => (
-                      <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
-                    <span className="text-sm font-semibold text-foreground ml-1.5">5.0</span>
+                    <span className="text-lg font-semibold text-foreground ml-1.5">5.0</span>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
+                  <p className="text-base text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 h-7">
-                <BadgeCheck className="w-4 h-4 text-brand-2 flex-shrink-0" strokeWidth={2.2} />
-                <span
-                  className="text-sm text-foreground/80 transition-opacity duration-300"
-                  style={{ opacity: fade ? 1 : 0 }}
-                >
-                  {guarantees[activeGuarantee]}
-                </span>
-              </div>
 
             </div>
 
@@ -192,23 +200,23 @@ export default function FinalCTA() {
                     { value: "Empresa", Icon: Building2 },
                     { value: "Indústria", Icon: Factory },
                   ].map(({ value, Icon }) => (
-                    <label key={value} className="relative flex cursor-pointer overflow-hidden min-w-0">
+                    <label key={value} className="cursor-pointer">
                       <input
                         type="radio"
                         name="property-type"
                         value={value}
                         checked={form.type === value}
                         onChange={() => setForm((f) => ({ ...f, type: value }))}
-                        className="peer absolute left-[-9999px]"
+                        className="peer sr-only"
                       />
-                      {/* Mobile: no radio circle (checked state = bg-brand), tighter text; sm+: full pill with circle */}
-                      <span className="flex items-center justify-center gap-1 sm:gap-1.5 w-full rounded-[20px] py-2 sm:py-1.5 px-1.5 sm:pl-1.5 sm:pr-3 text-xs sm:text-sm text-muted-foreground duration-200 ease-linear
-                        before:hidden sm:before:flex before:h-5 before:w-5 before:shrink-0 before:rounded-full before:border-2 before:border-solid before:border-muted-foreground/50 before:bg-white before:shadow-[inset_0_0_0_0_0.125em_transparent] before:duration-200 before:ease-linear before:content-['']
-                        hover:bg-border/60
-                        peer-checked:bg-brand peer-checked:text-white peer-checked:before:border-white/60 peer-checked:before:shadow-[inset_0_0_0_4px_rgba(255,255,255,0.6)]">
-                        <Icon className="w-4 h-4 shrink-0" strokeWidth={1.6} />
-                        <span className="truncate">{value}</span>
-                      </span>
+                      <div className="relative flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-border bg-white px-2 py-4 text-center transition-colors
+                        hover:border-brand/50
+                        peer-checked:border-brand peer-checked:bg-brand-muted/40
+                        before:absolute before:top-2.5 before:left-2.5 before:h-4 before:w-4 before:rounded-full before:border-2 before:border-muted-foreground/40 before:bg-white before:transition-all before:content-['']
+                        peer-checked:before:border-brand peer-checked:before:bg-brand peer-checked:before:shadow-[inset_0_0_0_2px_#fff]">
+                        <Icon className="w-6 h-6 text-brand shrink-0" strokeWidth={1.6} />
+                        <span className="text-xs sm:text-sm font-medium text-foreground">{value}</span>
+                      </div>
                     </label>
                   ))}
                 </div>
@@ -229,6 +237,12 @@ export default function FinalCTA() {
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="text-brand-2 font-medium hover:underline">
                   Chamar no WhatsApp
                 </a>
+              </div>
+
+              {/* Mensagem de segurança */}
+              <div className="flex items-center justify-center gap-2 rounded-xl bg-brand-muted/60 px-4 py-2.5 text-xs text-muted-foreground text-center">
+                <Lock className="w-3.5 h-3.5 text-brand-2 shrink-0" strokeWidth={2} />
+                Seus dados estão seguros. Não compartilhamos suas informações.
               </div>
             </form>
           </div>

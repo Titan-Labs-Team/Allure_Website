@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Calculator, Sun, Home, Zap, TrendingDown, Leaf, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, Sun, Home, TrendingDown, TrendingUp, Leaf, ShieldCheck } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -19,18 +19,6 @@ const benefits: Benefit[] = [
     title: "Reduza até 90% da conta de luz",
     description: "A economia começa já no primeiro mês e se acumula ao longo de mais de duas décadas de geração.",
     Icon: Sun,
-  },
-  {
-    image: "/images/benefit-value.jpg",
-    title: "Valorize o seu imóvel",
-    description: "Imóveis com sistema solar instalado são mais procurados e valorizados no mercado.",
-    Icon: Home,
-  },
-  {
-    image: "/images/foto site.jpeg",
-    title: "Conquiste autonomia energética",
-    description: "Menos dependência das distribuidoras e proteção contra os reajustes constantes da tarifa.",
-    Icon: Zap,
   },
 ];
 
@@ -54,7 +42,9 @@ const miniFeatures = [
 
 const NARROW_WIDTH = 76;
 const EXPANDED_WIDTH = 560;
-const restWidth = (EXPANDED_WIDTH + NARROW_WIDTH * (benefits.length - 1) - EXPANDED_WIDTH) / (benefits.length - 1);
+// Com múltiplos painéis, os inativos ficam estreitos; com um único, ele preenche
+// a coluna (o efeito de expansão é ignorado — ver guards nos effects abaixo).
+const restWidth = NARROW_WIDTH;
 
 function SimularCTA() {
   return (
@@ -137,7 +127,7 @@ function Panel({
       aria-label={title}
       className="
         group relative overflow-hidden text-left rounded-2xl border border-border shrink-0
-        h-56 lg:h-full w-full lg:w-auto
+        h-56 lg:h-full w-full
         transition-[height] duration-500
       "
     >
@@ -199,6 +189,7 @@ export default function Benefits() {
   const isDesktopRef = useRef(false);
 
   useEffect(() => {
+    if (benefits.length < 2) return; // imagem única preenche a coluna via CSS
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
@@ -222,7 +213,7 @@ export default function Benefits() {
   }, []);
 
   useEffect(() => {
-    if (!isDesktopRef.current) return;
+    if (benefits.length < 2 || !isDesktopRef.current) return;
     panelsRef.current.forEach((panel, i) => {
       if (!panel) return;
       gsap.to(panel, {
@@ -239,12 +230,6 @@ export default function Benefits() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-[34%_66%] gap-8 lg:gap-8 items-stretch">
           {/* Left column */}
           <div className="min-w-0">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-brand-3" />
-              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                Vantagens
-              </span>
-            </div>
             <h2 className="font-display font-bold tracking-tight text-pretty text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.02]">
               Transforme sua conta de luz em <span className="text-brand">patrimônio.</span>
             </h2>
@@ -273,8 +258,8 @@ export default function Benefits() {
 
           {/* Right column — cards grouped tightly, block anchored to the right edge on desktop.
               Mobile falls back to a stacked/tappable list since fixed px widths don't work under 1024px. */}
-          <div className="flex lg:justify-end min-w-0 h-full lg:min-h-[430px]">
-            <div className="flex flex-col lg:flex-row items-stretch w-full lg:w-auto gap-3 lg:gap-[14px] h-full">
+          <div className="relative flex lg:justify-end min-w-0 h-full lg:min-h-[430px]">
+            <div className="flex flex-col lg:flex-row items-stretch w-full gap-3 lg:gap-[14px] h-full">
               {benefits.map((benefit, i) => (
                 <Panel
                   key={benefit.title}
@@ -286,6 +271,16 @@ export default function Benefits() {
                   }}
                 />
               ))}
+            </div>
+
+            {/* Card flutuante ("voando") na borda direita da imagem */}
+            <div className="hidden lg:block pointer-events-none absolute top-1/2 -right-5 -translate-y-1/2 z-20 w-48 rounded-2xl bg-gradient-to-br from-brand to-brand-2 p-5 text-white shadow-2xl shadow-brand/40 ring-1 ring-white/15 animate-float motion-reduce:animate-none">
+              <span className="flex items-center justify-center w-11 h-11 rounded-xl bg-white/15 mb-3">
+                <TrendingUp className="w-6 h-6 text-white" strokeWidth={2} />
+              </span>
+              <p className="text-sm font-medium leading-snug text-pretty">
+                Investimento que se paga e continua gerando benefícios por mais de 25 anos.
+              </p>
             </div>
           </div>
         </div>

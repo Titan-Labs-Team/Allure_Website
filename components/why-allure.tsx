@@ -188,18 +188,12 @@ export default function WhyAllure() {
   }, []);
 
   return (
-    <section id="por-que-allure" className="section-py bg-muted bg-dots">
+    <section id="por-que-allure" className="section-py bg-background">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-12">
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-brand-3" />
-              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-medium">
-                Diferenciais
-              </span>
-            </div>
             <h2 className="font-display font-semibold tracking-tight text-3xl sm:text-4xl lg:text-5xl text-foreground text-pretty">
               Números que provam o que a Allure entrega.
             </h2>

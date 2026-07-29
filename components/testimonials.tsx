@@ -53,7 +53,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="group relative flex flex-col min-w-0 shrink-0 w-[82%] snap-start md:w-auto rounded-2xl bg-card border border-border p-7 sm:p-8 lg:p-9 card-hover card-shadow-sm">
+    <figure className="group relative flex flex-col min-w-0 h-full w-full rounded-2xl bg-card border border-border p-7 sm:p-8 lg:p-9 card-hover card-shadow-sm">
       {/* Stars + Google badge */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1">
@@ -106,12 +106,6 @@ export default function Testimonials() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-20">
             <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brand-3" />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-semibold">
-                  Depoimentos
-                </span>
-              </div>
               <h2 className="font-display font-semibold tracking-tight text-pretty text-3xl sm:text-4xl lg:text-5xl text-foreground max-w-2xl">
                 Histórias de quem já trocou a conta de luz por patrimônio.
               </h2>
@@ -132,16 +126,22 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Mobile: horizontal snap carousel. Left edge inherits the section's own
-              px-5/sm:px-6 padding (so the first card lines up with the heading/paragraph
-              above it) — only the right side bleeds to the screen edge for the peek effect. */}
-          <div className={`flex md:grid md:grid-cols-3 gap-4 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mr-5 pr-5 md:mx-0 md:px-0 pb-4 md:pb-0 stagger-children ${isVisible ? "visible" : ""}`}>
-            {testimonials.map((t) => (
-              <TestimonialCard key={t.name} t={t} />
-            ))}
+          {/* Carrossel infinito (marquee): a track anima de 0 a -50% e a lista é
+              duplicada, então a segunda cópia entra onde a primeira sai. Pausa no
+              hover pra dar tempo de ler. overflow-hidden evita scroll horizontal. */}
+          <div className="group relative overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)]">
+            <div className="flex w-max items-stretch animate-marquee [animation-duration:55s] group-hover:[animation-play-state:paused] py-3">
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={i}
+                  className="shrink-0 w-[320px] sm:w-[400px] lg:w-[410px] px-3 sm:px-3.5"
+                  aria-hidden={i >= testimonials.length}
+                >
+                  <TestimonialCard t={t} />
+                </div>
+              ))}
+            </div>
           </div>
-          {/* Swipe hint — mobile only */}
-          <p className="md:hidden mt-4 text-center text-xs text-muted-foreground">Arraste para ver mais →</p>
 
           {/* Quiet link — primary conversion stays with hero + final CTA */}
           <div className="mt-14 flex justify-center">

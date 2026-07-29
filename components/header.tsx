@@ -39,7 +39,7 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-16 sm:h-18">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-18 sm:h-20">
       <div className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4 h-full">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
@@ -47,9 +47,9 @@ export default function Header() {
             <Image
               src="/images/logo-allure.png"
               alt="Allure"
-              width={150}
-              height={48}
-              className="h-11 w-auto -mt-2"
+              width={170}
+              height={54}
+              className="h-14 w-auto -mt-2"
             />
           </Link>
 
@@ -64,9 +64,9 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-7 h-11 text-sm border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
+            <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-6 has-[>svg]:px-6 h-12 text-base border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
               <a href="https://wa.me/5516997650595" target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="w-6 h-6" />
+                <WhatsAppIcon className="size-6" />
                 Solicitar orçamento
               </a>
             </Button>

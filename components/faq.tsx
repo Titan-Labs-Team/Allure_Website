@@ -22,13 +22,6 @@ export default function FAQ() {
         <div className="max-w-3xl mx-auto">
           {/* Centered header */}
           <div className="text-center mb-8 lg:mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="h-px w-10 bg-brand-3" />
-              <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-brand-2 font-semibold">
-                Dúvidas frequentes
-              </span>
-              <span className="h-px w-10 bg-brand-3" />
-            </div>
             <h2 className="font-display font-semibold tracking-tight text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
               Perguntas frequentes
             </h2>

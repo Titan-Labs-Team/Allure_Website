@@ -128,7 +128,7 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section id="como-funciona" className="relative py-12 lg:py-16 bg-[#071626] overflow-hidden">
+    <section id="como-funciona" className="relative py-10 lg:py-12 bg-[#071626] overflow-hidden">
 
       {/* Corner images — dimmed and blurred so they read as ambient backdrop, not foreground detail.
           Sized down below md: so the fixed-aspect artwork doesn't dominate narrow viewports. */}
@@ -174,12 +174,7 @@ export default function HowItWorks() {
         className={`relative z-10 max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 scroll-animate ${isVisible ? "visible" : ""}`}
       >
         {/* Header */}
-        <div className="text-center mb-10 lg:mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="h-px w-8 bg-white/30" />
-            <span className="text-xs uppercase tracking-[0.22em] text-white/60 font-semibold">Como funciona</span>
-            <span className="h-px w-8 bg-white/30" />
-          </div>
+        <div className="text-center mb-8 lg:mb-10">
           <h2 className="font-display font-semibold tracking-tight text-3xl sm:text-4xl lg:text-5xl text-white">
             Da luz do sol à economia,<br className="hidden sm:block" /> em três etapas.
           </h2>
@@ -237,8 +232,8 @@ export default function HowItWorks() {
           <div className="grid md:grid-cols-3 gap-10 lg:gap-14">
             {steps.map(({ num, Icon, title, description, highlight, highlightLabel }) => (
               <div key={num} className="flex flex-col items-center text-center min-w-0 h-full">
-                <div className="relative flex flex-1 flex-col items-center text-center w-full rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-6 lg:p-8 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 hover:-translate-y-1">
-                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+                <div className="relative flex flex-1 flex-col items-center text-center w-full rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm px-6 py-5 lg:px-8 lg:py-6 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 hover:-translate-y-1">
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                     <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-brand-3" strokeWidth={1.5} />
                     <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-brand-3 text-[#071626] text-[0.65rem] font-bold flex items-center justify-center">
                       {num}
@@ -264,7 +259,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Quiet link — primary conversion stays with hero + final CTA */}
-        <div className="mt-10 lg:mt-12 flex justify-center">
+        <div className="mt-8 lg:mt-10 flex justify-center">
           <a
             href="#contato"
             className="inline-flex items-center gap-2 justify-center rounded-full bg-white px-8 py-4 sm:px-9 sm:py-5 font-semibold text-[#071626] hover:bg-white/90 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.5)]"
