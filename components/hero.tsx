@@ -1,93 +1,93 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight, Star, Users, CircleDollarSign, ShieldCheck } from "lucide-react";
+import { ArrowRight, Star, Users, CircleDollarSign, ShieldCheck } from "lucide-react";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import LightRays from "@/components/light-rays";
+import CountUp from "@/components/count-up";
+import ShinyText from "@/components/shiny-text";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
 
-const heroImages = [
-  { src: "/images/nova-hero.jpeg", alt: "Casa moderna com painéis solares no telhado sob céu azul" },
-  { src: "/images/hero-solar-2.jpeg", alt: "Instalação de painéis solares residenciais" },
-  { src: "/images/hero-solar.jpeg", alt: "Sistema fotovoltaico em funcionamento sob luz solar" },
-];
-
 const metrics = [
-  { Icon: Users,       value: "+1.200",    label: "Projetos entregues"    },
-  { Icon: CircleDollarSign, value: "90%",  label: "Economia média"        },
-  { Icon: ShieldCheck, value: "25 anos",   label: "Vida útil dos sistemas" },
-  { Icon: Star,        value: "5 estrelas", label: "Avaliação dos clientes" },
+  { Icon: Users,            prefix: "+", to: 1200, separator: ".", suffix: "",           label: "Projetos entregues"     },
+  { Icon: CircleDollarSign, prefix: "",  to: 90,   separator: "",  suffix: "%",          label: "Economia média"         },
+  { Icon: ShieldCheck,      prefix: "",  to: 25,   separator: "",  suffix: " anos",      label: "Vida útil dos sistemas" },
+  { Icon: Star,             prefix: "",  to: 5,    separator: "",  suffix: " estrelas",  label: "Avaliação dos clientes" },
 ];
 
 export default function Hero() {
-  const [current, setCurrent] = useState(0);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
-  // Auto-advance the background carousel every 5s; manual arrows just jump the index.
   useEffect(() => {
-    const id = setInterval(() => {
-      setCurrent((c) => (c + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(id);
-  }, []);
+    const el = headlineRef.current;
+    if (!el) return;
+    gsap.registerPlugin(SplitText);
 
-  const goPrev = () => setCurrent((c) => (c - 1 + heroImages.length) % heroImages.length);
-  const goNext = () => setCurrent((c) => (c + 1) % heroImages.length);
+    let split: SplitText | null = null;
+    const ctx = gsap.context(() => {});
+
+    const start = () => {
+      ctx.add(() => {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        // Só as linhas 1 e 2 viram chars; a linha 3 fica inteira pro efeito shine
+        // (bg-clip-text não sobrevive à quebra em spans de char do SplitText).
+        const splitTargets = gsap.utils.toArray<HTMLElement>(el.querySelectorAll(".split-me"));
+        split = new SplitText(splitTargets, { type: "words, chars", charsClass: "split-char" });
+        const line3 = el.querySelector(".line-3");
+
+        gsap.set(el, { autoAlpha: 1 });
+
+        if (reduce) {
+          gsap.set(split.chars, { opacity: 1, yPercent: 0 });
+          if (line3) gsap.set(line3, { opacity: 1, y: 0 });
+          return;
+        }
+
+        const tl = gsap.timeline({ delay: 0.1 });
+        tl.fromTo(
+          split.chars,
+          { opacity: 0, yPercent: 55 },
+          { opacity: 1, yPercent: 0, duration: 0.7, ease: "power3.out", stagger: 0.028 }
+        );
+        if (line3) {
+          tl.fromTo(
+            line3,
+            { opacity: 0, y: 22 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+            "-=0.2"
+          );
+        }
+      });
+    };
+
+    if (document.fonts?.status === "loaded") start();
+    else document.fonts.ready.then(start);
+
+    return () => {
+      ctx.revert();
+      split?.revert();
+    };
+  }, []);
 
   return (
     <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
-      {/* Background — auto-advancing carousel (3s), crossfades between slides */}
+      {/* Background — imagem fixa */}
       <div className="absolute inset-0">
-        {heroImages.map((image, i) => (
-          <Image
-            key={image.src}
-            src={image.src}
-            alt={image.alt}
-            fill
-            priority={i === 0}
-            className={`object-cover object-center scale-110 transition-opacity duration-1000 ease-in-out ${
-              i === current ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Carousel arrows */}
-      <button
-        type="button"
-        onClick={goPrev}
-        aria-label="Imagem anterior"
-        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white hidden sm:flex items-center justify-center hover:bg-white/20 transition-colors"
-      >
-        <ChevronLeft className="w-5 h-5" />
-      </button>
-      <button
-        type="button"
-        onClick={goNext}
-        aria-label="Próxima imagem"
-        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white hidden sm:flex items-center justify-center hover:bg-white/20 transition-colors"
-      >
-        <ChevronRight className="w-5 h-5" />
-      </button>
-
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2153]/40 via-transparent to-transparent" />
-      <div className="absolute inset-0 z-[5] opacity-60">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#FFFFFF"
-          raysSpeed={1.0}
-          lightSpread={1.2}
-          rayLength={2.0}
-          fadeDistance={1.6}
-          saturation={1.5}
-          followMouse={true}
-          mouseInfluence={0.12}
-          noiseAmount={0.04}
-          distortion={0.03}
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Casa com painéis solares instalados pela Allure"
+          fill
+          priority
+          quality={95}
+          className="object-cover object-[40%_58%] scale-110"
         />
       </div>
+
+      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/35" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
 
       {/* Main content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex-1 flex flex-col">
@@ -96,15 +96,15 @@ export default function Hero() {
           {/* Título + descrição agrupados (ficam próximos no mobile) */}
           <div className="mb-10 sm:mb-0">
             {/* Headline */}
-            <h1 className="font-display font-semibold tracking-tight text-pretty text-[2rem] leading-[1.1] sm:text-4xl lg:text-5xl xl:text-6xl max-w-3xl animate-fade-in-up">
-              <span className="block">Economize até 90%</span>
-              <span className="block">na sua conta de luz</span>
-              <span className="block">com <span className="text-brand-3">energia solar</span></span>
+            <h1 ref={headlineRef} className="font-display font-semibold tracking-tight text-pretty text-[2rem] leading-[1.1] sm:text-4xl lg:text-5xl xl:text-6xl max-w-3xl opacity-0 [text-shadow:0_2px_20px_rgba(0,0,0,0.55)]">
+              <span className="split-me inline-block bg-brand text-white px-4 sm:px-6 py-1 [text-shadow:none] [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)]">Economize até 90%</span>
+              <span className="split-me block">na sua conta de luz</span>
+              <span className="line-3 block">com <ShinyText text="energia solar" className="[text-shadow:none] leading-[1.3] pb-[0.12em]" color="#FFD23F" shineColor="#FFF3C8" speed={2.4} delay={0.6} spread={120} /></span>
             </h1>
 
             {/* Subtitle */}
             <p className="mt-5 sm:mt-9 text-lg sm:text-xl text-brand-foreground/75 leading-relaxed max-w-xl mx-auto sm:mx-0 animate-fade-in-up">
-              Soluções completas para residências, comércios e indústrias em São Carlos e região.
+              Soluções completas para residências, comércios e indústrias em <span className="font-semibold text-brand-foreground [text-shadow:0_2px_16px_rgba(0,0,0,0.5)]">São Carlos e região.</span>
             </p>
           </div>
 
@@ -136,7 +136,7 @@ export default function Hero() {
       {/* Métricas passando — carrossel (mobile), ancorado na base da hero */}
       <div className="sm:hidden relative z-10 w-full overflow-hidden pb-10 [-webkit-mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
         <div className="flex w-max items-center animate-marquee [animation-duration:22s]">
-          {[...metrics, ...metrics].map(({ Icon, value, label }, i) => (
+          {[...metrics, ...metrics].map(({ Icon, prefix, to, separator, suffix, label }, i) => (
             <div
               key={i}
               aria-hidden={i >= metrics.length}
@@ -144,7 +144,11 @@ export default function Hero() {
             >
               <Icon className="w-5 h-5 text-white shrink-0" strokeWidth={1.8} />
               <div className="text-left">
-                <p className="font-display font-bold text-sm text-white leading-none">{value}</p>
+                <p className="font-display font-bold text-sm text-white leading-none whitespace-nowrap">
+                  {prefix}
+                  <CountUp to={to} separator={separator} duration={1.6} />
+                  {suffix}
+                </p>
                 <p className="mt-0.5 text-[0.65rem] leading-snug text-white/60 whitespace-nowrap">{label}</p>
               </div>
             </div>
@@ -156,11 +160,15 @@ export default function Hero() {
       <div className="hidden sm:block relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pb-9 sm:pb-11">
         <div className="rounded-2xl border border-black/5 bg-white shadow-[0_10px_40px_-12px_rgba(0,0,0,0.45)]">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-1 sm:gap-y-0 sm:divide-x sm:divide-black/10 sm:pl-10">
-            {metrics.map(({ Icon, value, label }) => (
+            {metrics.map(({ Icon, prefix, to, separator, suffix, label }) => (
               <div key={label} className="flex items-center gap-3 px-4 py-4 sm:px-5 sm:py-5 min-w-0">
                 <Icon className="w-8 h-8 sm:w-9 sm:h-9 text-brand shrink-0" strokeWidth={1.8} />
                 <div className="min-w-0">
-                  <p className="font-display font-bold text-lg sm:text-xl text-foreground leading-none">{value}</p>
+                  <p className="font-display font-bold text-lg sm:text-xl text-foreground leading-none whitespace-nowrap">
+                    {prefix}
+                    <CountUp to={to} separator={separator} duration={1.6} />
+                    {suffix}
+                  </p>
                   <p className="text-[0.7rem] sm:text-xs text-muted-foreground mt-1 leading-snug text-pretty">{label}</p>
                 </div>
               </div>
