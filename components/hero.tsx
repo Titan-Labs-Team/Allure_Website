@@ -76,13 +76,23 @@ export default function Hero() {
     <section id="inicio" className="relative bg-brand text-brand-foreground overflow-hidden flex flex-col min-h-[92dvh] sm:min-h-0">
       {/* Background — imagem fixa */}
       <div className="absolute inset-0">
+        {/* Mobile: fundo hero-solar-2 */}
+        <Image
+          src="/images/hero-solar-2.jpeg"
+          alt="Painéis solares instalados pela Allure"
+          fill
+          priority
+          quality={90}
+          className="object-cover object-center sm:hidden"
+        />
+        {/* Desktop/tablet: fundo hero-bg */}
         <Image
           src="/images/hero-bg.jpg"
           alt="Casa com painéis solares instalados pela Allure"
           fill
           priority
           quality={95}
-          className="object-cover object-[40%_58%] scale-110"
+          className="hidden sm:block object-cover object-[40%_58%] scale-110"
         />
       </div>
 
