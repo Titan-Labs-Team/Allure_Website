@@ -6,6 +6,7 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { TrendingDown, BadgePercent, Leaf, ArrowUpRight, Clock, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
+import RotatingBadge from "@/components/rotating-badge";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
 
@@ -54,8 +55,8 @@ export default function SavingsCalculator() {
                 Arraste o valor da sua conta de luz mensal e veja, em segundos, sua economia anual estimada e em quanto tempo o investimento se paga.
               </p>
 
-              {/* Destaques */}
-              <ul className="mt-8 space-y-4 max-w-md">
+              {/* Destaques — desktop: lista completa; mobile: rotativo abaixo do card */}
+              <ul className="mt-8 space-y-4 max-w-md hidden lg:block">
                 {highlights.map(({ Icon, title, desc }) => (
                   <li key={title} className="flex items-start gap-3.5">
                     <span className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
@@ -134,6 +135,15 @@ export default function SavingsCalculator() {
               </a>
             </div>
             </ElectricBorder>
+
+            {/* Destaque rotativo — mobile only, abaixo do card */}
+            <RotatingBadge
+              items={highlights.map(({ Icon, title }) => ({ Icon, title }))}
+              className="lg:hidden mt-3 flex justify-center"
+              badgeClassName="bg-white/10 border border-white/10"
+              iconClassName="text-brand-3"
+              textClassName="text-white"
+            />
           </div>
         </div>
       </div>

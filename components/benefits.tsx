@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, Calculator, Sun, Home, TrendingDown, TrendingUp, Leaf, ShieldCheck } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import RotatingBadge from "@/components/rotating-badge";
 
 interface Benefit {
   image: string;
@@ -127,7 +128,7 @@ function Panel({
       aria-label={title}
       className="
         group relative overflow-hidden text-left rounded-2xl border border-border shrink-0
-        h-56 lg:h-full w-full
+        h-96 sm:h-[28rem] lg:h-full w-full
         transition-[height] duration-500
       "
     >
@@ -267,8 +268,17 @@ export default function Benefits() {
 
           {/* Ícones (mini-features) + CTA desktop */}
           <div className="min-w-0 lg:col-start-1 lg:row-start-2">
-            {/* Mini feature cards */}
-            <div className="grid grid-cols-3 divide-x divide-border">
+            {/* Rotativo — mobile only, no lugar dos 3 mini-cards */}
+            <RotatingBadge
+              items={miniFeatures.map(({ Icon, title }) => ({ Icon, title }))}
+              className="lg:hidden flex justify-center"
+              badgeClassName="bg-brand-muted"
+              iconClassName="text-brand-2"
+              textClassName="text-foreground"
+            />
+
+            {/* Mini feature cards — desktop only */}
+            <div className="hidden lg:grid grid-cols-3 divide-x divide-border">
               {miniFeatures.map(({ Icon, title, description }) => (
                 <div key={title} className="flex flex-col items-center text-center gap-1.5 px-2 sm:px-3 py-2">
                   <div className="w-12 h-12 rounded-full bg-brand-muted flex items-center justify-center mb-2 shrink-0">

@@ -7,8 +7,15 @@ import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import RotatingBadge from "@/components/rotating-badge";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
+
+const features = [
+  { Icon: DollarSign, title: "Até 90% de economia", desc: "na sua conta de luz" },
+  { Icon: Clock, title: "Resposta em até\n24 horas", desc: "rápido e sem burocracia" },
+  { Icon: ShieldCheck, title: "Projetos seguros e personalizados", desc: "para sua casa, empresa ou indústria" },
+];
 
 export default function FinalCTA() {
   const { ref, isVisible } = useScrollAnimation();
@@ -65,15 +72,64 @@ export default function FinalCTA() {
               </p>
           </div>
 
-          {/* B: ícones + social proof (no mobile vem DEPOIS do formulário) */}
+          {/* Social proof "+1.200 famílias" — mobile: acima do form; desktop: coluna esquerda (abaixo dos ícones) */}
+          <div className="min-w-0 lg:col-start-1 lg:row-start-3 lg:self-start flex items-center gap-3 sm:gap-4 px-4 py-3 sm:px-5 sm:py-5 rounded-2xl border border-border bg-white shadow-sm animate-float motion-reduce:animate-none">
+            <div className="flex -space-x-2.5 shrink-0">
+              {([
+                { name: "Mi Devecchi", photo: "/images/d1.png" },
+                { name: "Emerson Andreazi", photo: "/images/d2.png" },
+                { name: "Bruno Meftefundes", photo: "/images/d3.jpg" },
+                { initials: "+1.200", bg: "#2563EB" },
+              ] as ({ name: string; photo: string } | { initials: string; bg: string })[]).map((person) =>
+                "photo" in person ? (
+                  <div
+                    key={person.name}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white overflow-hidden shrink-0"
+                  >
+                    <Image
+                      src={person.photo}
+                      alt={person.name}
+                      width={48}
+                      height={48}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    key={person.initials}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white shrink-0 tracking-tight"
+                    style={{ backgroundColor: person.bg }}
+                  >
+                    {person.initials}
+                  </div>
+                )
+              )}
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-0.5 mb-0.5">
+                {[1,2,3,4,5].map((s) => (
+                  <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                ))}
+                <span className="text-base sm:text-lg font-semibold text-foreground ml-1.5">5.0</span>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
+            </div>
+          </div>
+
+          {/* Ícones (desktop) + rotativo (mobile) — vem depois do form no mobile */}
           <div className="min-w-0 order-last lg:order-none lg:col-start-1 lg:row-start-2">
-              {/* Feature highlights — divisórias em gradiente com pontinho central */}
-              <div className="grid grid-cols-3 mb-6">
-                {[
-                  { Icon: DollarSign, title: "Até 90% de economia", desc: "na sua conta de luz" },
-                  { Icon: Clock, title: "Resposta em até\n24 horas", desc: "rápido e sem burocracia" },
-                  { Icon: ShieldCheck, title: "Projetos seguros e personalizados", desc: "para sua casa, empresa ou indústria" },
-                ].map(({ Icon, title, desc }, i) => (
+              {/* Destaque rotativo — mobile only, logo abaixo do form */}
+              <RotatingBadge
+                items={features.map(({ Icon, title }) => ({ Icon, title: title.replace("\n", " ") }))}
+                className="lg:hidden flex justify-center"
+                badgeClassName="bg-brand-muted"
+                iconClassName="text-brand"
+                textClassName="text-foreground"
+              />
+
+              {/* Feature highlights — desktop: 3 colunas; mobile: rotativo acima */}
+              <div className="hidden lg:grid grid-cols-3 mb-6">
+                {features.map(({ Icon, title, desc }, i) => (
                   <div
                     key={title}
                     className={`relative flex flex-col items-center text-center px-2 sm:px-3 ${
@@ -90,54 +146,10 @@ export default function FinalCTA() {
                   </div>
                 ))}
               </div>
-
-              {/* Social proof */}
-              <div className="flex items-center gap-4 px-5 py-5 mb-6 rounded-2xl border border-border bg-white shadow-sm animate-float motion-reduce:animate-none">
-                <div className="flex -space-x-2.5 shrink-0">
-                  {([
-                    { name: "Mi Devecchi", photo: "/images/d1.png" },
-                    { name: "Emerson Andreazi", photo: "/images/d2.png" },
-                    { name: "Bruno Meftefundes", photo: "/images/d3.jpg" },
-                    { initials: "+1.200", bg: "#2563EB" },
-                  ] as ({ name: string; photo: string } | { initials: string; bg: string })[]).map((person) =>
-                    "photo" in person ? (
-                      <div
-                        key={person.name}
-                        className="w-12 h-12 rounded-full border-2 border-white overflow-hidden shrink-0"
-                      >
-                        <Image
-                          src={person.photo}
-                          alt={person.name}
-                          width={48}
-                          height={48}
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        key={person.initials}
-                        className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white shrink-0 tracking-tight"
-                        style={{ backgroundColor: person.bg }}
-                      >
-                        {person.initials}
-                      </div>
-                    )
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-0.5 mb-0.5">
-                    {[1,2,3,4,5].map((s) => (
-                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                    <span className="text-lg font-semibold text-foreground ml-1.5">5.0</span>
-                  </div>
-                  <p className="text-base text-muted-foreground leading-snug">+1.200 famílias já economizam com a Allure</p>
-                </div>
-              </div>
           </div>
 
-          {/* Form (cadastro) — mobile: acima dos ícones; desktop: coluna direita */}
-          <div className="min-w-0 relative bg-muted text-foreground rounded-2xl p-6 sm:p-10 shadow-lg lg:col-start-2 lg:row-start-1 lg:row-span-2">
+          {/* Form (cadastro) — mobile: entre o card +1.200 e o rotativo; desktop: coluna direita */}
+          <div className="min-w-0 relative bg-muted text-foreground rounded-2xl p-6 sm:p-10 shadow-lg lg:col-start-2 lg:row-start-1 lg:row-span-3">
             <div className="pointer-events-none absolute inset-0 size-full rounded-[inherit] border-[3.5px] border-brand/50" />
             <ShineBorder shineColor={["#1D4ED8", "#3B82F6", "#93C5FD", "#3B82F6", "#1D4ED8"]} duration={4} borderWidth={3.5} />
             <form onSubmit={handleSubmit} className="space-y-5">
