@@ -87,12 +87,12 @@ export default function Hero() {
         />
         {/* Desktop/tablet: fundo hero-bg */}
         <Image
-          src="/images/hero-bg.jpg"
+          src="/images/hero-bg.jpeg"
           alt="Casa com painéis solares instalados pela Allure"
           fill
           priority
           quality={95}
-          className="hidden sm:block object-cover object-[40%_58%] scale-110"
+          className="hidden sm:block object-cover object-[50%_58%] scale-[1.25] translate-x-[10%]"
         />
       </div>
 
