@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { siteConfig } from '@/lib/site'
@@ -100,6 +101,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="bg-background">
+      <head>
+        {/* Google tag (gtag.js) — Google Ads */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18376538222"
+          strategy="beforeInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18376538222');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
         <StructuredData />
         {children}
