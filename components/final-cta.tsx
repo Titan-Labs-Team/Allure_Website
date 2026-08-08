@@ -12,6 +12,16 @@ import { trackConversion } from "@/lib/gtag";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
 
+const PHONE_REGEX = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+
+function maskPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits.replace(/^(\d*)/, "($1");
+  if (digits.length <= 6) return digits.replace(/^(\d{2})(\d*)/, "($1) $2");
+  if (digits.length <= 10) return digits.replace(/^(\d{2})(\d{4})(\d*)/, "($1) $2-$3");
+  return digits.replace(/^(\d{2})(\d{5})(\d*)/, "($1) $2-$3");
+}
+
 const features = [
   { Icon: DollarSign, title: "Até 90% de economia", desc: "na sua conta de luz" },
   { Icon: Clock, title: "Resposta em até\n24 horas", desc: "rápido e sem burocracia" },
@@ -22,10 +32,17 @@ export default function FinalCTA() {
   const { ref, isVisible } = useScrollAnimation();
   const [form, setForm] = useState({ name: "", phone: "", email: "", type: "" });
   const [sent, setSent] = useState<boolean>(false);
-
+  const [phoneError, setPhoneError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!PHONE_REGEX.test(form.phone)) {
+      setPhoneError(true);
+      return;
+    }
+    setPhoneError(false);
+
     const text = "Olá! Vim pelo site e gostaria de um orçamento de energia solar.";
     setSent(true);
     trackConversion("form");
@@ -47,6 +64,11 @@ export default function FinalCTA() {
 
   const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const updatePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhoneError(false);
+    setForm((f) => ({ ...f, phone: maskPhone(e.target.value) }));
+  };
 
   return (
     <section id="contato" className="relative overflow-hidden bg-white text-foreground">
@@ -177,11 +199,18 @@ export default function FinalCTA() {
                   id="phone"
                   type="tel"
                   required
+                  inputMode="numeric"
                   value={form.phone}
-                  onChange={update("phone")}
+                  onChange={updatePhone}
                   placeholder="(00) 00000-0000"
-                  className="w-full h-13 px-4 rounded-xl bg-white border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand-2 focus:border-transparent transition"
+                  aria-invalid={phoneError}
+                  className={`w-full h-13 px-4 rounded-xl bg-white border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+                    phoneError ? "border-red-500 focus:ring-red-500" : "border-border focus:ring-brand-2"
+                  }`}
                 />
+                {phoneError && (
+                  <p className="mt-1.5 text-xs text-red-600">Telefone incompleto. Use (00) 00000-0000.</p>
+                )}
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
