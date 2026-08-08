@@ -29,7 +29,7 @@ const footerColumns: FooterColumnProps[] = [
 ];
 
 const socialLinks = [
-  { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook", external: false },
+  { icon: <Facebook className="w-5 h-5" />, href: "https://www.facebook.com/profile.php?id=61590478804825", label: "Facebook", external: false },
   { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/allureenergiasolar/", label: "Instagram", external: true },
   { icon: <WhatsAppIcon className="w-5 h-5" />, href: "#contato", label: "WhatsApp", external: false },
 ];
