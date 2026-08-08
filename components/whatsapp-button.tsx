@@ -3,23 +3,10 @@
 import Link from "next/link";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
-interface WhatsAppButtonProps {
-  phoneNumber?: string;
-  message?: string;
-}
-
-export default function WhatsAppButton({
-  phoneNumber = "5511999999999",
-  message = "Olá! Gostaria de saber mais sobre energia solar.",
-}: WhatsAppButtonProps) {
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
+export default function WhatsAppButton() {
   return (
     <Link
-      href={whatsappUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      href="#contato"
       className="fixed bottom-6 right-6 z-50 group"
       aria-label="Fale conosco pelo WhatsApp"
     >

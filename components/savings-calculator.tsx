@@ -8,8 +8,6 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ElectricBorder from "@/components/electric-border";
 import RotatingBadge from "@/components/rotating-badge";
 
-const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Fiz%20a%20simula%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20detalhado.";
-
 const SAVINGS_RATE = 0.88; // economia média
 
 const highlights = [
@@ -124,9 +122,7 @@ export default function SavingsCalculator() {
               </div>
 
               <a
-                href={WA_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contato"
                 className="group w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold text-base sm:text-lg whitespace-normal h-auto min-h-14 sm:min-h-16 py-3 px-6 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.55)] hover:shadow-[0_24px_60px_-10px_rgba(59,130,246,0.65)]"
               >
                 <WhatsAppIcon className="size-6" />

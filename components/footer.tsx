@@ -31,7 +31,7 @@ const footerColumns: FooterColumnProps[] = [
 const socialLinks = [
   { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook" },
   { icon: <Instagram className="w-5 h-5" />, href: "#", label: "Instagram" },
-  { icon: <WhatsAppIcon className="w-5 h-5" />, href: "https://wa.me/5516997650595", label: "WhatsApp" },
+  { icon: <WhatsAppIcon className="w-5 h-5" />, href: "#contato", label: "WhatsApp" },
 ];
 
 const MAPS_URL = "https://maps.google.com/?q=Av.+Comendador+Alfredo+Maffei,+1387,+São+Carlos,+SP";
@@ -102,7 +102,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="https://wa.me/5516997650595"
+                  href="#contato"
                   className="flex items-center gap-2.5 text-white/60 hover:text-white transition-colors text-sm"
                 >
                   <Phone className="w-4 h-4 flex-shrink-0" />

@@ -65,7 +65,7 @@ export default function Header() {
 
             {/* CTA Button */}
             <Button asChild className="bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full px-6 has-[>svg]:px-6 h-12 text-base border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
-              <a href="https://wa.me/5516997650595" target="_blank" rel="noopener noreferrer">
+              <a href="#contato">
                 <WhatsAppIcon className="size-6" />
                 Solicitar orçamento
               </a>
@@ -142,7 +142,7 @@ export default function Header() {
                   }}
                 >
                   <Button asChild className="w-full bg-brand text-brand-foreground hover:bg-brand-2 font-semibold gap-2 rounded-full h-11 border-0 shadow-md shadow-brand/25 transition-all duration-300 hover:-translate-y-0.5">
-                    <a href="https://wa.me/5516997650595" target="_blank" rel="noopener noreferrer">
+                    <a href="#contato" onClick={closeMenu}>
                       <WhatsAppIcon className="w-4 h-4" />
                       Solicitar orçamento
                     </a>

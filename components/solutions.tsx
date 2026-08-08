@@ -4,8 +4,6 @@ import Image from "next/image";
 import { Home, Building2, Factory, ArrowUpRight, BadgeCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
-const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20de%20energia%20solar.";
-
 interface Solution {
   icon: React.ReactNode;
   tag: string;
@@ -41,9 +39,7 @@ const solutions: Solution[] = [
 function SolutionCard({ icon, tag, title, image, benefits }: Solution) {
   return (
     <a
-      href={WA_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+      href="#contato"
       className="group relative flex flex-col min-w-0 shrink-0 w-[82%] snap-start md:w-auto rounded-2xl overflow-hidden border border-border bg-card card-hover card-shadow-sm"
     >
       {/* Image */}

@@ -5,12 +5,9 @@ import Image from "next/image";
 import { ArrowUpRight, Check, Clock, DollarSign, ShieldCheck, Home, Building2, Factory, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/glow-border";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import RotatingBadge from "@/components/rotating-badge";
 import { trackConversion } from "@/lib/gtag";
-
-const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
 
 const PHONE_REGEX = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 
@@ -265,14 +262,6 @@ export default function FinalCTA() {
                 {sent ? "Abrindo o WhatsApp..." : "Solicitar Orçamento Agora!"}
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
-
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-muted-foreground text-xs">
-                <span>Prefere falar agora?</span>
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-brand-2 font-medium hover:underline">
-                  <WhatsAppIcon className="w-4 h-4" />
-                  Chamar no WhatsApp
-                </a>
-              </div>
             </form>
           </div>
         </div>

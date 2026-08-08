@@ -9,8 +9,6 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import CountUp from "@/components/count-up";
 import ShinyText from "@/components/shiny-text";
 
-const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20energia%20solar.";
-
 const metrics = [
   { Icon: Users,            prefix: "+", to: 1200, separator: ".", suffix: "",           label: "Projetos entregues"     },
   { Icon: CircleDollarSign, prefix: "",  to: 90,   separator: "",  suffix: "%",          label: "Economia média"         },
@@ -130,9 +128,7 @@ export default function Hero() {
             </a>
 
             <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contato"
               className="inline-flex items-center gap-2 justify-center rounded-2xl border border-white/40 bg-white/10 px-6 py-4 sm:px-7 sm:py-5 text-brand-foreground hover:bg-white/20 transition-all duration-300"
             >
               <WhatsAppIcon className="size-7 -my-1" />
