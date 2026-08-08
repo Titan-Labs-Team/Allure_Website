@@ -8,6 +8,7 @@ import { ShineBorder } from "@/components/ui/glow-border";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import RotatingBadge from "@/components/rotating-badge";
+import { trackConversion } from "@/lib/gtag";
 
 const WA_URL = "https://wa.me/5516997650595?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20gratuito.";
 
@@ -27,6 +28,7 @@ export default function FinalCTA() {
     e.preventDefault();
     const text = "Olá! Vim pelo site e gostaria de um orçamento de energia solar.";
     setSent(true);
+    trackConversion("form");
 
     const leadPayload = JSON.stringify({ name: form.name, phone: form.phone, email: form.email || undefined });
     if (navigator.sendBeacon) {
