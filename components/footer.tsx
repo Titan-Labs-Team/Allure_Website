@@ -29,9 +29,9 @@ const footerColumns: FooterColumnProps[] = [
 ];
 
 const socialLinks = [
-  { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook" },
-  { icon: <Instagram className="w-5 h-5" />, href: "#", label: "Instagram" },
-  { icon: <WhatsAppIcon className="w-5 h-5" />, href: "#contato", label: "WhatsApp" },
+  { icon: <Facebook className="w-5 h-5" />, href: "#", label: "Facebook", external: false },
+  { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/allureenergiasolar/", label: "Instagram", external: true },
+  { icon: <WhatsAppIcon className="w-5 h-5" />, href: "#contato", label: "WhatsApp", external: false },
 ];
 
 const MAPS_URL = "https://www.google.com/maps/place/RIOS+Coworking+-+Escrit%C3%B3rio+compartilhado+em+S%C3%A3o+Carlos:+Salas,+Reuni%C3%B5es,+Esta%C3%A7%C3%B5es+de+trabalho,+Caf%C3%A9+e+%C3%81reas+externas/@-22.0167585,-47.8982467,3a,75y,351.47h,106.73t/data=!3m7!1e1!3m5!1sMnRtoCQszNSjih9ioDpBeg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-16.733757409411197%26panoid%3DMnRtoCQszNSjih9ioDpBeg%26yaw%3D351.46523761416927!7i16384!8i8192!4m15!1m8!3m7!1s0x94b877376a560b1b:0x49aed8af0bdfdbb4!2sAv.+Comendador+Alfredo+Maffei,+1387+-+Centro,+S%C3%A3o+Carlos+-+SP,+13561-270!3b1!8m2!3d-22.0166308!4d-47.8984626!16s%2Fg%2F11thx89gxz!3m5!1s0x94b87737d51c8a77:0xc9e668354b54d9b7!8m2!3d-22.0166228!4d-47.8982434!16s%2Fg%2F11j6wg_hp5?entry=ttu&g_ep=EgoyMDI2MDgwNS4xIKXMDSoASAFQAw%3D%3D";
@@ -82,6 +82,8 @@ export default function Footer() {
                 <Link
                   key={social.label}
                   href={social.href}
+                  target={social.external ? "_blank" : undefined}
+                  rel={social.external ? "noopener noreferrer" : undefined}
                   className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/70 hover:bg-brand hover:text-white transition-all"
                   aria-label={social.label}
                 >
